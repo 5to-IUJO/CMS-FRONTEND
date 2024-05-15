@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { saveToken } from '@/helpers/Cookies';
+import GoogleButton from '../atoms/GoogleButton';
 
 export default function FormLogin() {
 
@@ -17,10 +19,12 @@ export default function FormLogin() {
     const onSubmit = handleSubmit(data => {
         
         axios.post(process.env.NEXT_PUBLIC_API_URL+"login",data)
-        .then((response)=>{
-            console.log("correcto");
-            console.log(response);
-            router.push("/dashboard");
+        .then(async (response)=>{
+            if(response.status === 200)
+            {
+                await saveToken(response.data.token);
+                router.push("/dashboard");
+            }
         }).catch((error)=>{
                 setError("password",{message:"Datos Invalidos, Intente Nuevamente"})
         })
@@ -48,6 +52,7 @@ export default function FormLogin() {
                     <Button rightIcon={<FaArrowRight />} colorScheme='blue' variant="solid" type='submit'>
                         Iniciar Sesión
                     </Button>
+                    <GoogleButton/>
 
                 </Flex>
                 <Text textAlign={'center'} mt={5}>

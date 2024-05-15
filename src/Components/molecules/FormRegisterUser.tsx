@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { redirect, useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
+import GoogleButton from '../atoms/GoogleButton';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -28,19 +29,18 @@ export default function FormRegisterUser() {
     const { handleSubmit, register, setError, formState: { errors } } = useForm();
     const router = useRouter();
     //Funcion para enviar los datos a la api y efectuar el registro
-    const onSubmit = handleSubmit(data => {
+    const onSubmit = handleSubmit(async data => {
         
-        axios.post(process.env.NEXT_PUBLIC_API_URL+"register",data)
+        await axios.post(process.env.NEXT_PUBLIC_API_URL+"register",data)
         .then(async (response)=>{
-            console.log(response);
+        
             if(response.status === 201)
             {
                 await saveToken(response.data.token);
                 router.push("/dashboard");
-
             }
         }).catch((error)=>{
-            console.log(error);
+
             if('username' in error.response.data )
                 setError("username",{message:"Ya Existe un Usuario con Este Nombre"})
 
@@ -75,6 +75,8 @@ export default function FormRegisterUser() {
                     <Button rightIcon={<FaArrowRight />} colorScheme='blue' variant="solid" type='submit'>
                         Registrarse
                     </Button>
+
+                    <GoogleButton/>
 
                     <Text textAlign={'center'}>
                         ¿Ya tienes una Cuenta?
