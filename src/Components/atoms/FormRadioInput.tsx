@@ -6,14 +6,15 @@ interface FormRadioInputProps{
     data: {value: string, label: string}[],
     register: (placeholder:string, {})=>{},
     errors: any,
-    namebd: string
+    namebd: string,
+    defaultValue: string,
 }
 
 /**
  * Componente para Reutilizar input generico de tipo Radio Button
  * @returns 
  */
-export default function FormRadioInput({label, data, register, errors, namebd}: FormRadioInputProps) {
+export default function FormRadioInput({label, data, register, errors, namebd,defaultValue}: FormRadioInputProps) {
     const validations = {
         required: {value:true, message: label+" es requerido"}, 
     }
@@ -21,7 +22,7 @@ export default function FormRadioInput({label, data, register, errors, namebd}: 
     return (
         <section>
             <FormLabel fontSize={{base:"xl",md:"xl"}}>{label}</FormLabel>
-            <RadioGroup  >
+            <RadioGroup defaultValue={defaultValue}  >
                 <Stack direction='row'>
                     {data.map((option, index )=>{
                         return <Radio key={index} value={option.value} {...register(namebd, validations)} >{option.label}</Radio>

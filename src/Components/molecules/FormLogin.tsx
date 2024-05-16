@@ -18,7 +18,7 @@ export default function FormLogin() {
     const router = useRouter();
     const onSubmit = handleSubmit(data => {
         
-        axios.post(process.env.NEXT_PUBLIC_API_URL+"login",data)
+        axios.post(process.env.NEXT_PUBLIC_API_URL+"/login",data)
         .then(async (response)=>{
             if(response.status === 200)
             {

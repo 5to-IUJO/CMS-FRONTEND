@@ -14,8 +14,9 @@ export default async function middleware(req: NextRequest) {
   	// Obtener el Token de Autenticación de las Cookies
   	const token = await obtainToken();
 
+
   	// Redireccionar al /login si el usuario no está autenticado con un Token o si el Token es incorrecto
-  	if (isProtectedRoute && !token && !(await obtainUserData()).resp ) {
+  	if (isProtectedRoute && !token && !(await obtainUserData()).resp === true ) {
   		return NextResponse.redirect(new URL("/login", req.nextUrl));
   	}
   
