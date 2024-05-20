@@ -4,6 +4,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import Navbar from '../organisms/Navbar';
+import PageEditor from '../organisms/PageEditor';
 
 
 export default function Dashboard() {
@@ -12,8 +13,7 @@ export default function Dashboard() {
   return (
     <>
       <Navbar/>
-
-      <Box p={4}>Main Content Here</Box>
+      <PageEditor/>
     </>
   );
 }

@@ -1,7 +1,10 @@
 import axios from "axios";
 import { obtainToken } from "./Cookies";
 
-
+/**
+ * Funcion que Retorna la data del Usuario segun el token almacenado
+ * @returns 
+ */
 export async function obtainUserData() {
 
     //Obtener Token y Verificar que exista
@@ -33,4 +36,16 @@ export async function obtainUserData() {
     }
 
 
+}
+
+
+export async function isUserLoggin(){
+
+    //Obtener Token y Verificar que exista
+    const token = await obtainToken()
+    if (!token)
+        return false
+
+    return true;
+    
 }

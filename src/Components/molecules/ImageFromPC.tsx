@@ -1,40 +1,38 @@
 "use client"
 import { SmallCloseIcon } from '@chakra-ui/icons'
-import { Avatar, AvatarBadge, Button, Center, FormControl, FormLabel, GenericAvatarIcon, IconButton, Input, Stack } from '@chakra-ui/react'
+import { Avatar, AvatarBadge, Button, Center, FormControl, FormLabel, IconButton, Input, Stack } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react'
 
 interface FormInputProps {
     register: (placeholder:string, {})=>{},
-    errors: any,
-    namebd: string
+    namebd: string,
+    label:string,
+    getValues: Function,
+    setValue: Function,
 }
 
-export default function FormUserIcon({register, errors, namebd }: FormInputProps) {
 
+export default function ImageFromPC({register, namebd,label, getValues, setValue }: FormInputProps) {
     const [preview, setPreview] = useState(""); //useState para manejar la preview de la imagen
-    const fileInputRef: any = useRef<HTMLInputElement>(null);
 
     const handleUploadedImage = (e: any) => {
-     
         const file = e.target.files[0];
         const urlImage = URL.createObjectURL(file);
         setPreview(urlImage);
     };
 
     const handleDeleteImage = () => {
-        if(fileInputRef.current.value )
-        {
-            fileInputRef.current.value = null;
+        if (getValues(namebd)) {
+            setValue(namebd,null)
             setPreview("");
         }
     };
 
     return (
         <FormControl >
-            <FormLabel>Foto de Perfil</FormLabel>
-            <Stack direction={['column', 'row']} spacing={6}>
+            <Stack direction={['column', 'column']} spacing={6}>
                 <Center>
-                    <Avatar size="xl" src={preview } bg={"gray"} >
+                    <Avatar size="xl" src={preview} bg={"gray"} >
                         <AvatarBadge
                             as={IconButton}
                             size="sm"
@@ -50,19 +48,19 @@ export default function FormUserIcon({register, errors, namebd }: FormInputProps
                 </Center>
                 <Center w="full">
 
-                    <Button 
+                    <Button
                         as={FormLabel}
                         w="full">
-                        {preview != "" ? "Cambiar Avatar" : "Seleccione un Avatar"}
+                        {preview != "" ? "Cambiar "+label : "Agregar "+label}
                     </Button  >
                     <Input
-                        ref={fileInputRef}
+                     
                         type="file"
                         accept="image/*"
                         variant="outline"
                         hidden
-                        {...register(namebd,{required: false, onChange:(e:Event) => {handleUploadedImage(e)} })}
-                        />
+                        {...register(namebd, {onChange:(e:Event) => {handleUploadedImage(e)}} )}
+                    />
                 </Center>
             </Stack>
         </FormControl>

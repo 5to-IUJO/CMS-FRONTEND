@@ -10,9 +10,8 @@ export default function NavBarUrls() {
                 as={'nav'}
                 spacing={4}
                 display={{ base: 'none', md: 'flex' }}>
-                <NavLink key={"asd"}>asd</NavLink>
-                <NavLink key={"asd"}>asd</NavLink>
-                <NavLink key={"asd"}>asd</NavLink>
+                <NavLink href={"aboutUs"} key={"aboutUs"}>Sobre Nosotros</NavLink>
+                <NavLink href={"blogs"} key={"blogs"}>Blogs</NavLink>
             </HStack>
         </HStack>
     )

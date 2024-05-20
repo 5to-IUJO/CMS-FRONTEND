@@ -19,18 +19,17 @@ export default function GoogleCallback() {
             const hash = window.location.hash.substring(1);
             const params = new URLSearchParams(hash);
             const accessToken = params.get('access_token');
-
             //Validar Token
             if (!accessToken) {
                 alert("Falló en la Autentificación, Intente Nuevamente");
                 router.push("/login");
             }
-
             //Guardar en el Backend los datos del Usuario
             await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/google/', {
                 access_token: accessToken,
             })
                 .then(async (response) => {
+                  
                     if (response.status === 200) {
                         // Guardar el Token
                         await saveToken(response.data.token);
@@ -43,7 +42,7 @@ export default function GoogleCallback() {
                 })
 
         };
-
+        
         handleAuth();
     }, [router]);
 

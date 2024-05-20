@@ -3,7 +3,7 @@ import { obtainToken } from "./helpers/Cookies";
 import { obtainUserData } from "./helpers/Users";
 // Especificar Rutas Públicas y Protegidas
 const protectedRoutes = ["/dashboard"];
-const publicRoutes = ["/login", "/register", "/"];
+const publicRoutes = ["/login", "/register", ];
 
 export default async function middleware(req: NextRequest) {
   	// Verificar si la ruta actual es Publica o Protegida

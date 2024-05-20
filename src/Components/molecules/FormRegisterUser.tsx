@@ -16,7 +16,7 @@ import axios from 'axios';
 import { redirect, useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
 import GoogleButton from '../atoms/GoogleButton';
-import FormUserIcon from '../atoms/FormUserIcon';
+import ImageFromPC from './ImageFromPC';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -28,7 +28,7 @@ const GendersOptions: { value: string, label: string }[] = [
 export default function FormRegisterUser() {
 
     const [step, setStep] = useState(1);
-    const { handleSubmit, register, setError, getValues, formState: { errors } } = useForm();
+    const { handleSubmit, register, setError, getValues, setValue, formState: { errors } } = useForm();
     const router = useRouter();
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
@@ -36,10 +36,11 @@ export default function FormRegisterUser() {
             setStep(2)
             return;
         }
-        console.log(data);
-        console.log(data.profile_image[0]);
+
+
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
+       
         if(data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
         
@@ -107,7 +108,7 @@ export default function FormRegisterUser() {
 
                     {step === 2 && (
                         <>
-                            <FormUserIcon register={register} errors={errors.profile_image} namebd='profile_image'  />
+                            <ImageFromPC register={register} namebd='profile_image' label='Avatar' getValues={getValues} setValue={setValue}  />
                         
                             <Stack direction={['column', 'row']} spacing={10}>
                                 <Button leftIcon={<FaArrowLeft />} w={{ base: "100%", md: "30%" }}  colorScheme={'red'} _hover={{bg:"#FC8181", textColor:"white"}} bg={"white"} textColor={'black'} variant="solid" type='button' onClick={()=>setStep(1)}>
