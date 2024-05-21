@@ -37,6 +37,7 @@ export default function GoogleCallback() {
                     }
                 })
                 .catch((error) => {
+                    console.log(error);
                     alert("Falló en la Autentificación, Intente Nuevamente");
                     router.push("/login");
                 })

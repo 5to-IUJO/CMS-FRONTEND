@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { obtainToken } from "./Cookies";
 
 /**
@@ -48,4 +48,11 @@ export async function isUserLoggin(){
 
     return true;
     
+}
+
+export async function isUserEmailVerified(){
+    //obtener datos del usuario
+    const data = await obtainUserData();
+    console.log(data);
+    return data.data.email_verified
 }
