@@ -53,6 +53,5 @@ export async function isUserLoggin(){
 export async function isUserEmailVerified(){
     //obtener datos del usuario
     const data = await obtainUserData();
-    console.log(data);
     return data.data.email_verified
 }

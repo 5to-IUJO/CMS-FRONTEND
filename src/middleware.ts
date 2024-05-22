@@ -4,7 +4,7 @@ import { isUserEmailVerified, obtainUserData } from "./helpers/Users";
 // Especificar Rutas Públicas y Protegidas
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/login", "/register", ];
-const emailVerifiedRoutes =["/verification-required","/verification-email"]
+const emailVerifiedRoutes =["/verification-required","/verify-email"]
 export default async function middleware(req: NextRequest) {
   	// Verificar si la ruta actual es Publica o Protegida
   	const path = req.nextUrl.pathname;
@@ -15,12 +15,10 @@ export default async function middleware(req: NextRequest) {
   	// Obtener el Token de Autenticación de las Cookies
   	const token = await obtainToken();
 	
-	console.log(token)
-	console.log(await isUserEmailVerified())
-	console.log(await obtainUserData())
 	//Validar que su email esté Verificado
 	if(token && await isUserEmailVerified() === false && !isEmailVerifiedRoute )
 		return NextResponse.redirect(new URL("/verification-required", req.nextUrl));
+	
 	
 
   	// Redireccionar al /login si el usuario no está autenticado con un Token o si el Token es incorrecto
@@ -30,7 +28,7 @@ export default async function middleware(req: NextRequest) {
   	// Redireccionar al Dashboard si el Usuario ya está autenticado y el Token es Correcto
   	if (
   		(isPublicRoute || isEmailVerifiedRoute) &&
-  		(await obtainUserData()).resp === true &&
+  		await isUserEmailVerified() === true &&
   		!req.nextUrl.pathname.startsWith("/dashboard")
   	) {
   		return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
