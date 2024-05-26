@@ -10,6 +10,7 @@ interface FormInputProps {
     //errors: {Usuario: {message:string }},
     errors: any,
     namebd: string
+    extraValidations?: {} | null
 }
 
 
@@ -18,14 +19,14 @@ interface FormInputProps {
  * Componente para Reutilizar input generico en el Login & Register
  * @returns 
  */
-export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd }: FormInputProps) {
+export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations=null }: FormInputProps) {
     
     const validations = {
         required: {value:true, message: label+" es requerido"}, 
-        minLength: {value:5, message: "El "+label+" tiene que tener minimo 5 caracteres"}, 
-        maxLength: {value:40, message: "El "+label+" puede tener máximo 40 caracteres"}, 
+        minLength: {value:5, message: label+" tiene que tener minimo 5 caracteres"}, 
+        maxLength: {value:40, message: label+" puede tener máximo 40 caracteres"},
+        ...extraValidations
     }
-
     return (
         <section>
             <FormLabel fontSize={{ base: "xl", md: "xl" }}>{label}</FormLabel>
@@ -37,7 +38,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                 {...register(namebd, validations)}
                 />
             </InputGroup>
-            {errors && <Text color={"red"}> {errors.message}  </Text>}
+            {errors && <Text color={"red"} maxW={"200px"}> {errors.message}  </Text>}
         </section>
     )
 }

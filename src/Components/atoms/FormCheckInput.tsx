@@ -21,7 +21,7 @@ export default function FormCheckInput( {label,register,errors,namebd}:FormCheck
     return (
         <section>
             <Checkbox fontSize={{base:"xl",md:"xl"}}  {...register(namebd, validations)} >{label}</Checkbox>
-            {errors && <Text color={"red"}> {errors.message}  </Text>}
+            {errors && <Text color={"red"}  maxW={"200px"}> {errors.message}  </Text>}
         </section>
     )
 }

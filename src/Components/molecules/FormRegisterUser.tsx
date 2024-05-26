@@ -90,7 +90,7 @@ export default function FormRegisterUser() {
                             <FormInput Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
                             <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
                             <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
-                            <FormRadioInput label='Genero' data={GendersOptions} register={register} errors={errors.gender} namebd='gender' defaultValue={getValues("gender")} />
+                            <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={getValues("gender")} />
                             <FormCheckInput label='Acepto los Terminos y Condiciones' register={register} errors={errors.terms} namebd='terms' />
 
                             <Button rightIcon={<FaArrowRight />} colorScheme='blue' variant="solid" type='submit'>

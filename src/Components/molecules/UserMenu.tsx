@@ -2,6 +2,7 @@
 import { clearToken } from '@/helpers/Cookies'
 import { obtainUserData } from '@/helpers/Users';
 import { Avatar, Button, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from '@chakra-ui/react'
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 
@@ -39,7 +40,9 @@ export default function UserMenu() {
                 />
             </MenuButton>
             <MenuList>
-                <MenuItem>Opciones</MenuItem>
+                <Link href={"/Profile-Edit"}>
+                <MenuItem >Opciones</MenuItem>
+                </Link>
                 <MenuDivider />
                 <MenuItem onClick={async () => await clearToken()}>
                     Cerrar Sesión

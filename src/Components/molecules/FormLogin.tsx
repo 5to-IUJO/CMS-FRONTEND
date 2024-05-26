@@ -57,7 +57,7 @@ export default function FormLogin() {
                 </Flex>
                 <Text textAlign={'center'} mt={5}>
                     ¿Olvidaste tu
-                    <Link href={"/"} className=' text-blue-500' > Contraseña</Link>
+                    <Link href={"/password-recover"} className=' text-blue-500' > Contraseña</Link>
                     ?
                 </Text>
                 <Text textAlign={'center'} mt={2}>
