@@ -1,4 +1,4 @@
-import { FormLabel, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
+import { Box, FormLabel, Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react'
 import React from 'react'
 
 interface FormInputProps {
@@ -28,17 +28,17 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
         ...extraValidations
     }
     return (
-        <section>
-            <FormLabel fontSize={{ base: "xl", md: "xl" }}>{label}</FormLabel>
+        <Box w={{base:"100%",md:"auto"}}>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
             <InputGroup >
                 <InputLeftElement pointerEvents='none' pr={5}   >
                     {Icon}
                 </InputLeftElement>
-                <Input placeholder={placeholder} type={type} variant={"flushed"} pl={6} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} 
+                <Input placeholder={placeholder} type={type} variant={"flushed"} pl={6} color={"gray.600"} borderColor={"#1C7987"} fontSize={{ base: "lg", md: "xl" }} 
                 {...register(namebd, validations)}
                 />
             </InputGroup>
             {errors && <Text color={"red"} maxW={"200px"}> {errors.message}  </Text>}
-        </section>
+        </Box>
     )
 }

@@ -1,6 +1,8 @@
 
+import { Box } from "@chakra-ui/react";
 import "./globals.css";
 import { Providers } from "./providers";
+
 
 
 export default function RootLayout({
@@ -10,9 +12,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      
-      <body>
+
+      <body className="bg-[#EBEBD3]" >
+        <Box
+          fontFamily={"NeutraTextTF-Book"}
+        >
+
           <Providers>{children}</Providers>
+
+        </Box>
+
       </body>
     </html>
   );

@@ -9,7 +9,8 @@ export const NavLink = ({ children, href }: { children: React.ReactNode, href:st
       rounded={'md'}
       _hover={{
         textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        bg: useColorModeValue('rgba(28, 121, 135,1)','white'),
+        color : useColorModeValue('white','#0C0A08')
       }}
       href={href}>
       {children}

@@ -23,7 +23,7 @@ import ToolBarButton from '../atoms/ToolBarButton';
 import { Box, Button, Flex, Input, useDisclosure } from '@chakra-ui/react';
 import AddImage from '../organisms/modals/AddImage';
 import ColorPickerButton from '../atoms/ColorPickerButton';
-import { TextSizeButton } from '../atoms/TextSizeButton';
+import { TextSizeButton } from '../atoms/buttons/TextSizeButton';
 
 
 interface ToolBarProps {
