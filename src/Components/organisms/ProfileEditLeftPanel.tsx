@@ -1,22 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ImageFromPCEditor from '../molecules/ImageFromPCProfileEditor'
 import Description from '../molecules/Description'
 interface UserDefinition {
     id: number,
-    username: string,
-    email: string,
-    gender: number,
-    date_of_birth: string,
     profile_image: string
+    description: TrustedHTML
 }
-export default function ProfileEditLeftPanel({userData}:{userData:UserDefinition}) {
+export default function ProfileEditLeftPanel({userData,reload}:{userData:UserDefinition | null, reload:Function}) {
 
     return (
         <>
 
-            <ImageFromPCEditor namebd='profile_image' userData={userData} />
+            <ImageFromPCEditor namebd='profile_image' userData={userData } reload={reload} />
 
-            <Description />
+            <Description userData={userData } reload={reload} />
         </>
     )
 

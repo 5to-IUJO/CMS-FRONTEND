@@ -13,7 +13,8 @@ interface FormInputProps {
     errors: any,
     namebd: string
     extraValidations?: {} | null
-    setValues: any
+    setValues: any,
+    onChange: Function
 }
 
 
@@ -22,9 +23,10 @@ interface FormInputProps {
  * Componente para Reutilizar input tipo select 
  * @returns 
  */
-export default function FormSelectNationalities({ Icon, label, table, dependency = null, register, errors, namebd, extraValidations = null, setValues }: FormInputProps) {
+export default function FormSelect({ Icon, label, table, dependency = null, register, errors, namebd, extraValidations = null, onChange }: FormInputProps) {
 
     const validations = {
+        onChange: () => onChange(table),
         required: { value: true, message: label + " es requerido" },
         ...extraValidations
     }
@@ -33,21 +35,23 @@ export default function FormSelectNationalities({ Icon, label, table, dependency
 
     useEffect(() => {
         (async () => {
+          
             //obtener Nacionalidades de la base de datos
-            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_countries",)
+            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_" + table + `${dependency ? "?id=" + dependency : ""}`,)
                 .then((response) => {
                     if (response.status === 200) {
                         setData(response.data);
-                       
+    
                     }
                 })
                 .catch((error) => {
                     console.log(error);
 
                 });
-            console.log()
+
+
         })();
-    }, [table, dependency,namebd,setValues]);
+    }, [table, dependency]);
  
 
     if (data.length > 0) {
@@ -63,7 +67,7 @@ export default function FormSelectNationalities({ Icon, label, table, dependency
                     >
                         <option value="" disabled>Selecciona el {label} </option>
                         {data.map((option, index) => {
-                            return <option key={index} value={option.id.toString()} >{option.nationality}</option>
+                            return <option key={index} value={option.id.toString()} >{option.name}</option>
                         })}
                     </Select>
                 </InputGroup>

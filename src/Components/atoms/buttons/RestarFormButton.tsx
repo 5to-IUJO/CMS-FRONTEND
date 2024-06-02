@@ -2,7 +2,7 @@ import { Button, Tooltip } from '@chakra-ui/react'
 import { ListRestart } from 'lucide-react'
 import React from 'react'
 
-export default function RestarFormButton() {
+export default function RestarFormButton({restar}:{restar:Function}) {
     return (
         <Tooltip label='Reinicia el Formulario a antes de los cambios' hasArrow  >
             <Button
@@ -11,6 +11,7 @@ export default function RestarFormButton() {
                 bg={"transparent"}
                 colorScheme={'none'}
                 color={"#584D4B"}
+                onClick={() => restar()}
                 _hover={{
                     color: "#1C7987"
                 }}

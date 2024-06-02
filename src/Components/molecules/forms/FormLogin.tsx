@@ -1,7 +1,7 @@
 "use client"
 import { Button, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import FormInput from '../atoms/FormInput'
+import FormInput from '../../atoms/inputs/FormInput'
 import { FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
-import GoogleButton from '../atoms/GoogleButton';
+import GoogleButton from '../../atoms/buttons/GoogleButton';
 
 export default function FormLogin() {
 
@@ -26,7 +26,8 @@ export default function FormLogin() {
                 router.push("/dashboard");
             }
         }).catch((error)=>{
-                setError("password",{message:"Datos Invalidos, Intente Nuevamente"})
+            console.log(error);
+            setError("password",{message:"Datos Invalidos, Intente Nuevamente"})
         })
     });
 

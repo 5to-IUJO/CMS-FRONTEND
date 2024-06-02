@@ -52,8 +52,8 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
             <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad</FormLabel>
             <InputGroup >
                 <InputLeftElement w={{base:"14%",md:"18%"}}  >
-                    <Select variant={"unstyled"} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}
-                        {...register("types", validations2)}
+                    <Select  variant={"unstyled"} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}
+                        {...register("type", validations2)}
                     >
                         {data.map((option, index) => {
                             return <option key={index} value={option.id.toString()} >{option.name}</option>

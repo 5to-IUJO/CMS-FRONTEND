@@ -19,16 +19,16 @@ import {
     Image,
 } from "lucide-react"
 import { type Editor } from '@tiptap/react';
-import ToolBarButton from '../atoms/ToolBarButton';
+import ToolBarButton from '../atoms/buttons/ToolBarButton';
 import { Box, Button, Flex, Input, useDisclosure } from '@chakra-ui/react';
 import AddImage from '../organisms/modals/AddImage';
-import ColorPickerButton from '../atoms/ColorPickerButton';
+import ColorPickerButton from '../atoms/buttons/ColorPickerButton';
 import { TextSizeButton } from '../atoms/buttons/TextSizeButton';
 
 
 interface ToolBarProps {
-    editor: Editor | null;
-    content: string;
+    editor: Editor | null | any;
+    content: string | TrustedHTML;
 }
 
 

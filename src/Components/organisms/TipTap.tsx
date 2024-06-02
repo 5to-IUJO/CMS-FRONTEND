@@ -16,8 +16,8 @@ import { Box } from '@chakra-ui/react';
  * Componente para poder utilizar la libreria de TipTap con un editor de texto
  * 
  */
-export const Tiptap = ({ onChange, content }: {onChange: Function, content:string}) => {
-
+export const Tiptap = ({ onChange, content }: {onChange: Function, content:string | TrustedHTML }) => {
+  
     const handleChange = (newContent: string) =>{
         onChange(newContent);
     };
@@ -40,6 +40,7 @@ export const Tiptap = ({ onChange, content }: {onChange: Function, content:strin
         onUpdate:({editor}) => {
             handleChange(editor.getHTML());
         },
+        content:content
     })
 
     return (

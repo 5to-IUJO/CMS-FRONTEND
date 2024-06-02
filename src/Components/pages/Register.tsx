@@ -1,8 +1,8 @@
 import { Box, Flex} from '@chakra-ui/react'
 import React from 'react'
 
-import FormLogin from '../molecules/FormLogin';
-import FormRegisterUser from '../molecules/FormRegisterUser';
+import FormLogin from '../molecules/forms/FormLogin';
+import FormRegisterUser from '../molecules/forms/FormRegisterUser';
 
 
 export default function Register() {

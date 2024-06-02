@@ -11,7 +11,7 @@ export default function EmailVerification() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        console.log(searchParams.get('token'))
+
         const token = searchParams.get('token')
         if (token) 
         {

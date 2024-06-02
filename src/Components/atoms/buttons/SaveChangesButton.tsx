@@ -1,8 +1,10 @@
 import { Button } from '@chakra-ui/react'
 import { Save } from 'lucide-react'
 import React from 'react'
-
-export default function SaveChangesButton() {
+/**
+ * Boton de Guardar Cambios
+ */
+export default function SaveChangesButton({disabled}:{disabled:boolean}) {
     return (
         <Button
             variant={'solid'}
@@ -11,9 +13,9 @@ export default function SaveChangesButton() {
             size={'sm'}
             pl={[5, 3]}
             w={"auto"}
-
+            isDisabled={disabled}
             rounded={"4px"}
-
+            type={'submit'}
             leftIcon={<Save />}>
             Guardar Cambios
 
