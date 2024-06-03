@@ -2,6 +2,8 @@
 import { Box } from "@chakra-ui/react";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 
 
@@ -18,7 +20,11 @@ export default function RootLayout({
           fontFamily={"NeutraTextTF-Book"}
         >
 
-          <Providers>{children}</Providers>
+          <Providers>
+            <Suspense fallback={<Loading/>}>
+            {children}
+            </Suspense>
+            </Providers>
 
         </Box>
 

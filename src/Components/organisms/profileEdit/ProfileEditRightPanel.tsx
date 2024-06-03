@@ -1,41 +1,12 @@
 
-import { Box, Button, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip } from '@chakra-ui/react'
+import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { LockKeyhole, MapPin, Rss, User, } from 'lucide-react'
-import EditPersonalData from '../molecules/ProfileEdit/EditPersonalData';
-import EditAddressData from '../molecules/ProfileEdit/EditAddressData';
-import EditSocialsNetworks from '../molecules/ProfileEdit/EditSocialsNetworks';
-import EditSecurityData from '../molecules/ProfileEdit/EditSecurityData';
-
-interface UserDefinition {
-    id: number,
-    username: string,
-    first_name:string,
-    second_name:string | undefined,
-    last_name:string,
-    second_last_name: string | undefined,
-    cedula: string,
-    type: string,
-    nationality: number,
-    email: string,
-    gender: number | null,
-    date_of_birth: string,
-    address: {
-        id: number,
-        reference: string,
-        country: number,
-        state: number | null,
-        city: number | null,
-        municipality: number | null,
-        parish: number | null,
-        postalcode: number | null
-    },
-    url:string,
-    urlImage:string,
-    x:string,
-    instagram:string,
-    tiktok:string,
-}
+import EditPersonalData from '../../molecules/profileEdit/EditPersonalData';
+import EditAddressData from '../../molecules/profileEdit/EditAddressData';
+import EditSocialsNetworks from '../../molecules/profileEdit/EditSocialNetworks';
+import EditSecurityData from '../../molecules/profileEdit/EditSecurityData';
+import { UserDefinition } from '@/interfaces/UserDefinition';
 
 export default function ProfileEditRightPanel({ userData, reload }: { userData:UserDefinition | null , reload:Function}) {
 

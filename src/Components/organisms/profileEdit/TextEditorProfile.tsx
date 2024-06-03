@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import ToolBar from '../molecules/ToolBar';
 import Underline from '@tiptap/extension-underline';
 import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image';
@@ -12,11 +11,12 @@ import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
 import FontSize from '@/extensions/TipTap/fontSize';
 import { Box } from '@chakra-ui/react';
+import ToolBarEditProfile from '@/Components/molecules/profileEdit/ToolBarEditProfile';
 /**
- * Componente para poder utilizar la libreria de TipTap con un editor de texto
+ * Componente para poder utilizar la libreria de TipTap con un editor de texto para el editar perfiles
  * 
  */
-export const Tiptap = ({ onChange, content }: {onChange: Function, content:string | TrustedHTML }) => {
+export const TextEditorProfile = ({ onChange, content }: {onChange: Function, content:string | TrustedHTML }) => {
   
     const handleChange = (newContent: string) =>{
         onChange(newContent);
@@ -46,8 +46,8 @@ export const Tiptap = ({ onChange, content }: {onChange: Function, content:strin
     return (
 
         <Box  w={"full"} maxW={{base:"full",md:"60vw", xl:"50vw", "2xl":"40vw"}} px={4}>
-
-            <ToolBar editor={editor} content={content}/>
+            
+            <ToolBarEditProfile editor={editor} content={content}/>
             <EditorContent style={{whiteSpace:"pre-line"}}  editor={editor} />
         </Box>
 

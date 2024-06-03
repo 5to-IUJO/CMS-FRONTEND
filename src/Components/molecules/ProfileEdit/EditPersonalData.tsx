@@ -19,21 +19,9 @@ import RestarFormButton from '../../atoms/buttons/RestarFormButton';
 import FormSelectNationalities from '../../atoms/inputs/FormSelectNationalities';
 import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities';
 import { obtainToken } from '@/helpers/Cookies';
+import { UserDefinition } from '@/interfaces/UserDefinition';
 
-interface UserDefinition {
-    id: number,
-    username: string,
-    first_name: string,
-    second_name: string | undefined,
-    last_name: string,
-    second_last_name: string | undefined,
-    cedula: string,
-    type: string,
-    nationality: number,
-    email: string,
-    gender: number | null,
-    date_of_birth: string,
-}
+
 
 export default function EditPersonalData({ userData, reload }: { userData: UserDefinition | null, reload: Function }) {
     const { handleSubmit, register, setError, getValues, watch, setValue, formState: { errors } } = useForm();
@@ -66,9 +54,9 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
         if (!userData)
             return
 
-        //Cambiar la Cedula a Numero y el Genero a String para poder comparar
-        const userDataToCompare = { ...userData, cedula: parseInt(userData.cedula), gender: userData?.gender?.toString() }
-
+        //Cambiar la Cedula a Numero y el Genero a String para poder comparar, tambien se agrega la nationality de nuevo para evitar malas comparaciones
+        const userDataToCompare = { ...userData, cedula: parseInt(userData.cedula), gender: userData?.gender?.toString(),}
+        
         setModified(equalsObjects(userDataToCompare, allData))
 
     }, [userData, allData]);
@@ -110,7 +98,7 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
                 }
             })
             .catch((error) => {
-              
+                console.log(error)
                 const errorResponse = JSON.parse(error.request.responseText);
                 let errorMessage;
                 // Verifica si el campo "responseText" existe

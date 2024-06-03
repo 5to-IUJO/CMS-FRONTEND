@@ -3,9 +3,10 @@ import Navbar from '../organisms/Navbar'
 import { Box, Flex, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
-import ProfileEditLeftPanel from '../organisms/profileEdit/ProfileEditLeftPanel'
-import ProfileEditRightPanel from '../organisms/profileEdit/ProfileEditRightPanel'
+
 import { obtainUserData } from '@/helpers/Users'
+import ProfileLeftPanel from '../organisms/profileView/ProfileLeftPanel'
+import ProfileRightPanel from '../organisms/profileView/ProfileRightPanel'
 import { UserDefinition } from '@/interfaces/UserDefinition'
 
 
@@ -15,10 +16,10 @@ import { UserDefinition } from '@/interfaces/UserDefinition'
  * Componente para el Editar Perfil del usuario
  * 
  */
-export default function ProfileEditPage() {
+export default function ProfilePage() {
 
     const [userData, setUserData] = useState<UserDefinition>();
-    const [reload,setReload] = useState<boolean>(false);
+
     //obtener data del usuario
     useEffect(() => {
         (async () => {
@@ -26,11 +27,8 @@ export default function ProfileEditPage() {
             if (data.resp === true)
                 setUserData(data.data);
         })();
-    }, [reload]);
+    }, []);
 
-    const reloadData = () =>{
-        setReload(!reload)
-    }
 
     return (
         <>
@@ -50,13 +48,13 @@ export default function ProfileEditPage() {
             >
                 <Box w={{ base: "100%", md: "30%" }} mb="1em" borderRight={{ base: "none", md: "4px" }} borderBottom={{ base: "4px", md: "none" }} borderColor={{ base: "#1C7987", md: "#1C7987" }} >
 
-                    <ProfileEditLeftPanel userData={userData ? userData : null} reload={reloadData} />
+                    <ProfileLeftPanel userData={userData ? userData : null} />
 
 
                 </Box>
                 <Box w={{ base: "100%", md: "70%" }} >
 
-                    <ProfileEditRightPanel userData={userData ? userData : null} reload={reloadData} />
+                    <ProfileRightPanel userData={userData ? userData : null}  />
 
                 </Box>
 

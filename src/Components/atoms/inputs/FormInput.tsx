@@ -35,7 +35,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                 <InputLeftElement pointerEvents='none' pr={5}   >
                     {Icon}
                 </InputLeftElement>
-                <Input placeholder={placeholder} type={type} variant={"flushed"} pl={6} color={"gray.600"} borderColor={"#1C7987"} fontSize={{ base: "lg", md: "xl" }} 
+                <Input placeholder={placeholder} type={type} variant={"flushed"} pl={6}  borderColor={"#1C7987"} fontSize={{ base: "lg", md: "xl" }} 
                 disabled={disable}
                 {...register(namebd, validations)}
                 />

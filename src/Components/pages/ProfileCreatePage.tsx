@@ -13,13 +13,13 @@ import FormRadioInput from '../atoms/inputs/FormRadioInput';
 import { useForm } from 'react-hook-form';
 import { redirect, useRouter } from 'next/navigation';;
 import ImageFromPC from '../molecules/ImageFromPC'
-import { Tiptap } from '../organisms/TipTap'
 import FormCedula from '../atoms/inputs/FormCedula'
 import FormSelect from '../atoms/inputs/FormSelect'
 import axios from 'axios'
 import { Flag } from 'lucide-react'
 import FormSelectNationalities from '../atoms/inputs/FormSelectNationalities'
 import { IoLocationOutline } from 'react-icons/io5'
+import { TextEditor } from '../organisms/TextEditor'
 
 
 
@@ -200,7 +200,7 @@ export default function ProfileCreatePage() {
 
                             <ImageFromPC register={register} namebd='profile_image' label='Avatar' getValues={getValues} setValue={setValue} />
 
-                            <Tiptap
+                            <TextEditor
                                 content={description}
                                 onChange={(newContent: string) => handleContentChange(newContent)}
                             />

@@ -1,43 +1,20 @@
 
-import { Box, Button, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useToast } from '@chakra-ui/react'
+import { Flex, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import FormInput from '../../atoms/inputs/FormInput'
-import { FaInstagram, FaInternetExplorer, FaRegFlag, FaRegUser, FaTiktok } from "react-icons/fa";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { MdOutlineEmail } from "react-icons/md";
-import { CiCalendarDate } from "react-icons/ci";
-
-import FormRadioInput from '../../atoms/inputs/FormRadioInput';
+import { FaRegFlag } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
-import { redirect, useRouter } from 'next/navigation';;
-import FormCedula from '../../atoms/inputs/FormCedula'
 import FormSelect from '../../atoms/inputs/FormSelect'
 
-import { ListRestart, LockKeyhole, MapPin, Rss, Save, User, } from 'lucide-react'
-import { BsPencil, BsTwitterX } from 'react-icons/bs'
 import { IoLocationOutline } from 'react-icons/io5'
 import axios from 'axios';
-import EditPersonalData from './EditPersonalData';
 import SaveChangesButton from '../../atoms/buttons/SaveChangesButton';
 import RestarFormButton from '../../atoms/buttons/RestarFormButton';
 import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities';
 import { obtainToken } from '@/helpers/Cookies';
+import { UserDefinition } from '@/interfaces/UserDefinition';
 
-interface UserDefinition {
-    id: number,
-    address: {
-        id: number,
-        reference: string,
-        country: number,
-        state: number | null,
-        city: number | null,
-        municipality: number | null,
-        parish: number | null,
-        postalcode: number | null
-    },
-    url: string
 
-}
 export default function EditAddressData({ userData, reload }: { userData: UserDefinition | null, reload: Function }) {
 
     const { handleSubmit, register, setError, getValues, watch, setValue, setFocus, resetField, formState: { errors } } = useForm();

@@ -1,14 +1,14 @@
 
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
 import React from 'react'
-import { Tiptap } from '../TipTap'
+import { TextEditorProfile } from '../profileEdit/TextEditorProfile'
 
 
 /**
  * Modal para Editar la Descripcion de los Usuarios
  */
 export default function DescriptionEdit({ isOpen, onClose, content, onChange }: { isOpen: boolean, onClose: () => void, content: TrustedHTML | string, onChange:Function }) {
-    console.log(content);
+
     return (
         <>
 
@@ -19,7 +19,7 @@ export default function DescriptionEdit({ isOpen, onClose, content, onChange }: 
                     <ModalCloseButton />
 
                         <ModalBody>
-                            <Tiptap onChange={onChange} content={content}/>
+                            <TextEditorProfile onChange={onChange} content={content}/>
                         </ModalBody>
 
                         <ModalFooter>

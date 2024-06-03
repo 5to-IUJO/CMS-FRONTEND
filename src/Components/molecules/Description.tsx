@@ -91,10 +91,16 @@ export default function Description({ userData, reload }: { userData: UserDefini
                     </AbsoluteCenter>
                 </Box>
 
-                <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"} color={"#212738"}>
+                <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"} maxW={"100%"} color={"#212738"}>
                     {userData?.description && (
                         <>
-                            &ldquo; <text dangerouslySetInnerHTML={{ __html: content }}></text>&rdquo;
+                            &ldquo; <Text
+                                wordBreak={"break-word"}
+                                whiteSpace={"pre-wrap"}
+                                overflowWrap={"break-word"}
+                                maxWidth="100%"
+                                overflow="hidden"
+                                dangerouslySetInnerHTML={{ __html: content }}></Text>&rdquo;
                         </>
                     )}
                     {!userData?.description && (

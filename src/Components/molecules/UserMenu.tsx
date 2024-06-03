@@ -40,7 +40,10 @@ export default function UserMenu() {
                 />
             </MenuButton>
             <MenuList>
-                <Link href={"/Profile-Edit"}>
+                <Link href={"/profile"}>
+                <MenuItem >Mi Perfil</MenuItem>
+                </Link>
+                <Link href={"/profile-edit"}>
                 <MenuItem >Opciones</MenuItem>
                 </Link>
                 <MenuDivider />

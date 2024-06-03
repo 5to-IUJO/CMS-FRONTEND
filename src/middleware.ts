@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { obtainToken } from "./helpers/Cookies";
 import { isUserEmailVerified, obtainUserData } from "./helpers/Users";
 // Especificar Rutas Públicas y Protegidas
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/dashboard","profile-edit"];
 const publicRoutes = ["/login", "/register", ];
 const emailVerifiedRoutes =["/verification-required","/verify-email"]
 export default async function middleware(req: NextRequest) {

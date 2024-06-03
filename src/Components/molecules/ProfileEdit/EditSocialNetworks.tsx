@@ -2,7 +2,7 @@
 import { Box, Button, Flex, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import FormInput from '../../atoms/inputs/FormInput'
-import { FaInstagram, FaInternetExplorer, FaTiktok } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaInternetExplorer, FaTiktok } from 'react-icons/fa'
 import { BsTwitterX } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
@@ -12,16 +12,8 @@ import { EyeIcon } from 'lucide-react'
 import WebPreview from '@/Components/organisms/modals/WebPreview'
 import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities'
 import { obtainToken } from '@/helpers/Cookies'
+import { UserDefinition } from '@/interfaces/UserDefinition'
 
-
-interface UserDefinition {
-    id: number,
-    url: string,
-    urlImage: string,
-    x: string,
-    instagram: string,
-    tiktok: string,
-}
 
 export default function EditSocialsNetworks({ userData, reload }: { userData: UserDefinition | null, reload: Function }) {
     const { handleSubmit, register, getValues, watch, setValue, formState: { errors } } = useForm();
@@ -40,6 +32,7 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
             return;
 
         setValue("instagram", userData.instagram);
+        setValue("facebook", userData.facebook);
         setValue("x", userData.x);
         setValue("tiktok", userData.tiktok);
         setValue("url", userData.url);
@@ -138,6 +131,7 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
                 mb={10}
 
             >
+                <FormInput Icon={<FaFacebook />} label='Facebook' placeholder='usuario' type='text' register={register} errors={errors.facebook} namebd='facebook' extraValidations={{minLength: { value: 5, message: "El Facebook tiene que tener minimo 2 caracteres" }, required: false }} />
                 <FormInput Icon={<FaInstagram />} label='Instagram' placeholder='@usuario' type='text' register={register} errors={errors.instagram} namebd='instagram' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Instragram tiene que tener minimo 2 caracteres" }, required: false }} />
                 <FormInput Icon={<BsTwitterX />} label='X' placeholder='@usuario' type='text' register={register} errors={errors.x} namebd='x' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El usuario de X tiene que tener minimo 2 caracteres" }, required: false }} />
                 <FormInput Icon={<FaTiktok />} label='TikTok' placeholder='@usuario' type='text' register={register} errors={errors.tiktok} namebd='tiktok' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Tiktok tiene que tener minimo 2 caracteres" }, required: false }} />
