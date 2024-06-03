@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Text } from '@chakra-ui/react';
-import { Tiptap } from './TipTap';
+import { TextEditor } from './TextEditor';
 import { obtainToken } from '@/helpers/Cookies';
 import { obtainUserData } from '@/helpers/Users';
 import axios from 'axios';
@@ -64,7 +64,7 @@ export default function PageEditor() {
                 Nuevo Blog
             </Text>
 
-            <Tiptap
+            <TextEditor
                 content={content}
                 onChange={(newContent: string) => handleContentChange(newContent)}
             />

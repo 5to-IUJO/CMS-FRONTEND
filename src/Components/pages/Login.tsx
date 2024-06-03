@@ -1,7 +1,11 @@
 import { Box, Flex, Heading } from '@chakra-ui/react'
 
+<<<<<<< HEAD
 import FormLogin from '../molecules/FormLogin';
 import { ContainerFormsUser } from '../organisms/ContainerFormsUser';
+=======
+import FormLogin from '../molecules/forms/FormLogin';
+>>>>>>> ad82ee18fc6dd0bf2f2e59acef01c65375d5990e
 
 
 export default function Login() {

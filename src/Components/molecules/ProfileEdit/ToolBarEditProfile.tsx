@@ -19,11 +19,11 @@ import {
     Image,
 } from "lucide-react"
 import { type Editor } from '@tiptap/react';
-import ToolBarButton from '../atoms/buttons/ToolBarButton';
+import ToolBarButton from '../../atoms/buttons/ToolBarButton';
 import { Box, Button, Flex, Input, useDisclosure } from '@chakra-ui/react';
-import AddImage from '../organisms/modals/AddImage';
-import ColorPickerButton from '../atoms/buttons/ColorPickerButton';
-import { TextSizeButton } from '../atoms/buttons/TextSizeButton';
+import AddImage from '../../organisms/modals/AddImage';
+import ColorPickerButton from '../../atoms/buttons/ColorPickerButton';
+import { TextSizeButton } from '../../atoms/buttons/TextSizeButton';
 
 
 interface ToolBarProps {
@@ -36,7 +36,7 @@ interface ToolBarProps {
  * ToolBar del Editor de Pagina
  * 
  */
-export default function ToolBar({ editor, content }: ToolBarProps) {
+export default function ToolBarEditProfile({ editor, content }: ToolBarProps) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     if (!editor)
@@ -93,11 +93,7 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
                     active={editor.isActive("redo")}
                     onClick={() => editor.chain().focus().redo().run()}
                 />
-                <ToolBarButton
-                    Icon={Image}
-                    active={editor.isActive("asd")}
-                    onClick={onOpen}
-                />
+
 
                 <ToolBarButton
                     Icon={AlignLeft}
@@ -123,19 +119,10 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
 
 
 
-                <AddImage isOpen={isOpen} onClose={onClose} setImage={(url: string) => editor?.chain().focus().setImage({ src: url }).run()} />
+              
             </Flex>
 
-            {content && (
-                <Button
-                    type='submit'
-                    colorScheme='blue'
-                    px={4}
-                    py={2}
-                >
-                    Add
-                </Button>
-            )}
+          
         </Flex>
     )
 }

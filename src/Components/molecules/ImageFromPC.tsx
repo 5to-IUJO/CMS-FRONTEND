@@ -12,6 +12,9 @@ interface FormInputProps {
 }
 
 
+/**
+ * Componente para agregar una nueva imagen de perfil durante el registro
+ */
 export default function ImageFromPC({register, namebd,label, getValues, setValue }: FormInputProps) {
     const [preview, setPreview] = useState(""); //useState para manejar la preview de la imagen
 

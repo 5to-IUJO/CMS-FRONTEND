@@ -1,33 +1,50 @@
+
+
 "use client"
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useSearchParams } from 'next/navigation'
-export default function EmailVerification() {
+import {Flex, Spinner,  useToast } from '@chakra-ui/react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-    const [verified, setVerified] = useState(false);
+export const EmailVerification = () => {
+    const toast = useToast(); //Notificaciones de feedback
+    const [loading, setLoading] = useState<boolean>(true);
+    const router = useRouter();
     const searchParams = useSearchParams()
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
 
     useEffect(() => {
-        console.log(searchParams.get('token'))
+
         const token = searchParams.get('token')
-        if (token) 
-        {
+        if (token) {
             //Se valida el token en el backend
-            axios.get(process.env.NEXT_PUBLIC_API_URL+"/verify-email/"+token)
+            axios.get(process.env.NEXT_PUBLIC_API_URL + "/verify-email/" + token)
                 .then(response => {
                     if (response.data.verified) {
-                        setVerified(true);
-                    }
-                    else {
-                        setError('Error al verificar el correo electrónico.');
+                        if (!toast.isActive("data-update")) {
+                            toast({
+                                id: "data-update",
+                                status: "success",
+                                title: 'Verificación de Cuenta',
+                                description: "Su Cuenta ha Sido Verificada Correctamente",
+                                position: "top",
+                                duration: 5000,
+                                isClosable: true,
+                            })
+                        }
                     }
                 })
                 .catch(error => {
-                    console.log(error);
-                    setError('Error al verificar el correo electrónico.');
+                    if (!toast.isActive("data-update")) {
+                        toast({
+                            id: "data-update",
+                            status: "error",
+                            title: 'Verificación de Cuenta',
+                            description: "Ha Ocurrido un Error, intentelo nuevamente",
+                            position: "top",
+                            duration: 5000,
+                            isClosable: true,
+                        })
+                    }
                 })
                 .finally(() => {
 
@@ -36,25 +53,54 @@ export default function EmailVerification() {
         }
         else {
             setLoading(false);
-            setError('Token no encontrado en la URL.');
+            if (!toast.isActive("data-update")) {
+                toast({
+                    id: "data-update",
+                    status: "error",
+                    title: 'Verificación de Cuenta',
+                    description: "Ha Ocurrido un Error, intentelo nuevamente",
+                    position: "top",
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
         }
+        setTimeout(() => {
+            // Redireccionar al Login
+            router.push("/dashboard");
+        }, 1500);
     }, []);
 
-    if (loading) {
-      return <p>Verificando correo electrónico...</p>;
-    }
 
-    if (error) {
-      return <p>{error}</p>;
-    }
 
-  return (
-      <div>
-          {verified ? (
-              <p>¡Tu correo electrónico ha sido verificado correctamente!</p>
-          ) : (
-              <p>No se pudo verificar tu correo electrónico.</p>
-          )}
-      </div>
-  );
-}
+
+    return (
+        <Flex
+            flexDirection={"column"}
+            height={"100vh"}
+            width={"100%"}
+            bg={"#141925"}
+            justifyContent={"center"}
+            color={"gray.400"}
+            alignItems={"center"}
+            maxH={"100vh"}
+            overflow={"hidden"}
+
+        >
+            {loading && (
+                <Spinner
+                    thickness='4px'
+                    speed='0.55s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                />
+            )}
+
+
+
+
+        </Flex  >
+    );
+};
+

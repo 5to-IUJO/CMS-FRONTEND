@@ -22,25 +22,23 @@ interface FormInputProps {
  * Componente para Reutilizar input tipo select 
  * @returns 
  */
-export default function FormSelect({ Icon, label, table, dependency = null, register, errors, namebd, extraValidations = null, setValues }: FormInputProps) {
+export default function FormSelectNationalities({ Icon, label, table, dependency = null, register, errors, namebd, extraValidations = null, setValues }: FormInputProps) {
 
     const validations = {
         required: { value: true, message: label + " es requerido" },
         ...extraValidations
     }
  
-    const [data, setData] = useState<{ id: string, name: string }[]>([]);
+    const [data, setData] = useState<{ id: string, name: string, nationality:string }[]>([]);
 
     useEffect(() => {
         (async () => {
             //obtener Nacionalidades de la base de datos
-            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_" + table + `${dependency != null ? "?id=" + dependency : ""}`,)
+            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_countries",)
                 .then((response) => {
                     if (response.status === 200) {
                         setData(response.data);
-                        if (namebd != "country") {
-                            setValues(namebd, "");
-                        }
+                       
                     }
                 })
                 .catch((error) => {
@@ -55,17 +53,17 @@ export default function FormSelect({ Icon, label, table, dependency = null, regi
     if (data.length > 0) {
         return (
             <section>
-                <FormLabel fontSize={{ base: "xl", md: "xl" }}>{label}</FormLabel>
+                <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
                 <InputGroup >
                     <InputLeftElement pointerEvents='none' pr={5}   >
                         {Icon}
                     </InputLeftElement>
-                    <Select variant={"flushed"} pl={6} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} defaultValue={""}
+                    <Select variant={"flushed"} pl={6} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} borderColor={"#1C7987"}  defaultValue={""}
                         {...register(namebd, validations)}
                     >
                         <option value="" disabled>Selecciona el {label} </option>
                         {data.map((option, index) => {
-                            return <option key={index} value={option.id.toString()} >{option.name}</option>
+                            return <option key={index} value={option.id.toString()} >{option.nationality}</option>
                         })}
                     </Select>
                 </InputGroup>

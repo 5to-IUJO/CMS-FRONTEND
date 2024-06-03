@@ -2,26 +2,29 @@
 import Navbar from '../organisms/Navbar'
 import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import FormInput from '../atoms/FormInput'
-import { FaArrowLeft, FaRegUser } from "react-icons/fa";
+import FormInput from '../atoms/inputs/FormInput'
+import { FaArrowLeft, FaInternetExplorer, FaRegFlag, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '../atoms/FormRadioInput';
+import FormRadioInput from '../atoms/inputs/FormRadioInput';
 import { useForm } from 'react-hook-form';
 import { redirect, useRouter } from 'next/navigation';;
 import ImageFromPC from '../molecules/ImageFromPC'
-import { Tiptap } from '../organisms/TipTap'
-import FormCedula from '../atoms/FormCedula'
-import FormSelect from '../atoms/FormSelect'
+import FormCedula from '../atoms/inputs/FormCedula'
+import FormSelect from '../atoms/inputs/FormSelect'
 import axios from 'axios'
+import { Flag } from 'lucide-react'
+import FormSelectNationalities from '../atoms/inputs/FormSelectNationalities'
+import { IoLocationOutline } from 'react-icons/io5'
+import { TextEditor } from '../organisms/TextEditor'
 
 
 
 /**
- * Componente para el Editar Perfil del usuario
+ * PAGINA TEMPORAL PARA AGREGAR USUARIOS
  * 
  */
 export default function ProfileCreatePage() {
@@ -41,26 +44,29 @@ export default function ProfileCreatePage() {
     const [country, city, state, municipality, parish, postalcode] = watch(["country", "city", "state", "municipality", "parish", "postalcode"]);
 
 
-    //Useeffect para manejar los select de direccion
-    useEffect(() => {
+    const handleSelectChange = (selectName: string) => {
 
-        if (state === "") {
+        if (selectName === "countries") {
+            resetField('state');
             resetField('city');
             resetField('municipality');
             resetField('parish');
-            resetField('postalcode');
-        } else if (city === "") {
+        }
+        else if (selectName === "states") {
+            resetField('city');
             resetField('municipality');
             resetField('parish');
-            resetField('postalcode');
-        } else if (municipality === "") {
-            resetField('parish');
-            resetField('postalcode');
         }
+        else if (selectName === "cities") {
+            resetField('municipality');
+            resetField('parish');
+        }
+        else if (selectName === "municipality") {
+            resetField('parish');
+        }
+    
+    }
 
-        setAddressData({ country, city, state, municipality, parish, postalcode })
-
-    }, [country, city, state, municipality, parish, postalcode, resetField]);
 
     const onSubmit = handleSubmit(async data => {
 
@@ -72,7 +78,7 @@ export default function ProfileCreatePage() {
 
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
-
+       
         if (data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
 
@@ -82,15 +88,17 @@ export default function ProfileCreatePage() {
         formData.append("second_last_name", data.second_lastname);
         formData.append("username", data.username);
         formData.append("password", data.password);
+        formData.append("type", data.type);
+        formData.append("url", data.web);
         formData.append("cedula", data.cedula);
-        formData.append("nationality", data.nationality);
+        formData.append("nationality", data.countries_nationality);
         formData.append("email", data.email);
         formData.append("date_of_birth", data.date_of_birth);
         formData.append("gender", data.gender);
         formData.append("instagram", data.instagram);
         formData.append("x", data.x);
         formData.append("tiktok", data.tiktok);
-        const address : {} = {
+        const address: {} = {
             country: data.country,
             state: data.state,
             city: data.city,
@@ -99,21 +107,21 @@ export default function ProfileCreatePage() {
             postalcode: data.postalcode,
             reference: data.country,
         }
-        
+
         formData.append("address", JSON.stringify(address));
         formData.append("description", description);
-        
+
 
 
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/register", formData)
             .then(async (response) => {
 
                 if (response.status === 201) {
-                    
+
                 }
             }).catch((error) => {
                 console.log(error);
-              
+
 
             })
 
@@ -151,7 +159,7 @@ export default function ProfileCreatePage() {
                             <FormInput Icon={<RiLockPasswordLine />} label='Confirme la Contraseña' placeholder='**********' type='password' register={register} errors={errors.password_confirm} namebd='password_confirm' />
                             <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
                             <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
-                            <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={getValues("gender")} />
+                            <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={"asd"} />
                             <FormInput Icon={<FaRegUser />} label='Primer Nombre' placeholder='José' type='text' register={register} errors={errors.name} namebd='name' />
                             <FormInput Icon={<FaRegUser />} label='Segundo Nombre' placeholder='Miguel' type='text' register={register} errors={errors.second_name} namebd='second_name' extraValidations={{ required: false }} />
                             <FormInput Icon={<FaRegUser />} label='Apellido' placeholder='Díaz' type='text' register={register} errors={errors.lastname} namebd='lastname' />
@@ -160,35 +168,39 @@ export default function ProfileCreatePage() {
                             <FormInput Icon={<FaRegUser />} label='Instagram' placeholder='@usuario' type='text' register={register} errors={errors.instagram} namebd='instagram' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Instragram tiene que tener minimo 2 caracteres" }, required: false }} />
                             <FormInput Icon={<FaRegUser />} label='X' placeholder='@usuario' type='text' register={register} errors={errors.x} namebd='x' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El usuario de X tiene que tener minimo 2 caracteres" }, required: false }} />
                             <FormInput Icon={<FaRegUser />} label='TikTok' placeholder='@usuario' type='text' register={register} errors={errors.tiktok} namebd='tiktok' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Tiktok tiene que tener minimo 2 caracteres" }, required: false }} />
-                            <FormSelect Icon={<FaRegUser />} label='País' table='countries' register={register} errors={errors.country} namebd='country' dependency={addressData ? addressData.country : null} setValues={setValue} />
 
-                            {country && (
-                                <FormSelect Icon={<FaRegUser />} label='Estado' table='states' register={register} errors={errors.state} namebd='state' dependency={addressData ? addressData.country : null} setValues={setValue} />
+                            <FormInput Icon={<FaInternetExplorer />} label='Página WEB' placeholder='https://mipaginaweb.com' type='url' register={register} errors={errors.web} namebd='web' extraValidations={{ pattern: { value: /^https:\/\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]+$/, message: "Es Obligatorio que la url sea HTTPS:// y que tenga al menos 1 caracter despues del //" }, minLength: { value: 9, message: "URL Invalida" }, required: false }} />
+                            <FormSelectNationalities Icon={<Flag />} label='Nacionalidad' table='countries_nationality' register={register} errors={errors.countries_nationality} namebd='countries_nationality' setValues={setValue} />
+                            <FormSelect Icon={<FaRegFlag />} label='País' table='countries' register={register} errors={errors.country} namebd='country' onChange={handleSelectChange} setValues={setValue} />
+
+                            {getValues("country") && (
+                                <FormSelect Icon={<IoLocationOutline />} label='Estado' table='states' register={register} errors={errors.state} namebd='state' dependency={getValues("country")} onChange={handleSelectChange} setValues={setValue} />
                             )}
-                            {state && (
-                                <FormSelect Icon={<FaRegUser />} label='Ciudad' table='cities' register={register} errors={errors.city} namebd='city' dependency={addressData ? addressData.state : null} setValues={setValue} />
-
-                            )}
-                            {city && (
-
-                                <FormSelect Icon={<FaRegUser />} label='Municipios' table='municipalities' register={register} errors={errors.municipality} namebd='municipality' dependency={addressData ? addressData.city : null} setValues={setValue} />
+                            {getValues("state") && (
+                                <FormSelect Icon={<IoLocationOutline />} label='Ciudad' table='cities' register={register} errors={errors.city} namebd='city' dependency={getValues("state")} onChange={handleSelectChange} setValues={setValue} />
 
                             )}
-                            {municipality && (
-
-                                <FormSelect Icon={<FaRegUser />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={addressData ? addressData.municipality : null} setValues={setValue} />
+                            {getValues("city") && (
+                                <FormSelect Icon={<IoLocationOutline />} label='Municipios' table='municipalities' register={register} errors={errors.municipality} namebd='municipality' dependency={getValues("city")} onChange={handleSelectChange} setValues={setValue} />
                             )}
-                            {parish && (
+                            {getValues("municipality") && (
 
-                                <FormSelect Icon={<FaRegUser />} label='Codigo Postal' table='postalcodes' register={register} errors={errors.postalcode} namebd='postalcode' dependency={addressData ? addressData.parish : null} setValues={setValue} />
+                                <FormSelect Icon={<IoLocationOutline />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={getValues("muniicipality")} onChange={handleSelectChange} setValues={setValue} />
                             )}
 
-                            <FormInput Icon={<FaRegUser />} label='Referencia' placeholder='' type='text' register={register} errors={errors.reference} namebd='reference' />
+
+
+
+
+
+
+
+                            <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='' type='text' register={register} errors={errors.reference} namebd='reference' />
 
 
                             <ImageFromPC register={register} namebd='profile_image' label='Avatar' getValues={getValues} setValue={setValue} />
 
-                            <Tiptap
+                            <TextEditor
                                 content={description}
                                 onChange={(newContent: string) => handleContentChange(newContent)}
                             />

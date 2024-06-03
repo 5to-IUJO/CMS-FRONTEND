@@ -1,5 +1,5 @@
 "use client"
-import { FormLabel, Input, InputGroup, InputLeftElement, Select, Text } from '@chakra-ui/react'
+import { Box, FormLabel, Input, InputGroup, InputLeftElement, Select, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -25,7 +25,7 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
         valueAsNumber: { value: true, message: "La Cédula tiene que ser un número" },
     }
     const validations2 = {
-        required: { value: true, message: "La Nacionalidad es requerida " },
+        required: { value: true, message: "El Tipo de persona es requerida " },
         value: "1"  
     }
 
@@ -33,7 +33,7 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
     useEffect(() => {
         (async () => {
             //obtener Nacionalidades de la base de datos
-            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_nationalities",)
+            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/obtain_persons_types",)
                 .then((response) => {
                     if (response.status === 200) {
                         setData(response.data);
@@ -48,24 +48,24 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
     }, []);
   
     return (
-        <section>
-            <FormLabel fontSize={{ base: "xl", md: "xl" }}>Cedula de Identidad</FormLabel>
+        <Box w={{base:"100%",md:"auto"}}>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad</FormLabel>
             <InputGroup >
-                <InputLeftElement w={"18%"}  >
-                    <Select variant={"unstyled"} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}
-                        {...register("nationality", validations2)}
+                <InputLeftElement w={{base:"14%",md:"18%"}}  >
+                    <Select  variant={"unstyled"} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}
+                        {...register("type", validations2)}
                     >
                         {data.map((option, index) => {
                             return <option key={index} value={option.id.toString()} >{option.name}</option>
                         })}
                     </Select>
                 </InputLeftElement>
-                <Input placeholder={"XXXXXXXX"} type={"number"} variant={"flushed"} pl={12} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }}
+                <Input placeholder={"XXXXXXXX"} type={"number"} variant={"flushed"} pl={12} color={"gray.600"} borderColor={"#1C7987"} fontSize={{ base: "lg", md: "xl" }}
                     {...register("cedula", validations)}
                 />
             </InputGroup>
             {errors && <Text color={"red"} maxW={"200px"}> {errors.message}  </Text>}
             {errors2 && <Text color={"red"} maxW={"200px"}> {errors2.message}  </Text>}
-        </section>
+        </Box>
     )
 }

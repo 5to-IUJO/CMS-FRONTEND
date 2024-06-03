@@ -1,22 +1,28 @@
 "use client"
+<<<<<<< HEAD:src/Components/molecules/FormRegisterUser.tsx
 import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useSteps } from '@chakra-ui/react'
 import React, { act, useState } from 'react'
 import FormInput from '../atoms/FormInput'
+=======
+import { Button, Flex, Stack, Text } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import FormInput from '../../atoms/inputs/FormInput'
+>>>>>>> ad82ee18fc6dd0bf2f2e59acef01c65375d5990e:src/Components/molecules/forms/FormRegisterUser.tsx
 import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '../atoms/FormRadioInput';
-import FormCheckInput from '../atoms/FormCheckInput';
+import FormRadioInput from '../../atoms/inputs/FormRadioInput';
+import FormCheckInput from '../../atoms/inputs/FormCheckInput';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { redirect, useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
-import GoogleButton from '../atoms/GoogleButton';
-import ImageFromPC from './ImageFromPC';
+import GoogleButton from '../../atoms/buttons/GoogleButton';
+import ImageFromPC from '../ImageFromPC';
 
 
 const GendersOptions: { value: string, label: string }[] = [
