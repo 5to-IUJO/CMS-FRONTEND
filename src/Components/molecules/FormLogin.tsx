@@ -34,13 +34,13 @@ export default function FormLogin() {
         <>
             <Text
                 textAlign={'center'}
-                fontSize={{ base: "3xl", md: "xl" }}
+                fontSize={{ base: "3xl", md: "36px" }}
                 fontWeight={"bold"}
             >
-                Iniciar Sesión
+                Inicio Sesión
             </Text>
 
-            <form className={"mt-10"} onSubmit={onSubmit}>
+            <form className={"mt-1"} onSubmit={onSubmit}>
                 <Flex
                     flexDirection={'column'}
                     flexWrap={"wrap"}
@@ -49,7 +49,7 @@ export default function FormLogin() {
                 >
                     <FormInput Icon={<FaRegUser />} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
                     <FormInput Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
-                    <Button rightIcon={<FaArrowRight />} colorScheme='blue' variant="solid" type='submit'>
+                    <Button rightIcon={<FaArrowRight />} bgColor={'darkBlue.700'} variant="solid" type='submit' _hover={{bgColor: 'darkBlue.700'}} _active={{bgColor: 'darkBlue.700'}} color={'white.400'}>
                         Iniciar Sesión
                     </Button>
                     <GoogleButton/>
@@ -57,12 +57,12 @@ export default function FormLogin() {
                 </Flex>
                 <Text textAlign={'center'} mt={5}>
                     ¿Olvidaste tu
-                    <Link href={"/password-recover"} className=' text-blue-500' > Contraseña</Link>
+                    <Link href={"/password-recover"} className='text-blue-500'> Contraseña</Link>
                     ?
                 </Text>
                 <Text textAlign={'center'} mt={2}>
                     ¿No Tienes una Cuenta?
-                    <Link href={"/register"} className=' text-blue-500' > Registrarse</Link>
+                    <Link href={"/register"} className=' text-blue-500'> Registrarse</Link>
                 </Text>
             </form>
 

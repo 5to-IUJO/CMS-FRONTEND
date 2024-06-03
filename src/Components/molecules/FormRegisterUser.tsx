@@ -1,6 +1,6 @@
 "use client"
-import { Button, Flex, Stack, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useSteps } from '@chakra-ui/react'
+import React, { act, useState } from 'react'
 import FormInput from '../atoms/FormInput'
 import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -40,10 +40,10 @@ export default function FormRegisterUser() {
 
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
-       
-        if(data.profile_image[0])
+
+        if (data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
-        
+
         formData.append("username", data.username);
         formData.append("password", data.password);
         formData.append("email", data.email);
@@ -51,7 +51,7 @@ export default function FormRegisterUser() {
         formData.append("gender", data.gender);
         formData.append("terms", data.terms);
 
-      
+
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/register", formData)
             .then(async (response) => {
 
@@ -67,65 +67,156 @@ export default function FormRegisterUser() {
             })
     });
 
-    return (
-        <>
-            <Text
-                textAlign={'center'}
-                fontSize={{ base: "3xl", md: "xl" }}
-                fontWeight={"bold"}
-            >
-                Registro
-            </Text>
+    const steps = [
+        { title: 'Personal', description: 'Datos Personales' },
+        { title: 'Direccion', description: 'Addres' },
+        { title: 'Descripcion y Redes', description: 'Select Rooms' },
+        { title: 'Blogger', description: 'Select Rooms' },
+    ]
 
-            <form className={"mt-10"} onSubmit={onSubmit}  encType="multipart/form-data">
+    const { activeStep, setActiveStep } = useSteps({
+        index: 1,
+        count: steps.length,
+    })
+
+    const valueActiveStep = activeStep;
+
+    return (
+        <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} w={'100%'}>
+
+            <Flex
+                w={'100%'}
+                h={'120px'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                border={'20px solid #fff'}
+                borderRadius={'60px 60px 0px 0px'}
+            >
+                <Text
+                    textAlign={'center'}
+                    fontSize={{ base: "3xl", md: "4xl" }}
+                    fontWeight={"bold"}
+                    color={'white.400'}
+                >
+                    Unete a nuestro equipo - Paso {valueActiveStep + 1}
+                </Text>
+            </Flex>
+
+            <Box bgColor={'white.400'} w={'100%'} h={'100%'}>
+
+                <Stepper size='lg' index={activeStep} w={'90%'} m={'auto'}>
+
+                    {steps.map((step, index) => (
+                        <Step key={index} onClick={() => setActiveStep(index)}>
+                            <Box flexShrink='0' maxW={'100px'}>
+                                <StepTitle>{step.title}</StepTitle>
+                                {/* <StepDescription>{step.description}</StepDescription> */}
+                            </Box>
+                            <StepIndicator cursor={'pointer'} bg={'cyan.400'} color={'white.400'} fontWeight={'bold'} border={'none'}>
+                                <StepStatus
+                                    complete={<StepIcon bg={'cyan.400'} background={'cyan.400'} />}
+                                    incomplete={<StepNumber />}
+                                    active={<StepNumber />}
+                                />
+                            </StepIndicator>
+
+
+                            <StepSeparator />
+                        </Step>
+                    ))}
+
+                </Stepper>
+                <form className={"mt-10"} onSubmit={onSubmit}>
+
+                    <Tabs variant='soft-rounded' colorScheme='green' index={valueActiveStep}>
+                        <TabPanels>
+                            <TabPanel>
+                                <Flex justifyContent={'space-around'}>
+                                    <FormInput Icon={<FaRegUser />} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
+
+                                    <FormInput Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
+
+                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+
+                                </Flex>
+
+                                <Flex justifyContent={'space-around'}>
+                                    <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
+
+                                    {/* <FormRadioInput label='Genero' data={GendersOptions} register={register} errors={errors.gender} namebd='gender' /> */}
+
+                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+
+                                    <FormCheckInput label='Acepto los Terminos y Condiciones' register={register} errors={errors.terms} namebd='terms' />
+
+                                </Flex>
+
+                            </TabPanel>
+                            <TabPanel>
+                                <p>two!</p>
+                            </TabPanel>
+                            <TabPanel>
+                                <p>three!</p>
+                            </TabPanel>
+                            <TabPanel>
+                                <p>four!</p>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+
+                    {/* Form Buttons */}
+                    <Flex w={'100%'} justifyContent={'center'} bottom={5} position={'absolute'} gap={5}>
+                        <Button
+                            isDisabled={activeStep === 0}
+                            onClick={() =>
+                                setActiveStep(
+                                    activeStep <= 3 && activeStep > 0
+                                        ? activeStep - 1
+                                        : activeStep
+                                )}
+                            w={'120px'}
+                            color={'white.400'}
+                            bgColor={'darkBlue.400'}
+                            _hover={{ bgColor: 'darkBlue.400' }}
+                            _active={{ bgColor: 'darkBlue.400' }}
+                        >
+                            {activeStep <= 3 ? "Anterior" : ""}
+                        </Button>
+
+                        <Button
+                            rightIcon={<FaArrowRight />}
+                            type='submit'
+                            onClick={() =>
+                                setActiveStep(
+                                    activeStep >= 0 && activeStep < 3
+                                        ? activeStep + 1
+                                        : activeStep
+                                )}
+                            w={'120px'}
+                            color={'white.400'}
+                            bgColor={'darkBlue.400'}
+                            _hover={{ bgColor: 'darkBlue.400' }}
+                            _active={{ bgColor: 'darkBlue.400' }}
+
+                        >
+                            {activeStep === 3 ? "Registrarse" : "Siguiente"}
+                        </Button>
+                    </Flex>
+
+                </form>
+
                 <Flex
                     flexDirection={'column'}
                     flexWrap={"wrap"}
                     wrap={"wrap"}
                     gap={{ base: 10, md: 10 }}
                 >
-                    {step === 1 && (
-                        <>
-                            <FormInput Icon={<FaRegUser />} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
-                            <FormInput Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
-                            <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
-                            <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
-                            <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={getValues("gender")} />
-                            <FormCheckInput label='Acepto los Terminos y Condiciones' register={register} errors={errors.terms} namebd='terms' />
-
-                            <Button rightIcon={<FaArrowRight />} colorScheme='blue' variant="solid" type='submit'>
-                                   Registrarse
-                            </Button>
-
-                            <GoogleButton />
-                            <Text textAlign={'center'}>
-                                ¿Ya tienes una Cuenta?
-                                <Link href={"/login"} className=' text-blue-500' > Iniciar Sesión</Link>
-                            </Text>
-
-                        </>
-                    )}
-
-                    {step === 2 && (
-                        <>
-                            <ImageFromPC register={register} namebd='profile_image' label='Avatar' getValues={getValues} setValue={setValue}  />
-                        
-                            <Stack direction={['column', 'row']} spacing={10}>
-                                <Button leftIcon={<FaArrowLeft />} w={{ base: "100%", md: "30%" }}  colorScheme={'red'} _hover={{bg:"#FC8181", textColor:"white"}} bg={"white"} textColor={'black'} variant="solid" type='button' onClick={()=>setStep(1)}>
-                                Regresar
-                                </Button>
-                                <Button rightIcon={<FaArrowRight />} w={{ base: "100%", md: "50%" }} colorScheme='blue' variant="solid" type='submit'>
-                                   Terminar Registro
-                                </Button>
-                            </Stack>
-                        </>
-                    )}
-
-
+                    <Text textAlign={'center'}>
+                        ¿Ya tienes una Cuenta?
+                        <Link href={"/login"} className=' text-blue-500' > Iniciar Sesión</Link>
+                    </Text>
                 </Flex>
-            </form>
-
-        </>
-
+            </Box>
+        </Flex>
     )
 }

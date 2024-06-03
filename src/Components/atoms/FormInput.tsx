@@ -6,7 +6,7 @@ interface FormInputProps {
     label: string,
     placeholder: string,
     type: string,
-    register: (placeholder:string, {})=>{},
+    register: (placeholder: string, { }) => {},
     //errors: {Usuario: {message:string }},
     errors: any,
     namebd: string
@@ -19,12 +19,12 @@ interface FormInputProps {
  * Componente para Reutilizar input generico en el Login & Register
  * @returns 
  */
-export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations=null }: FormInputProps) {
-    
+export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null }: FormInputProps) {
+
     const validations = {
-        required: {value:true, message: label+" es requerido"}, 
-        minLength: {value:5, message: label+" tiene que tener minimo 5 caracteres"}, 
-        maxLength: {value:40, message: label+" puede tener máximo 40 caracteres"},
+        required: { value: true, message: label + " es requerido" },
+        minLength: { value: 5, message: label + " tiene que tener minimo 5 caracteres" },
+        maxLength: { value: 40, message: label + " puede tener máximo 40 caracteres" },
         ...extraValidations
     }
     return (
@@ -34,8 +34,13 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                 <InputLeftElement pointerEvents='none' pr={5}   >
                     {Icon}
                 </InputLeftElement>
-                <Input placeholder={placeholder} type={type} variant={"flushed"} pl={6} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} 
-                {...register(namebd, validations)}
+                <Input
+                    placeholder={placeholder}
+                    type={type} variant={"flushed"}
+                    pl={6} color={"gray.600"}
+                    fontSize={{ base: "lg", md: "xl" }}
+                    {...register(namebd, validations)}
+                    _focusVisible={{ borderBottom: "2px solid #1F93A5" }}
                 />
             </InputGroup>
             {errors && <Text color={"red"} maxW={"200px"}> {errors.message}  </Text>}

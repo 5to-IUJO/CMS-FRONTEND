@@ -2,7 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  padding: 0;
-  margin: 0;
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.colorBlue_ShadowBackground {
+	background-color: rgba(23, 27, 39, 0.65) ;
+}
+
+.borderRadius_loginForm {
+	-webkit-border-top-left-radius: 200px !important;
+	-webkit-border-top-right-radius: 30px  !important;
+	-webkit-border-bottom-right-radius: 30px !important;
+	-webkit-border-bottom-left-radius: 3px !important;
+	-moz-border-radius-topleft: 200px !important;
+	-moz-border-radius-topright: 30px !important;
+	-moz-border-radius-bottomright: 30px !important;
+	-moz-border-radius-bottomleft: 3px !important;
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 30px !important;
+	border-bottom-right-radius: 30px !important;
+	border-bottom-left-radius: 3px !important;
+}
+
+.boxShadow_NeonBlue {
+	box-shadow: 0 0 5px #1F93A5, 0 0 10px #1F93A5, 0 0 30px #1F93A5 !important;
+}
+
+.css-1c3jrwn[data-status=complete]{
+	background: #1F93A5 !important;
 }
