@@ -17,10 +17,12 @@ const theme = extendTheme({
             400: "#1F93A5"
         },
         black: {
-            400: "#0C0A08"
+            400: "#0C0A08",
+            300:"#141925"
         },
         white: {
-            400: "#F8F8F8"
+            400: "#F8F8F8",
+            500:"#EEEEEE"
         },
         gray: {
             400: "#584D4B"
@@ -29,8 +31,8 @@ const theme = extendTheme({
     styles: {
         global: (props: any) => ({
           "html, body": {
-            color: props.colorMode === "dark" ? "white.400" : "black.400",
-            bg: props.colorMode === "dark" ? "darkBlue.700" : "white.400",
+            color: props.colorMode === "dark" ? "white.500" : "black.400",
+            bg: props.colorMode === "dark" ? "black.300" : "white.500",
             fontSize: { xl: '16px'}
           },
         }),

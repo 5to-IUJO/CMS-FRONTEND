@@ -6,13 +6,14 @@ interface FormCheckInputProps{
     register: (placeholder:string, {})=>{},
     errors: any,
     namebd: string
+    forceColor?:string
 }
 
 /**
  * Componente para Reutilizar un input checkbox 
  * @returns 
  */
-export default function FormCheckInput( {label,register,errors,namebd}:FormCheckInputProps) {
+export default function FormCheckInput( {label,register,errors,namebd,forceColor=undefined}:FormCheckInputProps) {
 
     const validations = {
         required: {value:true, message:" Es Obligatorio "}, 
@@ -20,7 +21,7 @@ export default function FormCheckInput( {label,register,errors,namebd}:FormCheck
 
     return (
         <section>
-            <Checkbox fontSize={{base:"xl",md:"xl"}}  {...register(namebd, validations)} >{label}</Checkbox>
+            <Checkbox fontSize={{base:"xl",md:"xl"}}  {...register(namebd, validations)} color={forceColor ? forceColor : ""}>{label}</Checkbox>
             {errors && <Text color={"red"}  maxW={"200px"}> {errors.message}  </Text>}
         </section>
     )

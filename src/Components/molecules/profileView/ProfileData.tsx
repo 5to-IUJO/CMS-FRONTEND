@@ -1,6 +1,6 @@
 import { UserDefinition } from '@/interfaces/UserDefinition'
 import { EmailIcon } from '@chakra-ui/icons'
-import { AbsoluteCenter, Avatar, AvatarBadge, Box, Button, Center, Divider, Flex, FormControl, IconButton, Input, Link, List, ListIcon, ListItem, Stack, Text, Tooltip } from '@chakra-ui/react'
+import { AbsoluteCenter, Avatar, AvatarBadge, Box, Button, Center, Divider, Flex, FormControl, IconButton, Input, Link, List, ListIcon, ListItem, Stack, Text, Tooltip, useColorModeValue } from '@chakra-ui/react'
 import { Edit2, Flag } from 'lucide-react'
 import NextLink from 'next/link'
 import React from 'react'
@@ -19,16 +19,20 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
         genderIcon = BsGenderFemale
     else
         genderIcon = FaTransgender
-
+    
+    const facebookHoverColor = useColorModeValue({ color: "blue" }, { color: "blue.300" })
+    const instagramHoverColor = useColorModeValue({ color: "purple" }, { color: "purple.300" })
+    const xHoverColor = useColorModeValue({ color: "blue" }, { color: "blue.300" })
+    const tiktokHoverColor = useColorModeValue({ color: "purple" }, { color: "purple.300" })
     return (
         <Box >
 
 
 
             <Box position='relative' padding='8'>
-                <Divider borderColor={'#171B27'} />
-                <AbsoluteCenter bg={"#EBEBD3"} px='4' >
-                    <Text fontWeight={"semibold"} color={"#171B27"} fontSize={["md", "xl"]}> Perfil de Usuario</Text>
+                <Divider borderColor={"cyan.400"} />
+                <AbsoluteCenter bg={"cyan.400"}px='4' >
+                    <Text fontWeight={"semibold"}color={"white.500"} fontSize={["md", "xl"]}> Perfil de Usuario</Text>
                 </AbsoluteCenter>
             </Box>
 
@@ -70,7 +74,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
 
             </List>
 
-            <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"} color={"#212738"}>
+            <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"}>
                 <Text fontSize={["md", "lg"]} ml={"-4"}>Mi Descripción</Text>
                 {userData?.description && (
                     <>
@@ -95,7 +99,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
                     <Tooltip label={userData.facebook} hasArrow>
                         <Link href={"https://www.facebook.com/" + userData.facebook}>
 
-                            <Button fontSize={"24px"} _hover={{ color: "blue", }} variant={"ghost"}>
+                            <Button fontSize={"24px"} _hover={facebookHoverColor} variant={"ghost"}>
                                 <FaFacebook />
                             </Button>
                         </Link>
@@ -107,7 +111,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
 
                     <Tooltip label={userData?.instagram} hasArrow>
                         <Link href={"https://www.instagram.com/" + userData.instagram.slice(1)}>
-                            <Button fontSize={"24px"} _hover={{ color: "purple", }} variant={"ghost"}>
+                            <Button fontSize={"24px"} _hover={instagramHoverColor} variant={"ghost"}>
                                 <FaInstagram />
                             </Button>
                         </Link>
@@ -117,7 +121,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
 
                     <Tooltip label={userData?.x} hasArrow>
                         <Link href={"https://x.com/" + userData.x}>
-                            <Button fontSize={"24px"} _hover={{ color: "blue", }} variant={"ghost"}>
+                            <Button fontSize={"24px"} _hover={xHoverColor} variant={"ghost"}>
                                 <FaXTwitter />
                             </Button>
                         </Link>
@@ -128,7 +132,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
 
                     <Tooltip label={userData?.tiktok} hasArrow>
                         <Link href={"https://www.tiktok.com/" + userData.tiktok}>
-                            <Button fontSize={"24px"} _hover={{ color: "purple", }} variant={"ghost"}>
+                            <Button fontSize={"24px"} _hover={ tiktokHoverColor } variant={"ghost"}>
                                 <FaTiktok />
                             </Button>
                         </Link>

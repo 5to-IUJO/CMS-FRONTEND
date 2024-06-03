@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, useColorModeValue } from '@chakra-ui/react'
 import { Save } from 'lucide-react'
 import React from 'react'
 /**
@@ -8,7 +8,8 @@ export default function SaveChangesButton({disabled}:{disabled:boolean}) {
     return (
         <Button
             variant={'solid'}
-            bg={"#171B27"}
+            bgColor={useColorModeValue("black.300","white.500")}
+            _hover={{bg:"cyan.400",color:"white.500"}}
             colorScheme={'blue'}
             size={'sm'}
             pl={[5, 3]}

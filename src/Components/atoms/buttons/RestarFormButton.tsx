@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@chakra-ui/react'
+import { Button, Tooltip, useColorModeValue } from '@chakra-ui/react'
 import { ListRestart } from 'lucide-react'
 import React from 'react'
 
@@ -10,7 +10,7 @@ export default function RestarFormButton({restar}:{restar:Function}) {
                 variant={'solid'}
                 bg={"transparent"}
                 colorScheme={'none'}
-                color={"#584D4B"}
+                color={useColorModeValue("black.300","white.500")}
                 onClick={() => restar()}
                 _hover={{
                     color: "#1C7987"

@@ -1,15 +1,17 @@
-import { Box, Flex, Image, Tag, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Tag, Text, useColorModeValue } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
 /**
  * Componente de una Box que contiene datos sobre los blogs
  */
 export default function BlogsBox() {
+    const backgroundColor = useColorModeValue("gray.200","darkBlue.400")
+    const backgroundColorHover = useColorModeValue("gray.300","darkBlue.700")
     return (
         <Link href="#" >
-            <Box borderRadius={"lg"} boxShadow={"md"} bg={"gray.200"} textAlign={"center"} pb={"4"}
+            <Box borderRadius={"lg"} boxShadow={"md"} bg={backgroundColor } textAlign={"center"} pb={"4"}
                 _hover={{
-                    bg: "gray.300",
+                    bg: backgroundColorHover,
                     transition: "background-color 0.3s ease",
                     '& img': {
                         filter: "brightness(0.8)"

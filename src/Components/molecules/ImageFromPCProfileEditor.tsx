@@ -120,9 +120,9 @@ export default function ImageFromPCEditor({ namebd, userData, reload }: FormInpu
 
 
                 <Box position='relative' padding='8'>
-                    <Divider borderColor={'#171B27'} />
-                    <AbsoluteCenter bg={"#EBEBD3"} px='4' >
-                        <Text fontWeight={"semibold"} color={"#171B27"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
+                    <Divider  borderColor={"cyan.400"} />
+                    <AbsoluteCenter bg={"cyan.400"} px='4' >
+                        <Text fontWeight={"semibold"}  color={"white.500"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
                     </AbsoluteCenter>
                 </Box>
 

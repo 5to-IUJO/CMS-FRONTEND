@@ -1,4 +1,4 @@
-import { AbsoluteCenter, AvatarBadge, Box, Button, Divider, IconButton, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { AbsoluteCenter, AvatarBadge, Box, Button, Divider, IconButton, Text, Tooltip, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react'
 import { Edit2, Save } from 'lucide-react'
 import React, { FormEvent, useEffect, useState } from 'react'
 import DescriptionEdit from '../organisms/modals/DescriptionEdit'
@@ -85,13 +85,13 @@ export default function Description({ userData, reload }: { userData: UserDefini
         <Box m={5}>
             <form onSubmit={(e) => onSubmit(e)}>
                 <Box position='relative' padding='6'>
-                    <Divider borderColor={'#171B27'} />
-                    <AbsoluteCenter bg={"#EBEBD3"} px='4' >
-                        <Text fontWeight={"semibold"} color={"#171B27"} fontSize={["md", "xl"]}> Mi Descripción</Text>
+                    <Divider borderColor={"cyan.400"} />
+                    <AbsoluteCenter bg={"cyan.400"} px='4' >
+                        <Text fontWeight={"semibold"} color={"white.500"} fontSize={["md", "xl"]}> Mi Descripción</Text>
                     </AbsoluteCenter>
                 </Box>
 
-                <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"} maxW={"100%"} color={"#212738"}>
+                <Box textAlign={'justify'} p={5} pr={10} fontWeight={"medium"} maxW={"100%"} >
                     {userData?.description && (
                         <>
                             &ldquo; <Text

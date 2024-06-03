@@ -50,10 +50,7 @@ export default function ToolBarEditProfile({ editor, content }: ToolBarProps) {
 
             <Flex flexWrap={"wrap"} justify={"start"} alignItems={"center"} gap={5} w={{ base: "full", lg: "83%" }}>
 
-                <ColorPickerButton
-                    onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
-                    value={editor.getAttributes('textStyle').color}
-                />
+             
 
                 <TextSizeButton
                     setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
@@ -129,6 +126,12 @@ export default function ToolBarEditProfile({ editor, content }: ToolBarProps) {
 
 
 /*
+
+                <ColorPickerButton
+                    onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
+                    value={editor.getAttributes('textStyle').color}
+                />
+
                 <ToolBarButton
                     Icon={List}
                     active={editor.isActive("bulletList")}

@@ -12,6 +12,7 @@ interface FormInputProps {
     namebd: string
     extraValidations?: {} | null,
     disable?:boolean
+    forceColor?: string
 }
 
 
@@ -20,7 +21,7 @@ interface FormInputProps {
  * Componente para Reutilizar input generico en el Login & Register
  * @returns 
  */
-export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false }: FormInputProps) {
+export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false, forceColor = undefined }: FormInputProps) {
 
     const validations = {
         required: { value: true, message: label + " es requerido" },
@@ -29,7 +30,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
         ...extraValidations
     }
     return (
-        <Box w={{base:"100%",md:"auto"}}>
+        <Box w={{base:"100%",md:"auto"}}  color={forceColor ? forceColor : ""}>
             <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
             <InputGroup >
                 <InputLeftElement pointerEvents='none' pr={5}   >
@@ -38,7 +39,9 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                 <Input
                     placeholder={placeholder}
                     type={type} variant={"flushed"}
-                    pl={6} color={"gray.600"}
+                    pl={6} 
+                   
+                    _placeholder={{ color: 'gray.600' }}
                     fontSize={{ base: "lg", md: "xl" }}
                     borderColor={"#1F93A5"}
                     {...register(namebd, validations)}

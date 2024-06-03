@@ -27,7 +27,7 @@ const GendersOptions: { value: string, label: string }[] = [
 ]
 
 export default function FormRegisterUser() {
-
+    
     const [step, setStep] = useState(1);
     const { handleSubmit, register, setError, getValues, setValue, formState: { errors } } = useForm();
     const router = useRouter();
@@ -83,7 +83,7 @@ export default function FormRegisterUser() {
     const valueActiveStep = activeStep;
 
     return (
-        <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} w={'100%'}>
+        <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} w={'100%'} color={"black.400"}>
 
             <Flex
                 w={'100%'}
@@ -92,6 +92,7 @@ export default function FormRegisterUser() {
                 alignItems={'center'}
                 border={'20px solid #fff'}
                 borderRadius={'60px 60px 0px 0px'}
+                
             >
                 <Text
                     textAlign={'center'}
@@ -105,25 +106,30 @@ export default function FormRegisterUser() {
 
             <Box bgColor={'white.400'} w={'100%'} h={'100%'}>
 
-                <Stepper size='lg' index={activeStep} w={'90%'} m={'auto'}>
+                <Stepper size='lg' index={activeStep} w={'90%'} m={'auto'} color={"red"} >
 
                     {steps.map((step, index) => (
                         <Step key={index} onClick={() => setActiveStep(index)}>
-                            <Box flexShrink='0' maxW={'100px'}>
+                            <Box flexShrink='0' maxW={'100px'} color={"black.400"} >
                                 <StepTitle>{step.title}</StepTitle>
                                 {/* <StepDescription>{step.description}</StepDescription> */}
                             </Box>
+
+
                             <StepIndicator cursor={'pointer'} bg={'cyan.400'} color={'white.400'} fontWeight={'bold'} border={'none'}>
                                 <StepStatus
-                                    complete={<StepIcon bg={'cyan.400'} background={'cyan.400'} />}
+                                    complete={<StepIcon bg={'cyan.400'} background={'cyan.400'} color={"white.400"} />}
                                     incomplete={<StepNumber />}
                                     active={<StepNumber />}
                                 />
                             </StepIndicator>
 
 
-                            <StepSeparator />
-                        </Step>
+                            <StepSeparator sx={{
+                                backgroundColor:
+                                    index < activeStep - 1 ? 'green' : index === activeStep - 1 ? 'cyan.400' : 'gray.500',
+                                }} />
+                            </Step>
                     ))}
 
                 </Stepper>
@@ -133,22 +139,22 @@ export default function FormRegisterUser() {
                         <TabPanels>
                             <TabPanel>
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<FaRegUser />} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
+                                    <FormInput Icon={<FaRegUser />} forceColor={"black.400"} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
 
-                                    <FormInput Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
+                                    <FormInput Icon={<RiLockPasswordLine />} forceColor={"black.400"} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
 
-                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
 
                                 </Flex>
 
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
+                                    <FormInput Icon={<CiCalendarDate />} forceColor={"black.400"} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
 
                                     {/* <FormRadioInput label='Genero' data={GendersOptions} register={register} errors={errors.gender} namebd='gender' /> */}
 
-                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
 
-                                    <FormCheckInput label='Acepto los Terminos y Condiciones' register={register} errors={errors.terms} namebd='terms' />
+                                    <FormCheckInput label='Acepto los Terminos y Condiciones' forceColor={"black.400"} register={register} errors={errors.terms} namebd='terms' />
 
                                 </Flex>
 
@@ -212,7 +218,7 @@ export default function FormRegisterUser() {
                     wrap={"wrap"}
                     gap={{ base: 10, md: 10 }}
                 >
-                    <Text textAlign={'center'}>
+                    <Text textAlign={'center'} color={"black.400"}>
                         ¿Ya tienes una Cuenta?
                         <Link href={"/login"} className=' text-blue-500' > Iniciar Sesión</Link>
                     </Text>

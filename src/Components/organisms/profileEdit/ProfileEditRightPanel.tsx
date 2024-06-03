@@ -1,5 +1,5 @@
 
-import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
+import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { LockKeyhole, MapPin, Rss, User, } from 'lucide-react'
 import EditPersonalData from '../../molecules/profileEdit/EditPersonalData';
@@ -11,7 +11,7 @@ import { UserDefinition } from '@/interfaces/UserDefinition';
 export default function ProfileEditRightPanel({ userData, reload }: { userData:UserDefinition | null , reload:Function}) {
 
     return (
-        <Tabs isFitted variant="enclosed" borderColor={"black"} colorScheme="neon"  >
+        <Tabs isFitted variant="enclosed" borderColor={"cyan.400"} colorScheme="neon"  >
             <TabList mb="1em" fontFamily={"NeutraText-BoldItalic"} overflowX={"auto"} overflowY={"hidden"} >
                 <Tab borderLeftRadius={"none"} _selected={{ color: "white", bg: "#1C7987" }} >
                     <Box mr={{ base: 2, md: 0, xl: 2 }} >

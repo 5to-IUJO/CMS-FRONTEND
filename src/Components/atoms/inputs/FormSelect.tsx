@@ -62,7 +62,7 @@ export default function FormSelect({ Icon, label, table, dependency = null, regi
                     <InputLeftElement pointerEvents='none' pr={5}   >
                         {Icon}
                     </InputLeftElement>
-                    <Select variant={"flushed"} pl={6} color={"gray.600"} fontSize={{ base: "lg", md: "xl" }} borderColor={"#1C7987"}  defaultValue={""}
+                    <Select variant={"flushed"} pl={6} fontSize={{ base: "lg", md: "xl" }} borderColor={"#1C7987"}  defaultValue={""}
                         {...register(namebd, validations)}
                     >
                         <option value="" disabled>Selecciona el {label} </option>

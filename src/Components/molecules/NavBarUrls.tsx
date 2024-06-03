@@ -4,7 +4,7 @@ import { NavLink } from '../atoms/NavLink'
 
 export default function NavBarUrls() {
     return (
-        <HStack spacing={8} alignItems={'center'} textColor={useColorModeValue('#0C0A08', 'white')} >
+        <HStack spacing={8} alignItems={'center'} textColor={useColorModeValue('white.400', 'white.400')} >
             <Box>Logo</Box>
             <HStack
               

@@ -10,7 +10,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es">
 
-      <body className="bg-[#EBEBD3]" >
+      <body  >
         <Box
           fontFamily={"NeutraTextTF-Book"}
         >

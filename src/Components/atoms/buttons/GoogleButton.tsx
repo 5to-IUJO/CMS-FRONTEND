@@ -24,9 +24,11 @@ export default function GoogleButton() {
                 variant={'outline'}
                 leftIcon={<FcGoogle />}
                 onClick={handleGoogleLogin}
+                borderColor={"gray.200"}
+                _hover={{bg:"gray.100"}}
             >
-                <Center>
-                    <Text>Continuar con Google</Text>
+                <Center >
+                    <Text color={"black.400"}>Continuar con Google</Text>
                 </Center>
             </Button>
         </Center>

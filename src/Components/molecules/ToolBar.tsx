@@ -45,15 +45,12 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
     return (
 
 
-        <Flex flexWrap={"wrap"} px={4} py={3} roundedTop={"md"} justifyContent={"between"} alignItems={"start"} gap={5} w={"full"}  bg={"#"} border='1px' borderColor='gray.700'>
+        <Flex flexWrap={"wrap"} px={4} py={3} roundedTop={"md"} justifyContent={"between"} alignItems={"start"} gap={5} w={"full"} bg={"#"} border='1px' borderColor='gray.700'>
 
 
             <Flex flexWrap={"wrap"} justify={"start"} alignItems={"center"} gap={5} w={{ base: "full", lg: "83%" }}>
 
-                <ColorPickerButton
-                    onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
-                    value={editor.getAttributes('textStyle').color}
-                />
+
 
                 <TextSizeButton
                     setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
@@ -142,6 +139,12 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
 
 
 /*
+
+                <ColorPickerButton
+                    onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
+                    value={editor.getAttributes('textStyle').color}
+                />
+
                 <ToolBarButton
                     Icon={List}
                     active={editor.isActive("bulletList")}
