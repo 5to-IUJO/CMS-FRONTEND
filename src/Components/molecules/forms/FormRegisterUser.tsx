@@ -125,9 +125,9 @@ export default function FormRegisterUser() {
                             </StepIndicator>
 
 
-                            <StepSeparator sx={{
+                            <StepSeparator style={{
                                 backgroundColor:
-                                    index < activeStep - 1 ? 'green' : index === activeStep - 1 ? 'cyan.400' : 'gray.500',
+                                    index <= activeStep - 1 ? '#1F93A5' : 'gray',
                                 }} />
                             </Step>
                     ))}

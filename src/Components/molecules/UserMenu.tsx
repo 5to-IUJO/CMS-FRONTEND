@@ -43,7 +43,7 @@ export default function UserMenu() {
                 <Link href={"/profile"}>
                 <MenuItem >Mi Perfil</MenuItem>
                 </Link>
-                <Link href={"/profile-edit"}>
+                <Link href={"/Profile-Edit"}>
                 <MenuItem >Opciones</MenuItem>
                 </Link>
                 <MenuDivider />
