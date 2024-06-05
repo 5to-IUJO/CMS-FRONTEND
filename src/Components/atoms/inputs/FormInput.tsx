@@ -41,7 +41,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                     type={type} variant={"flushed"}
                     pl={6} 
                    
-                    _placeholder={{ color: 'gray.600' }}
+                    _placeholder={{ color: 'gray.500' }}
                     fontSize={{ base: "lg", md: "xl" }}
                     borderColor={"#1F93A5"}
                     {...register(namebd, validations)}

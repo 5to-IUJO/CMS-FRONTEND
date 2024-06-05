@@ -1,6 +1,6 @@
 "use client"
 import { takeScreenshot } from '@/helpers/screenshots'
-import { Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
+import { Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
 
@@ -21,19 +21,22 @@ export default function WebPreview({ isOpen, onClose, url, image, userData }: { 
         })();
 
     }, [isOpen]);
+  
     return (
         <>
 
             <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}>
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent bg={useColorModeValue("white.500","black.300")}>
                     <ModalHeader textAlign={"center"}>Previsualización de la WEB</ModalHeader>
                     <ModalCloseButton />
 
                     <ModalBody>
 
                         <Image src={preview ? preview : process.env.NEXT_PUBLIC_API_URL+"/"+userData?.urlImage} alt='web'></Image>
-
+                        {!preview && !userData?.urlImage &&(
+                            <Text>Sin Imagen</Text>
+                        )}
                     </ModalBody>
 
                     <ModalFooter>

@@ -94,3 +94,15 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #1C7987;
     }
+
+
+    .textBorder {
+      background: linear-gradient(to bottom, #8a2be2, #2196f3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      
+      -webkit-text-stroke: 1px black;
+
+      
+    }

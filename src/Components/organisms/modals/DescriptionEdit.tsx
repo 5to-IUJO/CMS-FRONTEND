@@ -1,5 +1,5 @@
 
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
+import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
 import { TextEditorProfile } from '../profileEdit/TextEditorProfile'
 
@@ -14,7 +14,7 @@ export default function DescriptionEdit({ isOpen, onClose, content, onChange }: 
 
             <Modal isOpen={isOpen} onClose={onClose} size={"3xl"}>
                 <ModalOverlay />
-                <ModalContent >
+                <ModalContent bg={useColorModeValue("white.500","black.300")} >
                     <ModalHeader textAlign={"center"}>Editar Descripción</ModalHeader>
                     <ModalCloseButton />
 

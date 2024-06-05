@@ -62,7 +62,7 @@ export default function Navbar() {
                         mr={4}
                         pl={[5,3]}
                         leftIcon={isLoggin ? <AddIcon/> : <FaRegUser/>}>
-                        <Show above='sm'>
+                        <Show above='sm' >
                             {isLoggin ? "Nuevo Blog" : "Iniciar Sesión"}
                         </Show>
                         

@@ -81,7 +81,7 @@ export const EmailVerification = () => {
             width={"100%"}
             bg={"#141925"}
             justifyContent={"center"}
-            color={"gray.400"}
+            color={"gray.300"}
             alignItems={"center"}
             maxH={"100vh"}
             overflow={"hidden"}

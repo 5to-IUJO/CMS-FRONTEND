@@ -1,7 +1,7 @@
 import ImageFromPC from '@/Components/molecules/ImageFromPC'
 import { obtainToken } from '@/helpers/Cookies';
 import { urlToFileList } from '@/helpers/Images';
-import { Button, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, useDisclosure } from '@chakra-ui/react'
+import { Button, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue, useDisclosure } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -78,7 +78,7 @@ export default function AddImage({ isOpen, onClose, setImage }: { isOpen: boolea
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent bg={useColorModeValue("white.500","black.300")}>
                     <ModalHeader textAlign={"center"}>Nueva Imagen</ModalHeader>
                     <ModalCloseButton />
                     <form >

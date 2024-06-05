@@ -166,7 +166,7 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
 
 
 
-                <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='' type='text' register={register} errors={errors.reference} namebd='reference' />
+                <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='Avenida, Calle...' type='text' register={register} errors={errors.reference} namebd='reference' />
             </Flex>
             <SaveChangesButton disabled={modified} />
             <RestarFormButton restar={() => setResetData(!resetData)} />

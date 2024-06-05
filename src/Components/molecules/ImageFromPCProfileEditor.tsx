@@ -1,6 +1,6 @@
 "use client"
 import { obtainUserData } from '@/helpers/Users';
-import { AbsoluteCenter, Avatar, AvatarBadge, Box, Button, Center, Divider, FormControl, FormLabel, IconButton, Input, Stack, Text, Tooltip, useToast } from '@chakra-ui/react'
+import { AbsoluteCenter, Avatar, AvatarBadge, Box, Button, Center, Divider, FormControl, FormLabel, IconButton, Input, Stack, Text, Tooltip, useColorModeValue, useToast } from '@chakra-ui/react'
 import { Edit2, Save } from 'lucide-react';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -132,10 +132,13 @@ export default function ImageFromPCEditor({ namebd, userData, reload }: FormInpu
                         <Avatar size="2xl" src={preview} bg={"gray"} >
                             <Tooltip label='Cambiar Foto' hasArrow placement='right' >
                                 <AvatarBadge
+                                    
+                                    bg={useColorModeValue("gray.100","darkBlue.400")}
                                     as={IconButton}
                                     size="sm"
                                     rounded="full"
                                     top="-10px"
+                                    _hover={{color:"cyan.400",bg:"gray.300"}}
                                     aria-label="change Image"
                                     icon={<Edit2 />}
                                     onClick={triggerFileInput}
