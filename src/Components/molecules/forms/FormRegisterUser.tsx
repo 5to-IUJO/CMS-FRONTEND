@@ -1,7 +1,7 @@
 "use client"
 import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useSteps } from '@chakra-ui/react'
 import React, { act, useState } from 'react'
-import FormInput from '../../atoms/inputs/FormInput'
+import FormInput from '@/Components/atoms/inputs/FormInput'
 
 import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -9,15 +9,13 @@ import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '../../atoms/inputs/FormRadioInput';
-import FormCheckInput from '../../atoms/inputs/FormCheckInput';
+import FormRadioInput from '@/Components/atoms/inputs/FormRadioInput';
+import FormCheckInput from '@/Components/atoms/inputs/FormCheckInput';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { redirect, useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
-import GoogleButton from '../../atoms/buttons/GoogleButton';
-import ImageFromPC from '../ImageFromPC';
 
 
 const GendersOptions: { value: string, label: string }[] = [

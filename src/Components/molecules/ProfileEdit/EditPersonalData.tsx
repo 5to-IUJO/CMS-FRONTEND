@@ -2,21 +2,21 @@
 
 import { Flex, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import FormInput from '../../atoms/inputs/FormInput'
+import FormInput from '@/Components/atoms/inputs/FormInput'
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '../../atoms/inputs/FormRadioInput';
+import FormRadioInput from '@/Components/atoms/inputs/FormRadioInput';
 import { useForm } from 'react-hook-form';
-import FormCedula from '../../atoms/inputs/FormCedula'
+import FormCedula from '@/Components/atoms/inputs/FormCedula'
 
 import { Flag, } from 'lucide-react'
 import { BsPencil } from 'react-icons/bs'
 import axios from 'axios';
-import SaveChangesButton from '../../atoms/buttons/SaveChangesButton';
-import RestarFormButton from '../../atoms/buttons/RestarFormButton';
-import FormSelectNationalities from '../../atoms/inputs/FormSelectNationalities';
+import SaveChangesButton from '@/Components/atoms/buttons/SaveChangesButton';
+import RestarFormButton from '@/Components/atoms/buttons/RestarFormButton';
+import FormSelectNationalities from '@/Components/atoms/inputs/FormSelectNationalities';
 import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities';
 import { obtainToken } from '@/helpers/Cookies';
 import { UserDefinition } from '@/interfaces/UserDefinition';

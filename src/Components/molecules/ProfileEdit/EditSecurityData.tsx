@@ -1,11 +1,11 @@
 "use client"
 import { Flex, Text, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import FormInput from '../../atoms/inputs/FormInput'
+import FormInput from '@/Components/atoms/inputs/FormInput'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import SaveChangesButton from '../../atoms/buttons/SaveChangesButton'
+import SaveChangesButton from '@/Components/atoms/buttons/SaveChangesButton'
 import { obtainToken } from '@/helpers/Cookies'
 
 export default function EditSecurityData({ reload }: { reload: Function }) {
