@@ -1,6 +1,6 @@
 import React from 'react'
-import ImageFromPCEditor from '@/componentes/molecules/ImageFromPCProfileEditor'
-import Description from '@/componentes/molecules/Description'
+import ImageFromPCEditor from '@/components/molecules/ImageFromPCProfileEditor'
+import Description from '@/components/molecules/Description'
 import { UserDefinition } from '@/interfaces/UserDefinition'
 
 export default function ProfileEditLeftPanel({userData,reload}:{userData:UserDefinition | null, reload:Function}) {

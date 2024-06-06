@@ -1,4 +1,4 @@
-import Navbar from "@/componentes/organisms/Navbar";
+import Navbar from "@/components/organisms/Navbar";
 import { Flex, Spinner } from "@chakra-ui/react";
 
 export default function Loading() {

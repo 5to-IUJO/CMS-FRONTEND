@@ -1,7 +1,7 @@
 "use client"
 import { Button, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
-import FormInput from '@/componentes/atoms/inputs/FormInput'
+import FormInput from '@/components/atoms/inputs/FormInput'
 import { FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
-import GoogleButton from '@/componentes/atoms/buttons/GoogleButton';
+import GoogleButton from '@/components/atoms/buttons/GoogleButton';
 
 export default function FormLogin() {
 

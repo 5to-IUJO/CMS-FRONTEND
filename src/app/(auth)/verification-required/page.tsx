@@ -1,5 +1,5 @@
 
-import { EmailVerificationRequired } from '@/componentes/pages/EmailVerificationRequired'
+import { EmailVerificationRequired } from '@/components/pages/EmailVerificationRequired'
 import React from 'react'
 
 export default function VerificationRequired() {

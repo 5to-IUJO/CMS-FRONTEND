@@ -1,5 +1,5 @@
 "use client"
-import Dashboard from "@/componentes/pages/Dashboard";
+import Dashboard from "@/components/pages/Dashboard";
 import { clearToken } from "@/helpers/Cookies";
 import { obtainUserData } from "@/helpers/Users";
 import { Button } from "@chakra-ui/react";

@@ -1,7 +1,7 @@
 "use client"
 import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useSteps } from '@chakra-ui/react'
 import React, { act, useState } from 'react'
-import FormInput from '@/componentes/atoms/inputs/FormInput'
+import FormInput from '@/components/atoms/inputs/FormInput'
 
 import { FaArrowLeft, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -9,8 +9,8 @@ import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '@/componentes/atoms/inputs/FormRadioInput';
-import FormCheckInput from '@/componentes/atoms/inputs/FormCheckInput';
+import FormRadioInput from '@/components/atoms/inputs/FormRadioInput';
+import FormCheckInput from '@/components/atoms/inputs/FormCheckInput';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';

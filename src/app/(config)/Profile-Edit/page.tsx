@@ -1,4 +1,4 @@
-import ProfileEditPage from '@/componentes/pages/ProfileEditPage'
+import ProfileEditPage from '@/components/pages/ProfileEditPage'
 import React from 'react'
 
 export default function ProfileEdit() {

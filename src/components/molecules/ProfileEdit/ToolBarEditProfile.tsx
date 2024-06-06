@@ -19,9 +19,9 @@ import {
     Image,
 } from "lucide-react"
 import { type Editor } from '@tiptap/react';
-import ToolBarButton from '@/componentes/atoms/buttons/ToolBarButton';
+import ToolBarButton from '@/components/atoms/buttons/ToolBarButton';
 import { Box, Button, Flex, Input, useDisclosure } from '@chakra-ui/react';
-import { TextSizeButton } from '@/componentes/atoms/buttons/TextSizeButton';
+import { TextSizeButton } from '@/components/atoms/buttons/TextSizeButton';
 
 
 interface ToolBarProps {

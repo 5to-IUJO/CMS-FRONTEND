@@ -1,4 +1,4 @@
-import { ChangePasswordPage } from '@/componentes/pages/ChangePasswordPage'
+import { ChangePasswordPage } from '@/components/pages/ChangePasswordPage'
 import React from 'react'
 
 export default function ChangePassword() {

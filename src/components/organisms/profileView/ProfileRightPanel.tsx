@@ -3,7 +3,7 @@ import { Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
 import { UserDefinition } from '@/interfaces/UserDefinition'
-import BlogsBox from '@/componentes/molecules/BlogsBox'
+import BlogsBox from '@/components/molecules/BlogsBox'
 
 
 export default function ProfileRightPanel({ userData }: { userData: UserDefinition | null }) {

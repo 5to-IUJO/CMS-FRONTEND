@@ -1,5 +1,5 @@
 
-import Navbar from "@/componentes/organisms/Navbar";
+import Navbar from "@/components/organisms/Navbar";
 import { Flex, Image, Text } from "@chakra-ui/react";
 
 

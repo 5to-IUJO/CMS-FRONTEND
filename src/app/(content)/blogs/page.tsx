@@ -1,4 +1,4 @@
-import Blogs from '@/componentes/pages/Blogs'
+import Blogs from '@/components/pages/Blogs'
 import React from 'react'
 
 export default function BlogsPage() {

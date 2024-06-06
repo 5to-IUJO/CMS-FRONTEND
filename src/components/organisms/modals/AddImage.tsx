@@ -1,4 +1,4 @@
-import ImageFromPC from '@/componentes/molecules/ImageFromPC'
+import ImageFromPC from '@/components/molecules/ImageFromPC'
 import { obtainToken } from '@/helpers/Cookies';
 import { urlToFileList } from '@/helpers/Images';
 import { Button, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue, useDisclosure } from '@chakra-ui/react'

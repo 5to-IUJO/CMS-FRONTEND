@@ -1,4 +1,4 @@
-import { PasswordRecoverPage } from '@/componentes/pages/PasswordRecoverPage'
+import { PasswordRecoverPage } from '@/components/pages/PasswordRecoverPage'
 import React from 'react'
 
 export default function PasswordRecover() {
