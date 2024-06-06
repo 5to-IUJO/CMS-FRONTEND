@@ -1,4 +1,4 @@
-[build]
+[setup]
 builder = "npm"
 
 [install]
