@@ -11,7 +11,7 @@ import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
 import FontSize from '@/extensions/TipTap/fontSize';
 import { Box } from '@chakra-ui/react';
-import ToolBarEditProfile from '@/components/molecules/profileEdit/ToolBarEditProfile';
+import ToolBarEditProfile from '@/components/molecules/profiledit/ToolBarEditProfile';
 /**
  * Componente para poder utilizar la libreria de TipTap con un editor de texto para el editar perfiles
  * 
