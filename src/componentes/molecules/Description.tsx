@@ -1,9 +1,9 @@
 import { AbsoluteCenter, AvatarBadge, Box, Button, Divider, IconButton, Text, Tooltip, useColorModeValue, useDisclosure, useToast } from '@chakra-ui/react'
 import { Edit2, Save } from 'lucide-react'
 import React, { FormEvent, useEffect, useState } from 'react'
-import DescriptionEdit from '@/Components/organisms/modals/DescriptionEdit'
-import SaveChangesButton from '@/Components/atoms/buttons/SaveChangesButton'
-import RestarFormButton from '@/Components/atoms/buttons/RestarFormButton'
+import DescriptionEdit from '@/componentes/organisms/modals/DescriptionEdit'
+import SaveChangesButton from '@/componentes/atoms/buttons/SaveChangesButton'
+import RestarFormButton from '@/componentes/atoms/buttons/RestarFormButton'
 import axios from 'axios'
 import { obtainToken } from '@/helpers/Cookies'
 

@@ -1,5 +1,5 @@
 
-import GoogleCallback from '@/Components/pages/GoogleCallback';
+import GoogleCallback from '@/componentes/pages/GoogleCallback';
 
 
 export default function AuthCallback() {

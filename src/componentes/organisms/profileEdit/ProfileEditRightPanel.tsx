@@ -2,10 +2,10 @@
 import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { LockKeyhole, MapPin, Rss, User, } from 'lucide-react'
-import EditPersonalData from '@/Components/molecules/profileEdit/EditPersonalData';
-import EditAddressData from '@/Components/molecules/profileEdit/EditAddressData';
-import EditSocialsNetworks from '@/Components/molecules/profileEdit/EditSocialNetworks';
-import EditSecurityData from '@/Components/molecules/profileEdit/EditSecurityData';
+import EditPersonalData from '@/components/molecules/profileEdit/EditPersonalData';
+import EditAddressData from '@/components/molecules/profileEdit/EditAddressData';
+import EditSocialsNetworks from '@/components/molecules/profileEdit/EditSocialNetworks';
+import EditSecurityData from '@/components/molecules/profileEdit/EditSecurityData';
 import { UserDefinition } from '@/interfaces/UserDefinition';
 
 export default function ProfileEditRightPanel({ userData, reload }: { userData:UserDefinition | null , reload:Function}) {

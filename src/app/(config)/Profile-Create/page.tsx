@@ -1,5 +1,5 @@
-import ProfileCreatePage from '@/Components/pages/ProfileCreatePage'
-import ProfileEditPage from '@/Components/pages/ProfileEditPage'
+import ProfileCreatePage from '@/componentes/pages/ProfileCreatePage'
+import ProfileEditPage from '@/componentes/pages/ProfileEditPage'
 import React from 'react'
 
 export default function ProfileCreate() {

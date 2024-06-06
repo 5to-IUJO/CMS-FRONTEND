@@ -1,15 +1,15 @@
 
 import { Flex, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import FormInput from '@/Components/atoms/inputs/FormInput'
+import FormInput from '@/componentes/atoms/inputs/FormInput'
 import { FaRegFlag } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
-import FormSelect from '@/Components/atoms/inputs/FormSelect'
+import FormSelect from '@/componentes/atoms/inputs/FormSelect'
 
 import { IoLocationOutline } from 'react-icons/io5'
 import axios from 'axios';
-import SaveChangesButton from '@/Components/atoms/buttons/SaveChangesButton';
-import RestarFormButton from '@/Components/atoms/buttons/RestarFormButton';
+import SaveChangesButton from '@/componentes/atoms/buttons/SaveChangesButton';
+import RestarFormButton from '@/componentes/atoms/buttons/RestarFormButton';
 import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities';
 import { obtainToken } from '@/helpers/Cookies';
 import { UserDefinition } from '@/interfaces/UserDefinition';
