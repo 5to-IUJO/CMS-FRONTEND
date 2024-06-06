@@ -1,0 +1,11 @@
+[build]
+builder = "npm"
+
+[install]
+command = "npm install"
+
+[build]
+command = "npm run build"
+
+[start]
+command = "npm run start"
