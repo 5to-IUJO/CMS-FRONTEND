@@ -106,3 +106,92 @@
 
       
     }
+
+  .textGlow{
+    text-shadow: 0 0 5px #40a2f1, 0 0 10px #40a2f1;
+  }
+  
+
+  .iconGlow {
+    filter: drop-shadow(0 0 2px #40a2f1) drop-shadow(0 0 2px #40a2f1) ;
+  }
+
+
+
+  .buttonNeon {
+    background: #21ebff;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  .buttonNeon:hover{
+    background: transparent !important;
+    color: #21ebff;
+  }
+  .buttonNeon:before,
+  .buttonNeon:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    background: #1C243C;
+    width:0;
+      box-shadow:  0 0 5px #21ebff,  0 0 5px #21ebff inset;
+    transition:400ms ease all;
+  }
+  .buttonNeon:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .buttonNeon:hover:before,
+  .buttonNeon:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+
+  .buttonNeon2:hover {
+    box-shadow: 0 0 10px #1C7987, 0 0 20px #1C7987 inset;
+ }
+
+
+  .buttonNeon3 {
+    background: transparent !important;
+    z-index: 2;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    border-radius: 0px !important;
+  }
+  .buttonNeon3:hover{
+    background-color: transparent;
+    color: #212738;
+    box-shadow: 0 5px 3px -3px #212738, 0 -5px 3px -3px #212738,
+      0 5px 3px -3px #212738, 0 -5px 3px -3px #212738;
+  }
+  .buttonNeon3:before,
+  .buttonNeon3:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 100%;
+    height: 50%;
+    right: 0;
+    z-index: -1;
+    background: #212738;
+    box-shadow: 0 0 5px #212738;
+    transition: all 0.3s ease;
+  }
+  .buttonNeon3:before {
+    top: 0;
+  }
+  .buttonNeon3:after {
+    bottom: 0;
+  }
+  .buttonNeon3:hover:before,
+  .buttonNeon3:hover:after {
+    height: 0;
+    background-color: #212738;
+  }

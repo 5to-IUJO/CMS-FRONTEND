@@ -15,17 +15,17 @@ export default function ProfileEditRightPanel({ userData, reload }: { userData:U
             <TabList mb="1em" fontFamily={"NeutraText-BoldItalic"} overflowX={"auto"} overflowY={"hidden"} >
                 <Tab borderLeftRadius={"none"} _selected={{ color: "white", bg: "#1C7987" }} >
                     <Box mr={{ base: 2, md: 0, xl: 2 }} >
-                        <User className=" w-4  md:w-8 lg:w-16 " />
+                        <User className=" w-4  md:w-8 lg:w-16 iconGlow" />
                     </Box>
-                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} p={0} m={0}>
+                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} p={0} m={0} className='textGlow'>
                         Datos Personales
                     </Text>
                 </Tab>
-                <Tab _selected={{ color: "white", bg: "#1C7987" }}>
+                <Tab _selected={{ color: "white", bg: "#1C7987" }} >
                     <Box mr={{ base: 2, md: 0, xl: 2 }}   >
-                        <MapPin className=" w-4  md:w-8 xl:w-16 " />
+                        <MapPin className=" w-4  md:w-8 xl:w-16 iconGlow" />
                     </Box>
-                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }}>
+                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} className='textGlow'>
                         Dirección
 
                     </Text>
@@ -33,9 +33,9 @@ export default function ProfileEditRightPanel({ userData, reload }: { userData:U
                 <Tab _selected={{ color: "white", bg: "#1C7987" }}>
 
                     <Box mr={{ base: 2, md: 0, xl: 2 }} >
-                        <Rss className=" w-4  md:w-8 lg:w-16 " />
+                        <Rss className=" w-4  md:w-8 lg:w-16 iconGlow" />
                     </Box>
-                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }}>
+                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} className='textGlow'>
                         Redes Sociales
 
                     </Text>
@@ -44,9 +44,9 @@ export default function ProfileEditRightPanel({ userData, reload }: { userData:U
                 <Tab _selected={{ color: "white", bg: "#1C7987" }}>
 
                     <Box mr={{ base: 2, md: 0, xl: 2 }} >
-                        <LockKeyhole className=" w-4  md:w-8 lg:w-16 " />
+                        <LockKeyhole className=" w-4  md:w-8 lg:w-16 iconGlow" />
                     </Box>
-                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }}>
+                    <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} className='textGlow'>
                         Seguridad
 
                     </Text>

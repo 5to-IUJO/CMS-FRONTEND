@@ -25,7 +25,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
 
     const validations = {
         required: { value: true, message: label + " es requerido" },
-        minLength: { value: 5, message: label + " tiene que tener minimo 5 caracteres" },
+        
         maxLength: { value: 40, message: label + " puede tener máximo 40 caracteres" },
         ...extraValidations
     }

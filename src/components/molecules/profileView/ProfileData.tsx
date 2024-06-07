@@ -32,7 +32,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
             <Box position='relative' padding='8'>
                 <Divider borderColor={"cyan.400"} />
                 <AbsoluteCenter bg={"cyan.400"}px='4' >
-                    <Text fontWeight={"semibold"}color={"white.500"} fontSize={["md", "xl"]}> Perfil de Usuario</Text>
+                    <Text fontWeight={"semibold"}color={"white.500"} fontSize={["md", "xl"]} className='textGlow'> Perfil de Usuario</Text>
                 </AbsoluteCenter>
             </Box>
 
@@ -47,7 +47,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
 
 
                 </Text>
-                <Text fontWeight={"normal"} fontStyle={'italic'} textAlign={"center"} fontSize={["md", "lg"]} > @{userData?.username} </Text>
+                <Text fontWeight={"normal"} fontStyle={'italic'} textAlign={"center"} fontSize={["md", "lg"]} className='textGlow'> @{userData?.username} </Text>
             </Stack>
             <List spacing={3} mt={4} >
                 <ListItem>
@@ -99,7 +99,7 @@ export default function ProfileData({ userData }: { userData: UserDefinition | n
                     <Tooltip label={userData.facebook} hasArrow>
                         <Link href={"https://www.facebook.com/" + userData.facebook}>
 
-                            <Button fontSize={"24px"} _hover={facebookHoverColor} variant={"ghost"}>
+                            <Button fontSize={"24px"} _hover={facebookHoverColor} variant={"ghost"} >
                                 <FaFacebook />
                             </Button>
                         </Link>

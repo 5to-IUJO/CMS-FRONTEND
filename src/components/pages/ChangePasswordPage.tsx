@@ -1,10 +1,10 @@
 "use client"
 import { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Flex, Input, Text, useToast } from '@chakra-ui/react';
+import {  Button, Flex, Text, useToast } from '@chakra-ui/react';
 import FormInput from '../atoms/inputs/FormInput';
 import { useForm } from 'react-hook-form';
-import { EmailIcon } from '@chakra-ui/icons';
+
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RiLockPasswordLine } from 'react-icons/ri';
@@ -12,7 +12,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 export const ChangePasswordPage = () => {
     const toast = useToast(); //Notificaciones de feedback
     const [disable, setDisable] = useState<boolean>(false);
-    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const { handleSubmit, setError, register,getValues, formState: { errors } } = useForm();
     const router = useRouter();
 
@@ -29,7 +29,7 @@ export const ChangePasswordPage = () => {
             setError("confirm_password", { message: "Las Contraseñas no coinciden" });
             return
         }
-
+        setLoading(true)
         axios.post(process.env.NEXT_PUBLIC_API_URL + `/password-reset-confirm/${uid}/${token}/`, data)
             .then(async (response) => {
                 if (response.status === 200) {
@@ -54,6 +54,9 @@ export const ChangePasswordPage = () => {
             }).catch((error) => {
                 console.log(error);
                 setError("email", { message: "Ha Ocurrido un Error, Intente nuevamente" })
+            })
+            .finally(()=>{
+                setLoading(false)
             })
     });
 
@@ -113,6 +116,7 @@ export const ChangePasswordPage = () => {
                     <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Confirme la Contraseña' placeholder='**********' type='password' register={register} errors={errors.confirm_password} namebd='confirm_password' extraValidations={{ minLength: { value: 8, message: "la contraseña tiene que tener minimo 8 caracteres" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, message: "La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
                 </form>
                 <Button
+                    isLoading={loading}
                     rightIcon={<ArrowRight />}
                     boxShadow="md"
                     isDisabled={disable}

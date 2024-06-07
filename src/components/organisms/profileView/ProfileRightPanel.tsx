@@ -10,7 +10,7 @@ export default function ProfileRightPanel({ userData }: { userData: UserDefiniti
 
     return (
         <>
-            <Text textAlign={"center"} fontSize={["lg", "2xl"]} mt={2} fontWeight={"semibold"}>Mis Blogs</Text>
+            <Text textAlign={"center"} fontSize={["lg", "2xl"]} mt={2} fontWeight={"semibold"} className='textGlow'>Mis Blogs</Text>
             <Flex mt={16} justifyContent={"center"} gap={10} flexWrap={"wrap"}   >
                 <BlogsBox/>
                 <BlogsBox/>

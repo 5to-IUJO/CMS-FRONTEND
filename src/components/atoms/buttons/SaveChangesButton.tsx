@@ -4,9 +4,10 @@ import React from 'react'
 /**
  * Boton de Guardar Cambios
  */
-export default function SaveChangesButton({disabled}:{disabled:boolean}) {
+export default function SaveChangesButton({disabled, isLoading = false}:{disabled:boolean, isLoading?:boolean}) {
     return (
         <Button
+            isLoading={isLoading}
             variant={'solid'}
             bgColor={useColorModeValue("black.300","white.500")}
             _hover={{bg:"cyan.400",color:"white.500"}}
@@ -17,7 +18,9 @@ export default function SaveChangesButton({disabled}:{disabled:boolean}) {
             isDisabled={disabled}
             rounded={"4px"}
             type={'submit'}
-            leftIcon={<Save />}>
+            leftIcon={<Save />}
+            className='buttonNeon2'
+            >
             Guardar Cambios
 
         </Button>

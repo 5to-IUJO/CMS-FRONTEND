@@ -21,6 +21,7 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
     const toast = useToast(); //Notificaciones de feedback
     const [modified, setModified] = useState<boolean>(false);
     const [resetData, setResetData] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const allData = watch();
     //UseEffect que rellenar el form con los datos del usuario
     useEffect(() => {
@@ -82,7 +83,7 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
         if (!token)
             return
 
-
+        setLoading(true)
         //Obtener Campos que han sido actualizados
         const updateData = { address: obtainValuesModified(userData.address, data) }
 
@@ -129,6 +130,9 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
                     })
                 }
             })
+            .finally(()=>{
+                setLoading(false)
+            })
     });
 
 
@@ -168,7 +172,7 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
 
                 <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='Avenida, Calle...' type='text' register={register} errors={errors.reference} namebd='reference' />
             </Flex>
-            <SaveChangesButton disabled={modified} />
+            <SaveChangesButton disabled={modified} isLoading={loading} />
             <RestarFormButton restar={() => setResetData(!resetData)} />
         </form>
     )

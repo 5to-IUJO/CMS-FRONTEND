@@ -13,7 +13,7 @@ export const NavLink = ({ children, href }: { children: React.ReactNode, href:st
         textDecoration: 'none',
         bg: "cyan.400",
       }}
-      href={href}>
+      href={href} className='textGlow buttonNeon2'>
       {children}
     </Link>
   );

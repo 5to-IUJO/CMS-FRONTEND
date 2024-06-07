@@ -15,6 +15,7 @@ export default function EditSecurityData({ reload }: { reload: Function }) {
     const allData = watch();
     const [disable, setDisable] = useState<boolean>();
     const [modified, setModified] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
 
     useEffect(() => {
         if (allData.old_password && allData.password && allData.confirm_password)
@@ -36,7 +37,7 @@ export default function EditSecurityData({ reload }: { reload: Function }) {
         if (!token)
             return
 
-
+        setLoading(true)
         //Hacer peticion al backend para actualizar los datos
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/change_password", data, { headers: { Authorization: "Token " + token.value } })
             .then((response) => {
@@ -85,6 +86,10 @@ export default function EditSecurityData({ reload }: { reload: Function }) {
                     })
                 }
             })
+            .finally(()=>{
+                setLoading(false)
+            })
+            
 
 
     });
@@ -119,7 +124,7 @@ export default function EditSecurityData({ reload }: { reload: Function }) {
                 <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Nueva Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' extraValidations={{ minLength: {value:8, message: "la contraseña tiene que tener minimo 8 caracteres"}, pattern:{value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ , message:"La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
                 <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Confirme la Contraseña' placeholder='**********' type='password' register={register} errors={errors.confirm_password} namebd='confirm_password' extraValidations={{ minLength: {value:8, message: "la contraseña tiene que tener minimo 8 caracteres"},  pattern:{value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/ , message:"La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
             </Flex>
-            <SaveChangesButton disabled={modified} />
+            <SaveChangesButton disabled={modified} isLoading={loading} />
 
         </form>
     )

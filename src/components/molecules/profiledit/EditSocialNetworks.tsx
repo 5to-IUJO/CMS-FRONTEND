@@ -23,6 +23,7 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
     const toast = useToast(); //Notificaciones de feedback
     const [modified, setModified] = useState<boolean>(false);
     const [resetData, setResetData] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const allData = watch();
 
     //UseEffect que rellenar el form con los datos del usuario
@@ -61,6 +62,7 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
             return
 
         
+        setLoading(true);
 
         //Obtener Campos que han sido actualizados
         const updateData = obtainValuesModified(userData, data)
@@ -118,6 +120,9 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
                     })
                 }
             })
+            .finally(()=>{
+                setLoading(false)
+            })
     });
 
 
@@ -150,7 +155,7 @@ export default function EditSocialsNetworks({ userData, reload }: { userData: Us
 
             </Flex>
             <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={userData} />
-            <SaveChangesButton disabled={modified} />
+            <SaveChangesButton disabled={modified} isLoading={loading} />
             <RestarFormButton restar={() => setResetData(!resetData)} />
         </form>
     )

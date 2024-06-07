@@ -11,12 +11,12 @@ import { useRouter } from 'next/navigation';
 export const PasswordRecoverPage = () => {
     const toast = useToast(); //Notificaciones de feedback
     const [disable, setDisable] = useState<boolean>(false);
-    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const { handleSubmit, setError, register, formState: { errors } } = useForm();
     const router = useRouter();
 
     const onSubmit = handleSubmit(data => {
-
+        setLoading(true);
         axios.post(process.env.NEXT_PUBLIC_API_URL + '/password-reset/', data)
             .then(async (response) => {
                 if (response.status === 200) {
@@ -47,6 +47,9 @@ export const PasswordRecoverPage = () => {
                     setError("email", { message: "Ha Ocurrido un Error, Intente nuevamente" })
                 }
                
+            })
+            .finally(()=>{
+                setLoading(false)
             })
     });
 
@@ -111,6 +114,7 @@ export const PasswordRecoverPage = () => {
                     <FormInput disable={disable} Icon={<EmailIcon />} label={"Email"} placeholder={"email@example.com"} register={register} errors={errors.email} type='email' namebd='email' />
                 </form>
                 <Button
+                    isLoading={loading}
                     rightIcon={<ArrowRight />}
                     boxShadow="md"
                     isDisabled={disable}

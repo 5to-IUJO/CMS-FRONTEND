@@ -48,3 +48,18 @@ export const obtainValuesModified = (data: Object | null, toModifiedValues: Obje
 
     return modifiedData;
 }
+
+//Funcion que recibe la fecha de nacimiento y valida si es valida en un rago de 0 a 120 años 
+export const validateDateOfBirth = (date:Date) => {
+    const today = new Date();
+    const birthDate = new Date(date);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+   
+    // restar 1 si aun no ha pasado el mes del cumpleaños o si aun no ha pasado el día 
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age >= 0 && age <= 120;
+};

@@ -17,7 +17,7 @@ import axios from 'axios';
 import SaveChangesButton from '@/components/atoms/buttons/SaveChangesButton';
 import RestarFormButton from '@/components/atoms/buttons/RestarFormButton';
 import FormSelectNationalities from '@/components/atoms/inputs/FormSelectNationalities';
-import { equalsObjects, obtainValuesModified } from '@/helpers/Utilities';
+import { equalsObjects, obtainValuesModified, validateDateOfBirth } from '@/helpers/Utilities';
 import { obtainToken } from '@/helpers/Cookies';
 import { UserDefinition } from '@/interfaces/UserDefinition';
 
@@ -28,6 +28,7 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
     const toast = useToast(); //Notificaciones de feedback
     const [modified, setModified] = useState<boolean>(false);
     const [resetData, setResetData] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const gender = watch("gender");
     const allData = watch();
     //UseEffect que rellenar el form con los datos del usuario
@@ -55,8 +56,8 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
             return
 
         //Cambiar la Cedula a Numero y el Genero a String para poder comparar, tambien se agrega la nationality de nuevo para evitar malas comparaciones
-        const userDataToCompare = { ...userData, cedula: parseInt(userData.cedula), gender: userData?.gender?.toString(),}
-        
+        const userDataToCompare = { ...userData, cedula: parseInt(userData.cedula), gender: userData?.gender?.toString(), }
+
         setModified(equalsObjects(userDataToCompare, allData))
 
     }, [userData, allData]);
@@ -72,6 +73,7 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
         if (!token)
             return
 
+        setLoading(true)
         //Cambiar la Cedula a Numero y el Genero a String para poder comparar
         const userDataToCompare = { ...userData, cedula: parseInt(userData.cedula), gender: userData?.gender?.toString() }
 
@@ -102,10 +104,10 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
                 const errorResponse = JSON.parse(error.request.responseText);
                 let errorMessage;
                 // Verifica si el campo "responseText" existe
-                if (errorResponse ) {
+                if (errorResponse) {
                     // Acceder al mensaje de error 
                     errorMessage = errorResponse[Object.keys(errorResponse)[0]]
-    
+
                 }
 
                 //Alerta de Modificacion Incorrecta
@@ -120,6 +122,9 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
                         isClosable: true,
                     })
                 }
+            })
+            .finally(()=>{
+                setLoading(false)
             })
     });
 
@@ -140,7 +145,7 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
                 <FormInput Icon={<FaRegUser />} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
 
                 <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
-                <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
+                <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' extraValidations={{ validate: { validDate: (value:Date) => validateDateOfBirth(value) || ` No es una Fecha Válida de Nacimiento` }}} />
 
 
                 <FormCedula register={register} errors={errors.cedula} errors2={errors.types} />
@@ -148,7 +153,7 @@ export default function EditPersonalData({ userData, reload }: { userData: UserD
                 <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={gender} />
             </Flex>
 
-            <SaveChangesButton disabled={modified} />
+            <SaveChangesButton disabled={modified} isLoading={loading} />
             <RestarFormButton restar={() => setResetData(!resetData)} />
         </form>
     )

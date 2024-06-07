@@ -22,7 +22,7 @@ const theme = extendTheme({
         },
         white: {
             400: "#F8F8F8",
-            500:"#EEEEEE"
+            500:"#e0e0e0"
         },
         gray: {
             400: "#584D4B"

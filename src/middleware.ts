@@ -22,7 +22,7 @@ export default async function middleware(req: NextRequest) {
 	
 
   	// Redireccionar al /login si el usuario no está autenticado con un Token o si el Token es incorrecto
-  	if ((isProtectedRoute || isEmailVerifiedRoute) &&  (await obtainUserData()).resp === false)  {
+  	if ((isProtectedRoute || isEmailVerifiedRoute) &&  (await obtainUserData()).resp === false && !isEmailVerifiedRoute)   {
   		return NextResponse.redirect(new URL("/login", req.nextUrl));
   	} 
   	// Redireccionar al Dashboard si el Usuario ya está autenticado y el Token es Correcto

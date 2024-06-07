@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Box, Button, Flex, Image, Input, Text, useToast } from '@chakra-ui/react';
-import { ArrowLeft, ArrowRight} from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { clearToken } from '@/helpers/Cookies';
 import { obtainUserData } from '@/helpers/Users';
@@ -10,14 +10,15 @@ import { obtainUserData } from '@/helpers/Users';
 export const EmailVerificationRequired = () => {
     const toast = useToast(); //Notificaciones de feedback
     const [disable, setDisable] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false); //Loading para indicar que se esta realizando el guardado
     const router = useRouter();
 
-    const resendEmail = async () =>{
-        const {data} = await obtainUserData()
-       
-        if(!data)
-            return
+    const resendEmail = async () => {
+        const { data } = await obtainUserData()
 
+        if (!data)
+            return
+        setLoading(true);
         axios.post(process.env.NEXT_PUBLIC_API_URL + '/resend-verification-email/', data)
             .then(async (response) => {
                 if (response.status === 200) {
@@ -42,21 +43,24 @@ export const EmailVerificationRequired = () => {
             }).catch((error) => {
                 console.log(error);
                 if (!toast.isActive("data-update")) {
-                  toast({
-                      id: "data-update",
-                      status: "error",
-                      title: 'Verificación de Cuenta',
-                      description: "Ha Ocurrido un Error, Intente Nuevamente",
-                      position: "top",
-                      duration: 5000,
-                      isClosable: true,
-                  })
-              }
-               
+                    toast({
+                        id: "data-update",
+                        status: "error",
+                        title: 'Verificación de Cuenta',
+                        description: "Ha Ocurrido un Error, Intente Nuevamente",
+                        position: "top",
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                }
+
+            })
+            .finally(()=>{
+                setLoading(false)
             })
     }
 
-   
+
 
     return (
         <Flex
@@ -118,18 +122,19 @@ export const EmailVerificationRequired = () => {
                 <Text textAlign={"center"}>
                     ¿Problemas al Encontrar el Correo?
                     <Button
-                    ml={2}
-                    isDisabled={disable}
-                    color={"#F8F8F8"}
+                        isLoading={loading}
+                        ml={2}
+                        isDisabled={disable}
+                        color={"#F8F8F8"}
 
-                    onClick={resendEmail}
-                    variant={"link"}
-                    type="button">
-                    Volver a Enviar Correo
-                </Button>
+                        onClick={resendEmail}
+                        variant={"link"}
+                        type="button">
+                        Volver a Enviar Correo
+                    </Button>
 
                 </Text>
-                
+
             </Flex>
 
 

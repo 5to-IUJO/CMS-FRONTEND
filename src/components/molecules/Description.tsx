@@ -87,7 +87,7 @@ export default function Description({ userData, reload }: { userData: UserDefini
                 <Box position='relative' padding='6'>
                     <Divider borderColor={"cyan.400"} />
                     <AbsoluteCenter bg={"cyan.400"} px='4' >
-                        <Text fontWeight={"semibold"} color={"white.500"} fontSize={["md", "xl"]}> Mi Descripción</Text>
+                        <Text fontWeight={"semibold"} color={"white.500"} fontSize={["md", "xl"]} className='textGlow'> Mi Descripción</Text>
                     </AbsoluteCenter>
                 </Box>
 

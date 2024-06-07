@@ -50,19 +50,23 @@ export default function Navbar() {
 
                 <Flex alignItems={'center'}>
                     <Link
-                    href={isLoggin ? "/dashboard" : "/login"}
+                    href={isLoggin ? "/dashboard" : "/login"} 
+                
                     >
                     <Button
-                        variant={'solid'}
+                        variant={'ghost'}
                         bg={"#1C7987"}
                         colorScheme={'blue'}
                         color={"white.500"}
                         size={'sm'}
-                        _hover={{bg:"blue.600"}}
+                      
                         mr={4}
                         pl={[5,3]}
-                        leftIcon={isLoggin ? <AddIcon/> : <FaRegUser/>}>
-                        <Show above='sm' >
+                        leftIcon={isLoggin ? <AddIcon className='iconGlow'/> : <FaRegUser className='iconGlow'/>}
+                        className='buttonNeon textGlow'
+                        
+                        >
+                        <Show above='sm'  >
                             {isLoggin ? "Nuevo Blog" : "Iniciar Sesión"}
                         </Show>
                         
