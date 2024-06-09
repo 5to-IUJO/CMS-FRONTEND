@@ -9,9 +9,9 @@ export default function NavBarUrls() {
             <Link href={"/dashboard"}>
                 <Flex alignItems={"center"} justifyContent={"center"}>
 
-                    <Image src={"/images/Logo2.png"} alt='Vg-Blogs Logo' w={20} h={14} />
+                    <Image src={"/images/Logo2.png"} alt='Vg-Blogs Logo' className='iconGlowHover' w={20} h={14} />
         
-                    <Image src={"/images/Logo Texto.png"} alt='Vg-Blogs Logo' w={40} h={12} mt={"-2"}   display={{ base: 'none', md: 'flex' }} />
+                    <Image src={"/images/Logo Texto.png"} alt='Vg-Blogs Logo' className='iconGlowHover' w={40} h={12} mt={"-2"}   display={{ base: 'none', md: 'flex' }} />
                 </Flex>
             </Link>
             <HStack

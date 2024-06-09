@@ -116,6 +116,14 @@
     filter: drop-shadow(0 0 2px #40a2f1) drop-shadow(0 0 2px #40a2f1) ;
   }
 
+  .iconGlowHover{
+    transition:400ms ease all;
+  }
+
+  .iconGlowHover:hover {
+    filter: drop-shadow(0 0 2px #1C7987) drop-shadow(0 0 2px #1C7987) ;
+  }
+
 
 
   .buttonNeon {
