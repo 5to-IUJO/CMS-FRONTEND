@@ -24,6 +24,7 @@ import { BsTwitterX } from 'react-icons/bs';
 import { TextEditorRegister } from '@/components/organisms/TextEditorRegister';
 import FormRadioInput from '@/components/atoms/inputs/FormRadioInput';
 import WebPreview from '@/components/organisms/modals/WebPreview';
+import ImageFromPC from '../ImageFromPC';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -40,6 +41,12 @@ export default function FormRegisterUser() {
     const gender = watch("gender");
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
+
+        if (getValues("password") !== getValues("confirm_password")) {
+            setError("confirm_password", { message: "Las Contraseñas no coinciden" });
+            return
+        }
+
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
         if (data.profile_image[0])
@@ -54,7 +61,7 @@ export default function FormRegisterUser() {
         formData.append("email", data.email);
         formData.append("date_of_birth", data.date_of_birth);
         formData.append("nationality", data.nationality);
-        formData.append("gender", data.gender?.toString());
+        formData.append("gender", data.gender);
         formData.append("country", data.country);
         formData.append("state", data.state);
         formData.append("city", data.city);
@@ -65,6 +72,8 @@ export default function FormRegisterUser() {
         formData.append("x", data.x);
         formData.append("tiktok", data.tiktok);
         formData.append("url", data.url);
+        formData.append("urlImage", data.urlImage);
+        formData.append("description", content);
         formData.append("password", data.password);
         formData.append("confirm_password", data.confirm_password);
         formData.append("cedula", data.cedula);
@@ -239,7 +248,7 @@ export default function FormRegisterUser() {
 
                                 <Flex justifyContent={'space-around'} mt={'20px'}>
 
-                                    <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={gender} />
+                                    <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={" "} />
 
                                 </Flex>
                             </TabPanel>
@@ -296,47 +305,14 @@ export default function FormRegisterUser() {
                                         </Tooltip>
                                     </Box>
 
-                                    <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={{url: 'https://www.youtube.com/', urlImage: ''}} />
+                                    <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={{ url: 'https://www.youtube.com/', urlImage: '' }} />
                                 </Flex>
                             </TabPanel>
 
                             <TabPanel>
                                 <Flex w={'100%'}>
 
-                                    <Flex w={'100%'} justifyContent={'center'} alignItems={'space-around'} flexDir={'column'}>
-                                        <Box position='relative' padding='8'>
-                                            <AbsoluteCenter  px='4' >
-                                                <Text fontWeight={"semibold"} color={"black.400"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
-                                            </AbsoluteCenter>
-                                        </Box>
-
-
-                                        <Stack direction={['column', 'column']} spacing={6} mt={5}>
-                                            <Center>
-                                                <Avatar size="2xl" bg={"gray"} >
-                                                    <Tooltip label='Cambiar Foto' hasArrow placement='right' >
-                                                        <AvatarBadge
-
-                                                            bg={useColorModeValue("gray.100", "darkBlue.400")}
-                                                            as={IconButton}
-                                                            size="sm"
-                                                            rounded="full"
-                                                            top="-10px"
-                                                            _hover={{ color: "cyan.400", bg: "gray.300" }}
-                                                            aria-label="change Image"
-                                                            icon={<Edit2 />}
-                                                            onClick={triggerFileInput}
-
-                                                        />
-                                                    </Tooltip>
-                                                </Avatar>
-                                            </Center>
-                                        </Stack>
-
-
-
-
-                                    </Flex>
+                                    <ImageFromPC register={register} namebd={"profile_image"} label="Foto de Perfil" getValues={getValues} setValue={setValue} />
 
                                     <TextEditorRegister
                                         onChange={(newContent: string) => handleContentChange(newContent)}
