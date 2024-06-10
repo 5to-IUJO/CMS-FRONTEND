@@ -11,7 +11,9 @@ import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
 import FontSize from '@/extensions/TipTap/fontSize';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
+import ToolBarEditProfile from '../molecules/profiledit/ToolBarEditProfile';
+import ToolBarCreateDescription from '../molecules/ToolBarCreateDescription';
 /**
  * Componente para poder utilizar la libreria de TipTap con un editor de texto
  * 
@@ -45,9 +47,9 @@ export const TextEditorRegister = ({ onChange, content }: {onChange: Function, c
 
     return (
 
-        <Box  w={"full"} maxW={{base:"full",md:"60%", xl:"60%", "2xl":"40vw"}} maxH={'240px'} overflow={'scroll'}  px={4}>
-            
-            <ToolBar editor={editor} content={content}/>
+        <Box  w={"full"} maxW={{base:"full",md:"60%", xl:"60%", "2xl":"40vw"}} maxH={'240px'} overflowY={"scroll"}   px={4}>
+            <Text textAlign={"center"} fontSize={{ base: "sm", md: 'lg', xl: "xl" }} mb={2}>Descripción</Text>
+            <ToolBarCreateDescription editor={editor} content={content}/>
             <EditorContent style={{whiteSpace:"pre-line"}} editor={editor} />
         </Box>
 

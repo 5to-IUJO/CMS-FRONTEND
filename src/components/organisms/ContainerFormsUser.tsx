@@ -26,7 +26,7 @@ export const ContainerFormsUser = ({ children }: Readonly<{ children: React.Reac
 
             <Flex
                 minW={'80%'}
-                h={'600px'}
+                h={'650px'}
                 border={'20px solid #fff'}
                 borderRadius={'90px'}
                 overflow={'hidden'}

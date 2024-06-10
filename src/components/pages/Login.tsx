@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading, Show } from '@chakra-ui/react'
 
 
 import { ContainerFormsUser } from '../organisms/ContainerFormsUser';
@@ -9,27 +9,27 @@ import FormLogin from '../molecules/forms/FormLogin';
 export default function Login() {
     return (
         <ContainerFormsUser>
-
-            <Flex
-                justifyContent={'center'}
-                alignItems={'center'}
-                w={'45%'}
-                color={'white.400'}
-                flexDir={'column'}
-            >
-                <Heading as={'h1'} fontSize={'42px'} textAlign={'center'}>
-                    Bienvenido Blogger
-                </Heading>
-                <Heading as={'h1'} fontSize={'34px'} textAlign={'center'}>
-                    Comienza a contarnos tu gran noticia!
-                </Heading>
-            </Flex>
-
+            <Show above='md'>
+                <Flex
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    w={'45%'}
+                    color={'white.400'}
+                    flexDir={'column'}
+                >
+                    <Heading as={'h1'} fontSize={'42px'} textAlign={'center'}>
+                        Bienvenido Blogger
+                    </Heading>
+                    <Heading as={'h1'} fontSize={'34px'} textAlign={'center'}>
+                        Comienza a contarnos tu gran noticia!
+                    </Heading>
+                </Flex>
+            </Show>
             {/* Container FormLogin */}
             <Flex
                 position={'absolute'}
                 zIndex={2}
-                w={'50%'}
+                w={{base:"100%",md:'50%'}}
                 h={"full"}
                 right={0}
                 bg={'#fff'}
