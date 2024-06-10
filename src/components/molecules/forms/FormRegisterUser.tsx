@@ -41,17 +41,26 @@ export default function FormRegisterUser() {
     const gender = watch("gender");
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
-
+      
         if (getValues("password") !== getValues("confirm_password")) {
             setError("confirm_password", { message: "Las Contraseñas no coinciden" });
             return
+        }
+
+        const address = {
+            country: data.country,
+            state: data.state,
+            city: data.city,
+            municipality: data.municipality,
+            parish: data.parish,
+            reference: data.reference
         }
 
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
         if (data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
-
+        
         formData.append("username", data.username);
         formData.append("first_name", data.first_name);
         formData.append("second_name", data.second_name);
@@ -61,24 +70,19 @@ export default function FormRegisterUser() {
         formData.append("email", data.email);
         formData.append("date_of_birth", data.date_of_birth);
         formData.append("nationality", data.nationality);
-        formData.append("gender", data.gender);
-        formData.append("country", data.country);
-        formData.append("state", data.state);
-        formData.append("city", data.city);
-        formData.append("municipality", data.municipality);
-        formData.append("parish", data.parish);
-        formData.append("reference", data.reference);
+        formData.append("address", JSON.stringify(address));
         formData.append("facebook", data.facebook);
         formData.append("x", data.x);
         formData.append("tiktok", data.tiktok);
         formData.append("url", data.url);
-        formData.append("urlImage", data.urlImage);
-        formData.append("description", content);
         formData.append("password", data.password);
         formData.append("confirm_password", data.confirm_password);
         formData.append("cedula", data.cedula);
         formData.append("type", data.type);
         formData.append("terms", data.terms);
+        formData.append("description", content);
+        formData.append("urlImage", data.urlImage);
+
 
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/register", formData)
             .then(async (response) => {
@@ -293,7 +297,7 @@ export default function FormRegisterUser() {
                                 <Flex justifyContent={'space-around'} mt={'20px'}>
 
                                     <FormInput Icon={<FaTiktok />} label='TikTok' placeholder='@usuario' type='text' register={register} errors={errors.tiktok} namebd='tiktok' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Tiktok tiene que tener minimo 2 caracteres" }, required: false }} />
-
+                                    <Flex>
                                     <FormInput Icon={<FaInternetExplorer />} label='Página WEB' placeholder='https://mipaginaweb.com' type='url' register={register} errors={errors.url} namebd='url' extraValidations={{ pattern: { value: /^https:\/\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]+$/, message: "Es Obligatorio que la url sea HTTPS:// y que tenga al menos 1 caracter despues del //" }, minLength: { value: 9, message: "URL Invalida" }, required: false }} />
                                     <Box alignContent={"center"} justifyContent={"center"} mt={8}>
                                         <Tooltip label="Vista Previa de la Página WEB">
@@ -304,8 +308,8 @@ export default function FormRegisterUser() {
 
                                         </Tooltip>
                                     </Box>
-
-                                    <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={{ url: 'https://www.youtube.com/', urlImage: '' }} />
+                                    </Flex>
+                                    <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={{ url: '', urlImage: '' }} />
                                 </Flex>
                             </TabPanel>
 
