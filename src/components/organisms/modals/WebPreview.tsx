@@ -12,14 +12,13 @@ export default function WebPreview({ isOpen, onClose, url, image, userData }: { 
     useEffect(() => {
         const handler = setTimeout(() => {
             (async () => {
-                if (url && url != userData?.url && url.startsWith("https://")) {
-                    let { imageFile, imageUrl }: any = await takeScreenshot(url)
-                    setPreview(imageUrl)
-                    image("urlImage", imageFile)
-
+                if (url && url !== userData?.url && url.startsWith("https://")) {
+                    let { imageFile, imageUrl }: any = await takeScreenshot(url);
+                    setPreview(imageUrl);
+                    image("urlImage", imageFile);
                 }
             })();
-        }, 500)
+        }, 500);
 
         return () => clearTimeout(handler);
     }, [isOpen, url]);
