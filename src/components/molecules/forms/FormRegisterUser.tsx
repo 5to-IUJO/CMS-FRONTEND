@@ -43,7 +43,6 @@ export default function FormRegisterUser() {
     const onSubmit = handleSubmit(async data => {
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
-
         if (data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
 
@@ -294,7 +293,7 @@ export default function FormRegisterUser() {
 
                                     <Flex w={'100%'} justifyContent={'center'} alignItems={'space-around'} flexDir={'column'}>
                                         <Box position='relative' padding='8'>
-                                            <AbsoluteCenter px='4' >
+                                            <AbsoluteCenter  px='4' >
                                                 <Text fontWeight={"semibold"} color={"black.400"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
                                             </AbsoluteCenter>
                                         </Box>
@@ -302,9 +301,10 @@ export default function FormRegisterUser() {
 
                                         <Stack direction={['column', 'column']} spacing={6} mt={5}>
                                             <Center>
-                                                <Avatar src={preview} size="2xl" bg={"gray"} >
+                                                <Avatar size="2xl" bg={"gray"} >
                                                     <Tooltip label='Cambiar Foto' hasArrow placement='right' >
                                                         <AvatarBadge
+
                                                             bg={useColorModeValue("gray.100", "darkBlue.400")}
                                                             as={IconButton}
                                                             size="sm"
@@ -314,18 +314,10 @@ export default function FormRegisterUser() {
                                                             aria-label="change Image"
                                                             icon={<Edit2 />}
                                                             onClick={triggerFileInput}
+
                                                         />
                                                     </Tooltip>
                                                 </Avatar>
-
-                                                <Input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    variant="outline"
-                                                    hidden
-                                                    ref={inputFileRef}
-
-                                                />
                                             </Center>
                                         </Stack>
 

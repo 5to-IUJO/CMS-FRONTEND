@@ -52,8 +52,11 @@ export default function ImageFromPC({register, namebd,label, getValues, setValue
                 <Center w="full">
 
                     <Button
+                        bg={"cyan.400"}
+                        colorScheme={"blue"}
+                        textColor={"black.500"}
                         as={FormLabel}
-                        w="full">
+                        w="50%">
                         {preview != "" ? "Cambiar "+label : "Agregar "+label}
                     </Button  >
                     <Input
