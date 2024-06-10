@@ -34,7 +34,6 @@ const GendersOptions: { value: string, label: string }[] = [
 
 export default function FormRegisterUser() {
 
-    const [step, setStep] = useState(1);
     const { handleSubmit, register, setError, getValues, setValue, watch, formState: { errors }, resetField } = useForm();
     const router = useRouter();
     const allData = watch();
@@ -51,11 +50,23 @@ export default function FormRegisterUser() {
         formData.append("second_name", data.second_name);
         formData.append("last_name", data.last_name);
         formData.append("second_last_name", data.second_last_name);
+        formData.append("username", data.username);
         formData.append("email", data.email);
-        formData.append("password", data.password);
         formData.append("date_of_birth", data.date_of_birth);
         formData.append("nationality", data.nationality);
         formData.append("gender", data.gender?.toString());
+        formData.append("country", data.country);
+        formData.append("state", data.state);
+        formData.append("city", data.city);
+        formData.append("municipality", data.municipality);
+        formData.append("parish", data.parish);
+        formData.append("reference", data.reference);
+        formData.append("facebook", data.facebook);
+        formData.append("x", data.x);
+        formData.append("tiktok", data.tiktok);
+        formData.append("url", data.url);
+        formData.append("password", data.password);
+        formData.append("confirm_password", data.confirm_password);
         formData.append("cedula", data.cedula);
         formData.append("type", data.type);
         formData.append("terms", data.terms);
@@ -265,6 +276,7 @@ export default function FormRegisterUser() {
                                 <Flex justifyContent={'space-around'}>
                                     <FormInput Icon={<FaFacebook />} label='Facebook' placeholder='usuario' type='text' register={register} errors={errors.facebook} namebd='facebook' extraValidations={{ minLength: { value: 5, message: "El Facebook tiene que tener minimo 2 caracteres" }, required: false }} />
                                     <FormInput Icon={<FaInstagram />} label='Instagram' placeholder='@usuario' type='text' register={register} errors={errors.instagram} namebd='instagram' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Instragram tiene que tener minimo 2 caracteres" }, required: false }} />
+
                                     <FormInput Icon={<BsTwitterX />} label='X' placeholder='@usuario' type='text' register={register} errors={errors.x} namebd='x' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El usuario de X tiene que tener minimo 2 caracteres" }, required: false }} />
 
                                 </Flex>
@@ -323,7 +335,6 @@ export default function FormRegisterUser() {
 
 
 
-                                        {/* <Description userData={null} reload={reloadData} /> */}
 
                                     </Flex>
 
