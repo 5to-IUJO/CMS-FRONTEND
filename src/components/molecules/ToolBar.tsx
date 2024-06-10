@@ -45,7 +45,7 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
     return (
 
 
-        <Flex flexWrap={"wrap"} px={4} py={3} roundedTop={"md"} justifyContent={"between"} alignItems={"start"} gap={5} w={"full"} bg={"#"} border='1px' borderColor='gray.700'>
+        <Flex flexWrap={"wrap"} px={4} py={3} roundedTop={"md"} justifyContent={"between"} alignItems={"start"} gap={5} w={"full"} bg={"#"} border='1px' borderColor='gray.700' bgColor={'gray'}>
 
 
             <Flex flexWrap={"wrap"} justify={"start"} alignItems={"center"} gap={5} w={{ base: "full", lg: "83%" }}>

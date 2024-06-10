@@ -203,3 +203,7 @@
     height: 0;
     background-color: #212738;
   }
+
+  .obligatory {
+    color: red;
+  }

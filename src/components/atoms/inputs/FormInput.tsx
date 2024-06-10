@@ -13,6 +13,7 @@ interface FormInputProps {
     extraValidations?: {} | null,
     disable?:boolean
     forceColor?: string
+    obligatory?: boolean
 }
 
 
@@ -21,7 +22,7 @@ interface FormInputProps {
  * Componente para Reutilizar input generico en el Login & Register
  * @returns 
  */
-export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false, forceColor = undefined }: FormInputProps) {
+export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false, forceColor = undefined, obligatory = false }: FormInputProps) {
 
     const validations = {
         required: { value: true, message: label + " es requerido" },
@@ -31,7 +32,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
     }
     return (
         <Box w={{base:"100%",md:"250px"}} maxW={'250px'} color={forceColor ? forceColor : ""}>
-            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label} <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
             <InputGroup >
                 <InputLeftElement pointerEvents='none' pr={5}   >
                     {Icon}

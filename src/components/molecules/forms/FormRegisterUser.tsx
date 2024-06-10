@@ -1,6 +1,6 @@
 "use client"
-import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useDisclosure, useSteps } from '@chakra-ui/react'
-import React, { act, useState } from 'react'
+import { AbsoluteCenter, Avatar, AvatarBadge, Box, Button, Center, Divider, Flex, IconButton, Input, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useColorModeValue, useDisclosure, useSteps } from '@chakra-ui/react'
+import React, { act, useRef, useState } from 'react'
 import FormInput from '@/components/atoms/inputs/FormInput'
 
 import { FaArrowLeft, FaFacebook, FaInstagram, FaInternetExplorer, FaRegFlag, FaRegUser, FaTiktok } from "react-icons/fa";
@@ -9,8 +9,6 @@ import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiCalendarDate } from "react-icons/ci";
 
-import FormRadioInput from '@/components/atoms/inputs/FormRadioInput';
-import FormCheckInput from '@/components/atoms/inputs/FormCheckInput';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -19,10 +17,11 @@ import { saveToken } from '@/helpers/Cookies';
 import { validateDateOfBirth } from '@/helpers/Utilities';
 import FormCedula from '@/components/atoms/inputs/FormCedula';
 import FormSelectNationalities from '@/components/atoms/inputs/FormSelectNationalities';
-import { EyeIcon, Flag } from 'lucide-react';
+import { Edit2, EyeIcon, Flag } from 'lucide-react';
 import { IoLocationOutline } from 'react-icons/io5';
 import FormSelect from '@/components/atoms/inputs/FormSelect';
 import { BsTwitterX } from 'react-icons/bs';
+import { TextEditorRegister } from '@/components/organisms/TextEditorRegister';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -34,8 +33,9 @@ const GendersOptions: { value: string, label: string }[] = [
 export default function FormRegisterUser() {
 
     const [step, setStep] = useState(1);
-    const { handleSubmit, register, setError, getValues, setValue, formState: { errors }, resetField } = useForm();
+    const { handleSubmit, register, setError, getValues, setValue, watch, formState: { errors }, resetField } = useForm();
     const router = useRouter();
+    const allData = watch();
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
         if (step === 1) {
@@ -78,16 +78,18 @@ export default function FormRegisterUser() {
             })
     });
 
+    // Indice de Pasos del Formulario 
     const steps = [
         { title: 'Datos Personales' },
         { title: 'Datos Legales' },
         { title: 'Direccion' },
         { title: 'Redes Sociales' },
+        { title: 'Perfil' },
         { title: 'Seguridad' },
     ]
 
     const { activeStep, setActiveStep } = useSteps({
-        index: 1,
+        index: 0,
         count: steps.length,
     })
 
@@ -122,7 +124,22 @@ export default function FormRegisterUser() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [disable, setDisable] = useState<boolean>();
+    const [reload, setReload] = useState<boolean>(false);
 
+    const reloadData = () => {
+        setReload(!reload)
+    }
+    const inputFileRef = useRef<HTMLInputElement | null>(null);
+
+    const triggerFileInput = () => {
+        inputFileRef.current?.click();
+    };
+
+    const [content, setContent] = useState<string>("");
+
+    const handleContentChange = (reason: any) => {
+        setContent(reason);
+    }
 
     return (
         <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} w={'100%'} color={"black.400"}>
@@ -181,29 +198,29 @@ export default function FormRegisterUser() {
                         <TabPanels>
                             <TabPanel>
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<FaRegUser />} forceColor={"black.400"} label='Primer Nombre' placeholder='José' type='text' register={register} errors={errors.first_name} namebd='first_name' />
+                                    <FormInput Icon={<FaRegUser />} forceColor={"black.400"} label='Primer Nombre' placeholder='José' type='text' register={register} errors={errors.first_name} namebd='first_name' obligatory={true} />
 
                                     <FormInput Icon={<RiLockPasswordLine />} forceColor={"black.400"} label='Segundo Nombre' placeholder='Miguel' type='text' register={register} errors={errors.second_name} namebd='second_name' extraValidations={{ required: false }} />
 
-                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Apellido' placeholder='Díaz' type='text' register={register} errors={errors.last_name} namebd='last_name' />
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Apellido' placeholder='Díaz' type='text' register={register} errors={errors.last_name} namebd='last_name' obligatory={true} />
 
                                 </Flex>
 
                                 <Flex justifyContent={'space-around'} mt={'20px'}>
                                     <FormInput Icon={<CiCalendarDate />} forceColor={"black.400"} label='Segundo Apellido' placeholder='Cruz' type='text' register={register} errors={errors.second_last_name} namebd='second_last_name' extraValidations={{ required: false }} />
 
-                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' obligatory={true} />
 
-                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' obligatory={true} />
                                 </Flex>
 
                             </TabPanel>
 
                             <TabPanel>
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' extraValidations={{ validate: { validDate: (value: Date) => validateDateOfBirth(value) || ` No es una Fecha Válida de Nacimiento` } }} />
+                                    <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' extraValidations={{ validate: { validDate: (value: Date) => validateDateOfBirth(value) || ` No es una Fecha Válida de Nacimiento` } }} obligatory={true} />
 
-                                    <FormCedula register={register} errors={errors.cedula} errors2={errors.types} />
+                                    <FormCedula register={register} errors={errors.cedula} errors2={errors.types} obligatory={true} />
 
                                     <FormSelectNationalities Icon={<Flag />} label='Nacionalidad' table='nationality' register={register} errors={errors.nationality} namebd='nationality' setValues={setValue} />
 
@@ -221,11 +238,11 @@ export default function FormRegisterUser() {
                                 <Flex justifyContent={'space-around'}>
                                     <FormSelect Icon={<FaRegFlag />} label='País' table='countries' register={register} errors={errors.country} namebd='country' onChange={handleSelectChange} setValues={setValue} />
 
-                                    {getValues("country") && (
-                                        <FormSelect Icon={<IoLocationOutline />} label='Estado' table='states' register={register} errors={errors.state} namebd='state' dependency={getValues("country")} onChange={handleSelectChange} setValues={setValue} />
+                                    {allData.country && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Estado' table='states' register={register} errors={errors.state} namebd='state' dependency={allData.country} onChange={handleSelectChange} setValues={setValue} />
                                     )}
-                                    {getValues("state") && (
-                                        <FormSelect Icon={<IoLocationOutline />} label='Ciudad' table='cities' register={register} errors={errors.city} namebd='city' dependency={getValues("state")} onChange={handleSelectChange} setValues={setValue} />
+                                    {allData.state && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Ciudad' table='cities' register={register} errors={errors.city} namebd='city' dependency={allData.state} onChange={handleSelectChange} setValues={setValue} />
 
                                     )}
 
@@ -233,12 +250,12 @@ export default function FormRegisterUser() {
                                 </Flex>
 
                                 <Flex justifyContent={'space-around'} mt={'20px'}>
-                                    {getValues("city") && (
-                                        <FormSelect Icon={<IoLocationOutline />} label='Municipio' table='municipalities' register={register} errors={errors.municipality} namebd='municipality' dependency={getValues("city")} onChange={handleSelectChange} setValues={setValue} />
+                                    {allData.city && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Municipio' table='municipalities' register={register} errors={errors.municipality} namebd='municipality' dependency={allData.city} onChange={handleSelectChange} setValues={setValue} />
                                     )}
-                                    {getValues("municipality") && (
+                                    {allData.municipality && (
 
-                                        <FormSelect Icon={<IoLocationOutline />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={getValues("municipality")} onChange={handleSelectChange} setValues={setValue} />
+                                        <FormSelect Icon={<IoLocationOutline />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={allData.municipality} onChange={handleSelectChange} setValues={setValue} />
                                     )}
 
                                     <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='Avenida, Calle...' type='text' register={register} errors={errors.reference} namebd='reference' />
@@ -271,6 +288,52 @@ export default function FormRegisterUser() {
                             </TabPanel>
 
                             <TabPanel>
+                                <Flex w={'100%'}>
+
+                                    <Flex w={'100%'} justifyContent={'center'} alignItems={'space-around'} flexDir={'column'}>
+                                        <Box position='relative' padding='8'>
+                                            <AbsoluteCenter  px='4' >
+                                                <Text fontWeight={"semibold"} color={"black.400"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
+                                            </AbsoluteCenter>
+                                        </Box>
+
+
+                                        <Stack direction={['column', 'column']} spacing={6} mt={5}>
+                                            <Center>
+                                                <Avatar size="2xl" bg={"gray"} >
+                                                    <Tooltip label='Cambiar Foto' hasArrow placement='right' >
+                                                        <AvatarBadge
+
+                                                            bg={useColorModeValue("gray.100", "darkBlue.400")}
+                                                            as={IconButton}
+                                                            size="sm"
+                                                            rounded="full"
+                                                            top="-10px"
+                                                            _hover={{ color: "cyan.400", bg: "gray.300" }}
+                                                            aria-label="change Image"
+                                                            icon={<Edit2 />}
+                                                            onClick={triggerFileInput}
+
+                                                        />
+                                                    </Tooltip>
+                                                </Avatar>
+                                            </Center>
+                                        </Stack>
+
+
+
+                                        {/* <Description userData={null} reload={reloadData} /> */}
+
+                                    </Flex>
+
+                                    <TextEditorRegister
+                                        onChange={(newContent: string) => handleContentChange(newContent)}
+                                        content={content}
+                                    />
+                                </Flex>
+                            </TabPanel>
+
+                            <TabPanel>
                                 <Flex justifyContent={'space-around'}>
 
                                     <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' extraValidations={{ minLength: { value: 8, message: "la contraseña tiene que tener minimo 8 caracteres" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, message: "La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
@@ -297,7 +360,7 @@ export default function FormRegisterUser() {
                                 isDisabled={activeStep === 0}
                                 onClick={() =>
                                     setActiveStep(
-                                        activeStep <= 4 && activeStep > 0
+                                        activeStep <= 5 && activeStep > 0
                                             ? activeStep - 1
                                             : activeStep
                                     )}
@@ -307,14 +370,14 @@ export default function FormRegisterUser() {
                                 _hover={{ bgColor: 'darkBlue.400' }}
                                 _active={{ bgColor: 'darkBlue.400' }}
                             >
-                                {activeStep <= 4 ? "Anterior" : ""}
+                                {activeStep <= 5 ? "Anterior" : ""}
                             </Button>
 
                             <Button
                                 rightIcon={<FaArrowRight />}
                                 onClick={() =>
                                     setActiveStep(
-                                        activeStep >= 0 && activeStep < 4
+                                        activeStep >= 0 && activeStep < 5
                                             ? activeStep + 1
                                             : activeStep
                                     )}
@@ -323,7 +386,7 @@ export default function FormRegisterUser() {
                                 bgColor={'darkBlue.400'}
                                 _hover={{ bgColor: 'darkBlue.400' }}
                                 _active={{ bgColor: 'darkBlue.400' }}
-                                display={activeStep === 4 ? 'none' : 'block'}
+                                display={activeStep === 5 ? 'none' : 'block'}
                             >
                                 Siguiente
                             </Button>
@@ -342,7 +405,7 @@ export default function FormRegisterUser() {
                                 bgColor={'darkBlue.400'}
                                 _hover={{ bgColor: 'darkBlue.400' }}
                                 _active={{ bgColor: 'darkBlue.400' }}
-                                display={activeStep === 4 ? 'block' : 'none'}
+                                display={activeStep === 5 ? 'block' : 'none'}
                             >
                                 Registrarse
                             </Button>

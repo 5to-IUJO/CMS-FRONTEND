@@ -8,6 +8,7 @@ interface FormInputProps {
     //errors: {Usuario: {message:string }},
     errors: any,
     errors2: any,
+    obligatory?: boolean
 }
 
 
@@ -16,7 +17,7 @@ interface FormInputProps {
  * Componente para Reutilizar input de la cedula
  * @returns 
  */
-export default function FormCedula({ register, errors,errors2 }: FormInputProps) {
+export default function FormCedula({ register, errors,errors2, obligatory = false }: FormInputProps) {
 
     const validations = {
         required: { value: true, message: "La Cédula es requerida" },
@@ -49,7 +50,7 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
   
     return (
         <Box w={{base:"100%",md:"250px"}}  maxW={'250px'}>
-            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad</FormLabel>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
             <InputGroup >
                 <InputLeftElement w={{base:"14%",md:"18%"}}  >
                     <Select  variant={"unstyled"}  fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}
