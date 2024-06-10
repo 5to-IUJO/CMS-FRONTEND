@@ -41,12 +41,7 @@ export default function FormRegisterUser() {
     const gender = watch("gender");
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
-
-        if (getValues("password") !== getValues("confirm_password")) {
-            setError("confirm_password", { message: "Las Contraseñas no coinciden" });
-            return
-        }
-
+        
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
         if (data.profile_image[0])
