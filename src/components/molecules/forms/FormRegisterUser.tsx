@@ -63,12 +63,14 @@ export default function FormRegisterUser() {
 
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
-        setLoading(true)
+        
         if (getValues("password") !== getValues("confirm_password")) {
             setError("confirm_password", { message: "Las Contraseñas no coinciden" });
             return
         }
-
+        
+        setLoading(true)
+        
         const address = {
             country: data.country,
             state: data.state,
@@ -106,7 +108,7 @@ export default function FormRegisterUser() {
         formData.append("type", data.type);
         formData.append("terms", data.terms);
         formData.append("description", content);
-
+        formData.append("gender", data.gender.toString());
 
 
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/register", formData)
