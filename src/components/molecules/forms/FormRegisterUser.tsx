@@ -22,6 +22,7 @@ import { IoLocationOutline } from 'react-icons/io5';
 import FormSelect from '@/components/atoms/inputs/FormSelect';
 import { BsTwitterX } from 'react-icons/bs';
 import { TextEditorRegister } from '@/components/organisms/TextEditorRegister';
+import ImageFromPC from '../ImageFromPC';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -45,7 +46,6 @@ export default function FormRegisterUser() {
 
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
-
         if (data.profile_image[0])
             formData.append("profile_image", data.profile_image[0]);
 
@@ -290,42 +290,7 @@ export default function FormRegisterUser() {
                             <TabPanel>
                                 <Flex w={'100%'}>
 
-                                    <Flex w={'100%'} justifyContent={'center'} alignItems={'space-around'} flexDir={'column'}>
-                                        <Box position='relative' padding='8'>
-                                            <AbsoluteCenter  px='4' >
-                                                <Text fontWeight={"semibold"} color={"black.400"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
-                                            </AbsoluteCenter>
-                                        </Box>
-
-
-                                        <Stack direction={['column', 'column']} spacing={6} mt={5}>
-                                            <Center>
-                                                <Avatar size="2xl" bg={"gray"} >
-                                                    <Tooltip label='Cambiar Foto' hasArrow placement='right' >
-                                                        <AvatarBadge
-
-                                                            bg={useColorModeValue("gray.100", "darkBlue.400")}
-                                                            as={IconButton}
-                                                            size="sm"
-                                                            rounded="full"
-                                                            top="-10px"
-                                                            _hover={{ color: "cyan.400", bg: "gray.300" }}
-                                                            aria-label="change Image"
-                                                            icon={<Edit2 />}
-                                                            onClick={triggerFileInput}
-
-                                                        />
-                                                    </Tooltip>
-                                                </Avatar>
-                                            </Center>
-                                        </Stack>
-
-
-
-                                        {/* <Description userData={null} reload={reloadData} /> */}
-
-                                    </Flex>
-
+                                    <ImageFromPC register={register} namebd={"profile_image"} label="Foto de Perfil" getValues={getValues} setValue={setValue} />
                                     <TextEditorRegister
                                         onChange={(newContent: string) => handleContentChange(newContent)}
                                         content={content}
