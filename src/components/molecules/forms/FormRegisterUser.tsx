@@ -22,6 +22,8 @@ import { IoLocationOutline } from 'react-icons/io5';
 import FormSelect from '@/components/atoms/inputs/FormSelect';
 import { BsTwitterX } from 'react-icons/bs';
 import { TextEditorRegister } from '@/components/organisms/TextEditorRegister';
+import FormRadioInput from '@/components/atoms/inputs/FormRadioInput';
+import WebPreview from '@/components/organisms/modals/WebPreview';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -36,13 +38,9 @@ export default function FormRegisterUser() {
     const { handleSubmit, register, setError, getValues, setValue, watch, formState: { errors }, resetField } = useForm();
     const router = useRouter();
     const allData = watch();
+    const gender = watch("gender");
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
-        if (step === 1) {
-            setStep(2)
-            return;
-        }
-
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
 
@@ -134,6 +132,8 @@ export default function FormRegisterUser() {
     const triggerFileInput = () => {
         inputFileRef.current?.click();
     };
+
+    const [preview, setPreview] = useState("");
 
     const [content, setContent] = useState<string>("");
 
@@ -228,8 +228,8 @@ export default function FormRegisterUser() {
                                 </Flex>
 
                                 <Flex justifyContent={'space-around'} mt={'20px'}>
-                                    {/* <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={gender} /> */}
 
+                                    <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={gender} />
 
                                 </Flex>
                             </TabPanel>
@@ -284,6 +284,8 @@ export default function FormRegisterUser() {
 
                                         </Tooltip>
                                     </Box>
+
+                                    <WebPreview isOpen={isOpen} onClose={onClose} url={getValues("url")} image={setValue} userData={{url: 'https://www.youtube.com/', urlImage: ''}} />
                                 </Flex>
                             </TabPanel>
 
@@ -292,7 +294,7 @@ export default function FormRegisterUser() {
 
                                     <Flex w={'100%'} justifyContent={'center'} alignItems={'space-around'} flexDir={'column'}>
                                         <Box position='relative' padding='8'>
-                                            <AbsoluteCenter  px='4' >
+                                            <AbsoluteCenter px='4' >
                                                 <Text fontWeight={"semibold"} color={"black.400"} fontSize={["md", "xl"]}> Foto de Perfil</Text>
                                             </AbsoluteCenter>
                                         </Box>
@@ -300,10 +302,9 @@ export default function FormRegisterUser() {
 
                                         <Stack direction={['column', 'column']} spacing={6} mt={5}>
                                             <Center>
-                                                <Avatar size="2xl" bg={"gray"} >
+                                                <Avatar src={preview} size="2xl" bg={"gray"} >
                                                     <Tooltip label='Cambiar Foto' hasArrow placement='right' >
                                                         <AvatarBadge
-
                                                             bg={useColorModeValue("gray.100", "darkBlue.400")}
                                                             as={IconButton}
                                                             size="sm"
@@ -313,10 +314,18 @@ export default function FormRegisterUser() {
                                                             aria-label="change Image"
                                                             icon={<Edit2 />}
                                                             onClick={triggerFileInput}
-
                                                         />
                                                     </Tooltip>
                                                 </Avatar>
+
+                                                <Input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    variant="outline"
+                                                    hidden
+                                                    ref={inputFileRef}
+
+                                                />
                                             </Center>
                                         </Stack>
 
