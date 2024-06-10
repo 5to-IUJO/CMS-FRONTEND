@@ -163,13 +163,6 @@ export default function EditAddressData({ userData, reload }: { userData: UserDe
                     <FormSelect Icon={<IoLocationOutline />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={getValues("municipality")} onChange={handleSelectChange} setValues={setValue} />
                 )}
 
-
-
-
-
-
-
-
                 <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='Avenida, Calle...' type='text' register={register} errors={errors.reference} namebd='reference' />
             </Flex>
             <SaveChangesButton disabled={modified} isLoading={loading} />

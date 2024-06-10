@@ -30,7 +30,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
         ...extraValidations
     }
     return (
-        <Box w={{base:"100%",md:"auto"}}  color={forceColor ? forceColor : ""}>
+        <Box w={{base:"100%",md:"250px"}} maxW={'250px'} color={forceColor ? forceColor : ""}>
             <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
             <InputGroup >
                 <InputLeftElement pointerEvents='none' pr={5}   >

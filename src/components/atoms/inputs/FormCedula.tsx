@@ -48,7 +48,7 @@ export default function FormCedula({ register, errors,errors2 }: FormInputProps)
     }, []);
   
     return (
-        <Box w={{base:"100%",md:"auto"}}>
+        <Box w={{base:"100%",md:"250px"}}  maxW={'250px'}>
             <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad</FormLabel>
             <InputGroup >
                 <InputLeftElement w={{base:"14%",md:"18%"}}  >

@@ -1,9 +1,9 @@
 "use client"
-import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useSteps } from '@chakra-ui/react'
+import { Box, Button, Flex, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useDisclosure, useSteps } from '@chakra-ui/react'
 import React, { act, useState } from 'react'
 import FormInput from '@/components/atoms/inputs/FormInput'
 
-import { FaArrowLeft, FaRegUser } from "react-icons/fa";
+import { FaArrowLeft, FaFacebook, FaInstagram, FaInternetExplorer, FaRegFlag, FaRegUser, FaTiktok } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
@@ -16,6 +16,13 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { redirect, useRouter } from 'next/navigation';
 import { saveToken } from '@/helpers/Cookies';
+import { validateDateOfBirth } from '@/helpers/Utilities';
+import FormCedula from '@/components/atoms/inputs/FormCedula';
+import FormSelectNationalities from '@/components/atoms/inputs/FormSelectNationalities';
+import { EyeIcon, Flag } from 'lucide-react';
+import { IoLocationOutline } from 'react-icons/io5';
+import FormSelect from '@/components/atoms/inputs/FormSelect';
+import { BsTwitterX } from 'react-icons/bs';
 
 
 const GendersOptions: { value: string, label: string }[] = [
@@ -25,9 +32,9 @@ const GendersOptions: { value: string, label: string }[] = [
 ]
 
 export default function FormRegisterUser() {
-    
+
     const [step, setStep] = useState(1);
-    const { handleSubmit, register, setError, getValues, setValue, formState: { errors } } = useForm();
+    const { handleSubmit, register, setError, getValues, setValue, formState: { errors }, resetField } = useForm();
     const router = useRouter();
     //Funcion para enviar los datos a la api y efectuar el registro
     const onSubmit = handleSubmit(async data => {
@@ -36,7 +43,6 @@ export default function FormRegisterUser() {
             return;
         }
 
-
         //* Se Guarda en un Form DATA para poder enviar la posible foto de perfil del usuario
         const formData = new FormData();
 
@@ -44,12 +50,18 @@ export default function FormRegisterUser() {
             formData.append("profile_image", data.profile_image[0]);
 
         formData.append("username", data.username);
-        formData.append("password", data.password);
+        formData.append("first_name", data.first_name);
+        formData.append("second_name", data.second_name);
+        formData.append("last_name", data.last_name);
+        formData.append("second_last_name", data.second_last_name);
         formData.append("email", data.email);
+        formData.append("password", data.password);
         formData.append("date_of_birth", data.date_of_birth);
-        formData.append("gender", data.gender);
+        formData.append("nationality", data.nationality);
+        formData.append("gender", data.gender?.toString());
+        formData.append("cedula", data.cedula);
+        formData.append("type", data.type);
         formData.append("terms", data.terms);
-
 
         await axios.post(process.env.NEXT_PUBLIC_API_URL + "/register", formData)
             .then(async (response) => {
@@ -67,10 +79,11 @@ export default function FormRegisterUser() {
     });
 
     const steps = [
-        { title: 'Personal', description: 'Datos Personales' },
-        { title: 'Direccion', description: 'Addres' },
-        { title: 'Descripcion y Redes', description: 'Select Rooms' },
-        { title: 'Blogger', description: 'Select Rooms' },
+        { title: 'Datos Personales' },
+        { title: 'Datos Legales' },
+        { title: 'Direccion' },
+        { title: 'Redes Sociales' },
+        { title: 'Seguridad' },
     ]
 
     const { activeStep, setActiveStep } = useSteps({
@@ -79,6 +92,37 @@ export default function FormRegisterUser() {
     })
 
     const valueActiveStep = activeStep;
+
+    // const gender = watch("gender");
+
+    //Al cambiar los datos en un select, resetea los campos del formulario pertienentes
+    const handleSelectChange = (selectName: string) => {
+
+        if (selectName === "countries") {
+            resetField('state');
+            resetField('city');
+            resetField('municipality');
+            resetField('parish');
+        }
+        else if (selectName === "states") {
+            resetField('city');
+            resetField('municipality');
+            resetField('parish');
+        }
+        else if (selectName === "cities") {
+            resetField('municipality');
+            resetField('parish');
+        }
+        else if (selectName === "municipality") {
+            resetField('parish');
+        }
+
+    }
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [disable, setDisable] = useState<boolean>();
+
 
     return (
         <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'} w={'100%'} color={"black.400"}>
@@ -90,7 +134,7 @@ export default function FormRegisterUser() {
                 alignItems={'center'}
                 border={'20px solid #fff'}
                 borderRadius={'60px 60px 0px 0px'}
-                
+
             >
                 <Text
                     textAlign={'center'}
@@ -126,8 +170,8 @@ export default function FormRegisterUser() {
                             <StepSeparator style={{
                                 backgroundColor:
                                     index <= activeStep - 1 ? '#1F93A5' : 'gray',
-                                }} />
-                            </Step>
+                            }} />
+                        </Step>
                     ))}
 
                 </Stepper>
@@ -137,90 +181,175 @@ export default function FormRegisterUser() {
                         <TabPanels>
                             <TabPanel>
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<FaRegUser />} forceColor={"black.400"} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
+                                    <FormInput Icon={<FaRegUser />} forceColor={"black.400"} label='Primer Nombre' placeholder='José' type='text' register={register} errors={errors.first_name} namebd='first_name' />
 
-                                    <FormInput Icon={<RiLockPasswordLine />} forceColor={"black.400"} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' />
+                                    <FormInput Icon={<RiLockPasswordLine />} forceColor={"black.400"} label='Segundo Nombre' placeholder='Miguel' type='text' register={register} errors={errors.second_name} namebd='second_name' extraValidations={{ required: false }} />
 
-                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Apellido' placeholder='Díaz' type='text' register={register} errors={errors.last_name} namebd='last_name' />
 
                                 </Flex>
 
+                                <Flex justifyContent={'space-around'} mt={'20px'}>
+                                    <FormInput Icon={<CiCalendarDate />} forceColor={"black.400"} label='Segundo Apellido' placeholder='Cruz' type='text' register={register} errors={errors.second_last_name} namebd='second_last_name' extraValidations={{ required: false }} />
+
+                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Nombre de Usuario' placeholder='username' type='text' register={register} errors={errors.username} namebd='username' />
+
+                                    <FormInput Icon={<MdOutlineEmail />} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                </Flex>
+
+                            </TabPanel>
+
+                            <TabPanel>
                                 <Flex justifyContent={'space-around'}>
-                                    <FormInput Icon={<CiCalendarDate />} forceColor={"black.400"} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' />
+                                    <FormInput Icon={<CiCalendarDate />} label='Fecha de Nacimiento' placeholder='' type='date' register={register} errors={errors.date_of_birth} namebd='date_of_birth' extraValidations={{ validate: { validDate: (value: Date) => validateDateOfBirth(value) || ` No es una Fecha Válida de Nacimiento` } }} />
 
-                                    {/* <FormRadioInput label='Genero' data={GendersOptions} register={register} errors={errors.gender} namebd='gender' /> */}
+                                    <FormCedula register={register} errors={errors.cedula} errors2={errors.types} />
 
-                                    <FormInput Icon={<MdOutlineEmail />} forceColor={"black.400"} label='Correo Electrónico' placeholder='example@gmail.com' type='email' register={register} errors={errors.email} namebd='email' />
+                                    <FormSelectNationalities Icon={<Flag />} label='Nacionalidad' table='nationality' register={register} errors={errors.nationality} namebd='nationality' setValues={setValue} />
 
-                                    <FormCheckInput label='Acepto los Terminos y Condiciones' forceColor={"black.400"} register={register} errors={errors.terms} namebd='terms' />
 
                                 </Flex>
 
+                                <Flex justifyContent={'space-around'} mt={'20px'}>
+                                    {/* <FormRadioInput label='Genero' table={"genders"} register={register} errors={errors.gender} namebd='gender' defaultValue={gender} /> */}
+
+
+                                </Flex>
                             </TabPanel>
+
                             <TabPanel>
-                                <p>two!</p>
+                                <Flex justifyContent={'space-around'}>
+                                    <FormSelect Icon={<FaRegFlag />} label='País' table='countries' register={register} errors={errors.country} namebd='country' onChange={handleSelectChange} setValues={setValue} />
+
+                                    {getValues("country") && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Estado' table='states' register={register} errors={errors.state} namebd='state' dependency={getValues("country")} onChange={handleSelectChange} setValues={setValue} />
+                                    )}
+                                    {getValues("state") && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Ciudad' table='cities' register={register} errors={errors.city} namebd='city' dependency={getValues("state")} onChange={handleSelectChange} setValues={setValue} />
+
+                                    )}
+
+
+                                </Flex>
+
+                                <Flex justifyContent={'space-around'} mt={'20px'}>
+                                    {getValues("city") && (
+                                        <FormSelect Icon={<IoLocationOutline />} label='Municipio' table='municipalities' register={register} errors={errors.municipality} namebd='municipality' dependency={getValues("city")} onChange={handleSelectChange} setValues={setValue} />
+                                    )}
+                                    {getValues("municipality") && (
+
+                                        <FormSelect Icon={<IoLocationOutline />} label='Parroquia' table='parishes' register={register} errors={errors.parish} namebd='parish' dependency={getValues("municipality")} onChange={handleSelectChange} setValues={setValue} />
+                                    )}
+
+                                    <FormInput Icon={<IoLocationOutline />} label='Referencia' placeholder='Avenida, Calle...' type='text' register={register} errors={errors.reference} namebd='reference' />
+                                </Flex>
                             </TabPanel>
+
                             <TabPanel>
-                                <p>three!</p>
+                                <Flex justifyContent={'space-around'}>
+                                    <FormInput Icon={<FaFacebook />} label='Facebook' placeholder='usuario' type='text' register={register} errors={errors.facebook} namebd='facebook' extraValidations={{ minLength: { value: 5, message: "El Facebook tiene que tener minimo 2 caracteres" }, required: false }} />
+                                    <FormInput Icon={<FaInstagram />} label='Instagram' placeholder='@usuario' type='text' register={register} errors={errors.instagram} namebd='instagram' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Instragram tiene que tener minimo 2 caracteres" }, required: false }} />
+                                    <FormInput Icon={<BsTwitterX />} label='X' placeholder='@usuario' type='text' register={register} errors={errors.x} namebd='x' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El usuario de X tiene que tener minimo 2 caracteres" }, required: false }} />
+
+                                </Flex>
+
+                                <Flex justifyContent={'space-around'} mt={'20px'}>
+
+                                    <FormInput Icon={<FaTiktok />} label='TikTok' placeholder='@usuario' type='text' register={register} errors={errors.tiktok} namebd='tiktok' extraValidations={{ pattern: { value: /^@([a-zA-Z0-9_]+)$/, message: "El nombre de usuario debe comenzar con @" }, minLength: { value: 2, message: "El Tiktok tiene que tener minimo 2 caracteres" }, required: false }} />
+
+                                    <FormInput Icon={<FaInternetExplorer />} label='Página WEB' placeholder='https://mipaginaweb.com' type='url' register={register} errors={errors.url} namebd='url' extraValidations={{ pattern: { value: /^https:\/\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]+$/, message: "Es Obligatorio que la url sea HTTPS:// y que tenga al menos 1 caracter despues del //" }, minLength: { value: 9, message: "URL Invalida" }, required: false }} />
+                                    <Box alignContent={"center"} justifyContent={"center"} mt={8}>
+                                        <Tooltip label="Vista Previa de la Página WEB">
+                                            <Button variant={"unstyled"} onClick={onOpen} _hover={{ textColor: "#1C7987" }} >
+                                                <EyeIcon />
+
+                                            </Button>
+
+                                        </Tooltip>
+                                    </Box>
+                                </Flex>
                             </TabPanel>
+
                             <TabPanel>
-                                <p>four!</p>
+                                <Flex justifyContent={'space-around'}>
+
+                                    <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Contraseña' placeholder='**********' type='password' register={register} errors={errors.password} namebd='password' extraValidations={{ minLength: { value: 8, message: "la contraseña tiene que tener minimo 8 caracteres" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, message: "La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
+
+                                    <FormInput disable={disable} Icon={<RiLockPasswordLine />} label='Confirme la Contraseña' placeholder='**********' type='password' register={register} errors={errors.confirm_password} namebd='confirm_password' extraValidations={{ minLength: { value: 8, message: "la contraseña tiene que tener minimo 8 caracteres" }, pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, message: "La Contraseña debe contener al menos 1 letra y 1 dígito" } }} />
+
+                                </Flex>
+
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
 
                     {/* Form Buttons */}
-                    <Flex w={'100%'} justifyContent={'center'} bottom={5} position={'absolute'} gap={5}>
-                        <Button
-                            isDisabled={activeStep === 0}
-                            onClick={() =>
-                                setActiveStep(
-                                    activeStep <= 3 && activeStep > 0
-                                        ? activeStep - 1
-                                        : activeStep
-                                )}
-                            w={'120px'}
-                            color={'white.400'}
-                            bgColor={'darkBlue.400'}
-                            _hover={{ bgColor: 'darkBlue.400' }}
-                            _active={{ bgColor: 'darkBlue.400' }}
-                        >
-                            {activeStep <= 3 ? "Anterior" : ""}
-                        </Button>
+                    <Flex w={'100%'} justifyContent={'center'} bottom={5} position={'absolute'} gap={5} flexDir={'column'}>
 
-                        <Button
-                            rightIcon={<FaArrowRight />}
-                            type='submit'
-                            onClick={() =>
-                                setActiveStep(
-                                    activeStep >= 0 && activeStep < 3
-                                        ? activeStep + 1
-                                        : activeStep
-                                )}
-                            w={'120px'}
-                            color={'white.400'}
-                            bgColor={'darkBlue.400'}
-                            _hover={{ bgColor: 'darkBlue.400' }}
-                            _active={{ bgColor: 'darkBlue.400' }}
+                        <Text textAlign={'center'} color={"black.400"}>
+                            ¿Ya tienes una Cuenta?
+                            <Link href={"/login"} className=' text-blue-500' > Iniciar Sesión</Link>
+                        </Text>
 
-                        >
-                            {activeStep === 3 ? "Registrarse" : "Siguiente"}
-                        </Button>
+                        <Flex justifyContent={'center'} gap={5} alignItems={'center'}>
+
+                            <Button
+                                isDisabled={activeStep === 0}
+                                onClick={() =>
+                                    setActiveStep(
+                                        activeStep <= 4 && activeStep > 0
+                                            ? activeStep - 1
+                                            : activeStep
+                                    )}
+                                w={'120px'}
+                                color={'white.400'}
+                                bgColor={'darkBlue.400'}
+                                _hover={{ bgColor: 'darkBlue.400' }}
+                                _active={{ bgColor: 'darkBlue.400' }}
+                            >
+                                {activeStep <= 4 ? "Anterior" : ""}
+                            </Button>
+
+                            <Button
+                                rightIcon={<FaArrowRight />}
+                                onClick={() =>
+                                    setActiveStep(
+                                        activeStep >= 0 && activeStep < 4
+                                            ? activeStep + 1
+                                            : activeStep
+                                    )}
+                                w={'120px'}
+                                color={'white.400'}
+                                bgColor={'darkBlue.400'}
+                                _hover={{ bgColor: 'darkBlue.400' }}
+                                _active={{ bgColor: 'darkBlue.400' }}
+                                display={activeStep === 4 ? 'none' : 'block'}
+                            >
+                                Siguiente
+                            </Button>
+
+                            <Button
+                                rightIcon={<FaArrowRight />}
+                                type='submit'
+                                onClick={() =>
+                                    setActiveStep(
+                                        activeStep >= 0 && activeStep < 3
+                                            ? activeStep + 1
+                                            : activeStep
+                                    )}
+                                w={'120px'}
+                                color={'white.400'}
+                                bgColor={'darkBlue.400'}
+                                _hover={{ bgColor: 'darkBlue.400' }}
+                                _active={{ bgColor: 'darkBlue.400' }}
+                                display={activeStep === 4 ? 'block' : 'none'}
+                            >
+                                Registrarse
+                            </Button>
+                        </Flex>
                     </Flex>
 
                 </form>
-
-                <Flex
-                    flexDirection={'column'}
-                    flexWrap={"wrap"}
-                    wrap={"wrap"}
-                    gap={{ base: 10, md: 10 }}
-                >
-                    <Text textAlign={'center'} color={"black.400"}>
-                        ¿Ya tienes una Cuenta?
-                        <Link href={"/login"} className=' text-blue-500' > Iniciar Sesión</Link>
-                    </Text>
-                </Flex>
             </Box>
         </Flex>
     )

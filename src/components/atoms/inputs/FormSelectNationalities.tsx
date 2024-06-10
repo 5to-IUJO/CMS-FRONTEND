@@ -1,5 +1,5 @@
 "use client"
-import { FormLabel, Input, InputGroup, InputLeftElement, Select, Text } from '@chakra-ui/react'
+import { Box, FormLabel, Input, InputGroup, InputLeftElement, Select, Text } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -52,7 +52,7 @@ export default function FormSelectNationalities({ Icon, label, table, dependency
 
     if (data.length > 0) {
         return (
-            <section>
+            <Box w={{base:"100%",md:"250px"}}  maxW={'250px'}>
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
                 <InputGroup >
                     <InputLeftElement pointerEvents='none' pr={5}   >
@@ -61,14 +61,14 @@ export default function FormSelectNationalities({ Icon, label, table, dependency
                     <Select variant={"flushed"} pl={6} fontSize={{ base: "lg", md: "xl" }} borderColor={"#1C7987"}  defaultValue={""}
                         {...register(namebd, validations)}
                     >
-                        <option value="" disabled>Selecciona el {label} </option>
+                        <option value="" disabled> {label} </option>
                         {data.map((option, index) => {
                             return <option key={index} value={option.id.toString()} >{option.nationality}</option>
                         })}
                     </Select>
                 </InputGroup>
                 {errors && <Text color={"red"} maxW={"200px"}> {errors.message}  </Text>}
-            </section>
+            </Box>
         )
     }
 
