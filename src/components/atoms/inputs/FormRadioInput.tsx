@@ -51,7 +51,7 @@ export default function FormRadioInput({ label, table, register, errors, namebd,
 
     return (
         <section>
-            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }}>{label}</FormLabel>
             <RadioGroup value={selectedValue} onChange={setSelectedValue}   >
                 <Stack direction='row'>
                     {data.map((option, index) => {

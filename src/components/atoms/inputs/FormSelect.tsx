@@ -57,7 +57,7 @@ export default function FormSelect({ Icon, label, table, dependency = null, regi
     if (data.length > 0) {
         return (
             <section>
-                <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label}</FormLabel>
+                <FormLabel fontSize={{ base: "lg", md: "xl" }} >{label}</FormLabel>
                 <InputGroup >
                     <InputLeftElement pointerEvents='none' pr={5}   >
                         {Icon}

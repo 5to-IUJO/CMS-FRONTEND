@@ -6,7 +6,7 @@ interface FormInputProps {
     label: string,
     placeholder: string,
     type: string,
-    register: (placeholder: string, { }) => {},
+    register: any,
     //errors: {Usuario: {message:string }},
     errors: any,
     namebd: string
@@ -31,7 +31,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
     }
     return (
         <Box w={{base:"100%",md:"250px"}} maxW={'250px'} color={forceColor ? forceColor : ""}>
-            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>{label} <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} >{label} <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
             <InputGroup >
                 <InputLeftElement pointerEvents='none' pr={5}   >
                     {Icon}

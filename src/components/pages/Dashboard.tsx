@@ -1,19 +1,36 @@
 
-import { ReactNode } from 'react';
-import {
-  Box,
-} from '@chakra-ui/react';
+import { ReactNode, useState } from 'react';
+
 import Navbar from '../organisms/Navbar';
-import PageEditor from '../organisms/PageEditor';
+
+import { useForm } from 'react-hook-form';
+import NewBlogStepOne from '../organisms/NewBlogStepOne';
+import NewBlogStepTwo from '../organisms/NewBlogStepTwo';
+
+type Data = {
+  title: string
+  blog_image: File
+}
 
 
 export default function Dashboard() {
+    const [data, setData] = useState<Data>();
+    const [step,setStep] = useState<Number>(1);
 
+    return (
+      <>
+        <Navbar />
+        
+        {step === 1 && (
+          <NewBlogStepOne setData={setData} setStep={setStep} />
+        )}
 
-  return (
-    <>
-      <Navbar/>
-      <PageEditor/>
-    </>
-  );
+        {step === 2 && (
+          <NewBlogStepTwo data={data} setStep={setStep} />
+        )}
+        
+        {/* <PageEditor/>*/}
+
+      </>
+    );
 }

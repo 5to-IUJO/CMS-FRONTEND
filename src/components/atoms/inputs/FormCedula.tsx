@@ -50,7 +50,7 @@ export default function FormCedula({ register, errors,errors2, obligatory = fals
   
     return (
         <Box w={{base:"100%",md:"250px"}}  maxW={'250px'}>
-            <FormLabel fontSize={{ base: "lg", md: "xl" }} fontFamily={"NeutraText-Bold"}>Cedula de Identidad <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
+            <FormLabel fontSize={{ base: "lg", md: "xl" }} >Cedula de Identidad <span className='obligatory'>{obligatory ? '*' : ''}</span></FormLabel>
             <InputGroup >
                 <InputLeftElement w={{base:"14%",md:"18%"}}  >
                     <Select  variant={"unstyled"}  fontSize={{ base: "lg", md: "xl" }} defaultValue={"1"}

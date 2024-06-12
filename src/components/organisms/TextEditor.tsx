@@ -34,7 +34,7 @@ export const TextEditor = ({ onChange, content }: {onChange: Function, content:s
         editorProps: {
             attributes: {
                 class:
-                    `flex break-all flex-col px-4 py-3 border-b border-l border-r border-gray-700  w-full max-w-full  min-h-[50vh] gap-3 font-medium text-[16px] pt-4 rounded-b-md outline-none `,
+                    `flex break-all flex-col px-4 py-3 border-b border-l border-r border-gray-700  w-full max-w-full  min-h-[84vh] gap-3 font-medium text-[16px] pt-4 outline-none `,
             }
         },
         onUpdate:({editor}) => {
@@ -45,7 +45,7 @@ export const TextEditor = ({ onChange, content }: {onChange: Function, content:s
 
     return (
 
-        <Box  w={"full"} maxW={{base:"full",md:"60vw", xl:"50vw", "2xl":"40vw"}} px={4}>
+        <Box  w={"full"} maxW={{base:"full"}} >
             
             <ToolBar editor={editor} content={content}/>
             <EditorContent style={{whiteSpace:"pre-line"}}  editor={editor} />
