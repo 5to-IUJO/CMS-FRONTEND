@@ -86,7 +86,8 @@ export default function Navbar() {
             {isOpen ? (
                 <Box pb={4} display={{ md: 'none' }}>
                     <Stack as={'nav'} spacing={4}>
-                        <NavLink href={"blogs"} key={"blogs"}>{"Blogs"}</NavLink>
+                        <NavLink href={"/aboutUs"} key={"aboutUs"} >Sobre Nosotros</NavLink>
+                        <NavLink href={"/blogs"} key={"blogs"}>Blogs</NavLink>
                     </Stack>
                 </Box>
             ) : null}

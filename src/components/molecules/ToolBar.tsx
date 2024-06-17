@@ -123,16 +123,7 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
                 <AddImage isOpen={isOpen} onClose={onClose} setImage={(url: string) => editor?.chain().focus().setImage({ src: url }).run()} />
             </Flex>
 
-            {content && (
-                <Button
-                    type='submit'
-                    colorScheme='blue'
-                    px={4}
-                    py={2}
-                >
-                    Add
-                </Button>
-            )}
+          
         </Flex>
     )
 }

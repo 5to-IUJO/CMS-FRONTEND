@@ -116,6 +116,9 @@
     filter: drop-shadow(0 0 2px #40a2f1) drop-shadow(0 0 2px #40a2f1) ;
   }
 
+  .edit-icon{
+    opacity: 0;
+  }
   .iconGlowHover{
     transition:400ms ease all;
   }

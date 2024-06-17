@@ -127,7 +127,7 @@ export default function FormRegisterUser() {
                             isClosable: true,
                         })
                     }
-                    router.push("/dashboard");
+                    router.push("/blogs");
                 }
             }).catch((error) => {
                 console.log(error);

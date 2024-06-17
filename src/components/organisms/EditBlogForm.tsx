@@ -29,16 +29,17 @@ import { useNotification } from '@/Hooks/Notification';
 
 
 interface FormInputs {
+    id: number;
     title: string;
     blog_image: FileList;
     tags: string[];
     content?: TrustedHTML | any;
 }
 
-export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined }) {
+export default function EditBlogForm({ data }: { data: FormInputs }) {
 
     const { handleSubmit, register, formState: { errors }, getValues, setValue, watch, setError } = useForm<FormInputs>();
-
+    const blogId = data.id
     const [loading, setLoading] = useState(false);
     const refInput = useRef<HTMLInputElement>(null);
     const image = watch("blog_image")
@@ -81,11 +82,11 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
             formData.append('tags', tag);
         });
 
-        await axios.post(process.env.NEXT_PUBLIC_API_URL + "/newBlog", formData, { headers: { Authorization: "Token " + token.value } })
+        await axios.put(process.env.NEXT_PUBLIC_API_URL + "/blog/update/"+blogId+"/", formData, { headers: { Authorization: "Token " + token.value } })
             .then(async (response) => {
 
-                if (response.status === 201) {
-                    notification({ id: "blog-create", status: "success", title: "Nuevo Blog", description: "Se ha creado Correctamente tu Blog" })
+                if (response.status === 200) {
+                    notification({ id: "blog-create", status: "success", title: "Editar Blog", description: "Se ha Editado Correctamente tu Blog" })
                     router.push("/blogs");
                 }
             }).catch((error) => {
@@ -106,7 +107,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
                 }
 
                 //Alerta de Modificacion Incorrecta
-                notification({ id: "blog-create", status: "error", title: "Nuevo Blog", description: `Ha Ocurrido al Crear tu Blog, ${errorMessage ? errorMessage : ""}` })
+                notification({ id: "blog-create", status: "error", title: "Editar Blog", description: `Ha Ocurrido al Editar tu Blog, ${errorMessage ? errorMessage : ""}` })
 
             })
             .finally(() => {
@@ -114,7 +115,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
             })
     })
 
-
+   
     return (
         <Flex h={"100%"} mt={-5} >
             <TextEditor
@@ -126,7 +127,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
                     <Flex flexDir={"column"} h={"93vh"} gap={2} color={"gray.300"} ml={2} w={"20vw"}>
 
                         <Text fontSize={{ base: "md", md: "xl" }} textAlign={"center"} color={"#F8F8F8"} fontFamily={"NeutraText-Bold"} mt={2}>Creación de Blogs</Text>
-                        <FormInput Icon={<MdTitle />} label={"Título"} placeholder={"Tú Increible Títutlo de Blog"} type={"text"} register={register} errors={errors.title} namebd={'title'} />
+                        <FormInput Icon={<MdTitle />} label={"Título"} placeholder={"Tú Increible Títutlo de Blog"} type={"text"} register={register} errors={errors.title} namebd={'title'}  extraValidations={{ minLength: { value: 3, message: "El Título debe tener minimo 3 caracteres" }}}/>
 
 
 

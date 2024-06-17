@@ -7,6 +7,7 @@ import {
     FormLabel,
     Input,
     Text,
+    useColorMode,
 } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form';
@@ -27,17 +28,17 @@ const validationsTitle = {
 }
 
 
-export default function NewBlogStepOne({setData,setStep}:{setData:Function, setStep:Function}) {
+export default function NewBlogStepOne({ setData, setStep }: { setData: Function, setStep: Function }) {
 
-    const { handleSubmit, register, formState: { errors }, getValues, setValue,setError } = useForm<FormInputs>();
-
+    const { handleSubmit, register, formState: { errors }, getValues, setValue, setError } = useForm<FormInputs>();
+    const theme = useColorMode();
 
 
     const onSubmit = handleSubmit(async data => {
         //Guardar la Data de la imagen y el titulo en el componente padre y cambiar al paso 2
-    
+
         if (!data.blog_image[0]) {
-            setError("blog_image",{message:"Es Necesaria una Imagen Principal"})
+            setError("blog_image", { message: "Es Necesaria una Imagen Principal" })
             return;
         }
         setData(data);
@@ -46,9 +47,9 @@ export default function NewBlogStepOne({setData,setStep}:{setData:Function, setS
 
     return (
         <form onSubmit={onSubmit} >
-            <Flex flexDir={"column"} alignItems={"center"} justifyContent={"center"} h={"91vh"} gap={2} color={"gray.300"}>
+            <Flex flexDir={"column"} alignItems={"center"} justifyContent={"center"} h={"91vh"} gap={2} color={theme.colorMode === "light" ? "darkBlue.400" : "gray.300"} >
 
-                <Text fontSize={{ base: "2xl", md: "3xl" }} color={"#F8F8F8"}>¿Listo Para Contar Tu Historia?</Text>
+                <Text fontSize={{ base: "2xl", md: "3xl" }} color={theme.colorMode === "light" ? "darkBlue.400" : "#F8F8F8"}>¿Listo Para Contar Tu Historia?</Text>
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>¡Empecemos con el Título de tu Blog!</FormLabel>
                 <Input
                     w={"20%"}
@@ -66,15 +67,15 @@ export default function NewBlogStepOne({setData,setStep}:{setData:Function, setS
 
                 {errors.title?.message && <Text color="red" >{errors.title.message}</Text>}
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>Y con una Imagen Principal</FormLabel>
-                <Box  w={"20vw"}>
+                <Box w={"20vw"}>
 
-                <ImageFromPCRectangular register={register} namebd={"blog_image"} label="Foto Principal" getValues={getValues} setValue={setValue} />
+                    <ImageFromPCRectangular register={register} namebd={"blog_image"} label="Foto Principal" getValues={getValues} setValue={setValue} />
                 </Box>
-            
-               
+
+
                 {errors.blog_image?.message && (<Text color={"red"} > {errors.blog_image.message}  </Text>)}
 
-                <Button rightIcon={<FaArrowRight />} className='buttonNeon'  bgColor={'darkBlue.700'} p={6} variant="solid" type='submit' color={'white.400'} mt={12}>
+                <Button rightIcon={<FaArrowRight />} className='buttonNeon' bgColor={'darkBlue.700'} p={6} variant="solid" type='submit' color={'white.400'} mt={12}>
                     Continuar
                 </Button>
             </Flex>

@@ -1,5 +1,5 @@
 "use client"
-import { Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex, Text, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import FormInput from '@/components/atoms/inputs/FormInput'
 import { FaRegUser } from "react-icons/fa";
@@ -17,13 +17,26 @@ export default function FormLogin() {
     const { handleSubmit, setError, register, formState: { errors } } = useForm();
     const [loading, setLoading] = useState<boolean>(false);
     const router = useRouter();
+    const toast = useToast(); //Notificaciones de feedback
+    
     const onSubmit = handleSubmit(data => {
         setLoading(true)
         axios.post(process.env.NEXT_PUBLIC_API_URL + "/login", data)
             .then(async (response) => {
                 if (response.status === 200) {
+                    if (!toast.isActive("login")) {
+                        toast({
+                            id: "login",
+                            status: "success",
+                            title: 'Login',
+                            description: "Se ha Iniciado Sesión Correctamente",
+                            position: "top",
+                            duration: 5000,
+                            isClosable: true,
+                        })
+                    }
                     await saveToken(response.data.token);
-                    router.push("/dashboard");
+                    router.push("/blogs");
                 }
             }).catch((error) => {
                 console.log(error);

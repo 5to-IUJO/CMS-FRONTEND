@@ -34,7 +34,7 @@ export const TextEditor = ({ onChange, content }: {onChange: Function, content:s
         editorProps: {
             attributes: {
                 class:
-                    `flex break-all flex-col px-4 py-3 border-b border-l border-r border-gray-700  w-full max-w-full  min-h-[84vh] gap-3 font-medium text-[16px] pt-4 outline-none `,
+                    `flex break-all flex-col px-4 py-3 border-b border-l border-r border-gray-700  w-full max-w-full  min-h-[87vh] gap-3 font-medium text-[16px] pt-4 outline-none `,
             }
         },
         onUpdate:({editor}) => {

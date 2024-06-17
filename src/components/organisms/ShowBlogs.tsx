@@ -3,7 +3,7 @@ import { obtainToken } from '@/helpers/Cookies';
 import { Box, Flex, Text } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import BlogPreview from '../molecules/BlogPreview';
+import BlogsBox from '../molecules/BlogsBox';
 
 
 
@@ -17,11 +17,11 @@ export default function ShowBlogs() {
             const token = await obtainToken();
 
             if (!token) {
-                alert("Error al Registrar al obtener la información");
+                alert("Error al obtener la información");
                 return
             }
 
-            //Se realiza la peticion POST a la api para registrar el blog
+            //Se realiza la peticion POST a la api para obtener los blog
             await axios.get(process.env.NEXT_PUBLIC_API_URL + "/blogs", { headers: { Authorization: "Token " + token.value } })
                 .then((response) => {
                     if (response.status === 200) {
@@ -37,10 +37,15 @@ export default function ShowBlogs() {
     }, []);
 
     return (
-        <Flex flexDir={"row"} flexWrap={"wrap"} gap={10} m={{base:0,md:10}} w={"95%"} alignContent={'center'} justifyContent={"center"}>
+        <Flex flexDir={"row"} flexWrap={"wrap"} gap={10} m={{ base: 0, md: 10 }} w={"95%"} alignContent={'center'} justifyContent={"center"}>
+
+            {(blogsData?.length ?? 0) === 0 && (
+                <Text>Sin Blogs</Text>
+            )}
             {blogsData?.map((blog: any, index) => {
                 return (
-                    <BlogPreview key={index} blog={blog} />
+
+                    <BlogsBox key={index} blog={blog} />
                 )
             })}
 
