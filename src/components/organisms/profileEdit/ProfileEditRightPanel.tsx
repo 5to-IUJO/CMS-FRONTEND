@@ -1,6 +1,6 @@
 
 import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text} from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { LockKeyhole, MapPin, Rss, User, } from 'lucide-react'
 import EditPersonalData from '@/components/molecules/profiledit/EditPersonalData';
 import EditAddressData from '@/components/molecules/profiledit/EditAddressData';

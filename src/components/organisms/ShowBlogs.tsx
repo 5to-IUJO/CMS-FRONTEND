@@ -4,25 +4,21 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import BlogsBox from '../molecules/BlogsBox';
+import Pagination from '../molecules/Pagination';
 
 
 
 export default function ShowBlogs() {
 
     const [blogsData, setBlogsData] = useState<[{ title: string, content: string }]>();
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     useEffect(() => {
         (async () => {
-            //se obtiene el token del Usuario
-            const token = await obtainToken();
-
-            if (!token) {
-                alert("Error al obtener la información");
-                return
-            }
 
             //Se realiza la peticion POST a la api para obtener los blog
-            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/blogs", { headers: { Authorization: "Token " + token.value } })
+            await axios.get(process.env.NEXT_PUBLIC_API_URL + "/blogs",)
                 .then((response) => {
                     if (response.status === 200) {
 
@@ -36,20 +32,39 @@ export default function ShowBlogs() {
         })();
     }, []);
 
+    if (!blogsData || !blogsData.length) {
+        return (<Text>Sin Blogs</Text>);
+    }
+
+    //Variables Paginador
+    const recordsPerPage = 10;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const records = blogsData.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(blogsData.length / recordsPerPage)
+    const numbersPagination = [...Array(npage + 1).keys()].slice(1);
+
+    //Cambiar Pagina del Paginador
+    const changePage = (newPage: number) => {
+        if (newPage < 1 || newPage > npage)
+            return;
+        setCurrentPage(newPage);
+    }
+    
     return (
-        <Flex flexDir={"row"} flexWrap={"wrap"} gap={10} m={{ base: 0, md: 10 }} w={"95%"} alignContent={'center'} justifyContent={"center"}>
-
-            {(blogsData?.length ?? 0) === 0 && (
-                <Text>Sin Blogs</Text>
-            )}
-            {blogsData?.map((blog: any, index) => {
-                return (
-
-                    <BlogsBox key={index} blog={blog} />
-                )
-            })}
+        <Flex flexDir={"column"} alignItems={"center"} mb={10}>
+            <Flex flexDir={"row"} flexWrap={"wrap"} gap={10} m={{ base: 0, md: 10 }} w={"95%"} alignContent={'center'} justifyContent={"center"}>
 
 
+                {records?.map((blog: any, index) => {
+                    return (
+
+                        <BlogsBox key={index} blog={blog} />
+                    )
+                })}
+
+            </Flex>
+            <Pagination numbers={numbersPagination} changePage={changePage} currentPage={currentPage} />
         </Flex>
     )
 }

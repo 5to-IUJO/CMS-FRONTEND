@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation';
 import { obtainUserData } from '@/helpers/Users';
 import { useBlogForm } from '@/Hooks/BlogForm';
 import { useNotification } from '@/Hooks/Notification';
+import { Trash, Trash2 } from 'lucide-react';
 
 
 interface FormInputs {
@@ -50,6 +51,17 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
     const { tags, sizeInput, handleChangeInput, handleDelItem, content, setContent } = useBlogForm(setValue, refInput, data);
 
     const onSubmit = handleSubmit(async data => {
+
+        if (!data.blog_image) {
+            setError("blog_image", { message: "Es Necesaria una Imagen Principal" })
+            return;
+        }
+     
+        if (content === "" || content === "<p></p>") {
+            notification({ id: "blog-edit", status: "error", title: "Editar Blog", description: `Ha Ocurrido al Editar tu Blog, Debe Existir Contenido dentro de tu Blog` })
+            return;
+        }
+
         const token = await obtainToken();
 
         if (!token)
@@ -60,10 +72,6 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
         if (!user)
             return;
 
-        if (!data.blog_image[0]) {
-            setError("blog_image", { message: "Es Necesaria una Imagen Principal" })
-            return;
-        }
 
         setLoading(true)
         const formData = new FormData();
@@ -82,12 +90,12 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
             formData.append('tags', tag);
         });
 
-        await axios.put(process.env.NEXT_PUBLIC_API_URL + "/blog/update/"+blogId+"/", formData, { headers: { Authorization: "Token " + token.value } })
+        await axios.patch(process.env.NEXT_PUBLIC_API_URL + "/blog/update/" + blogId + "/", formData, { headers: { Authorization: "Token " + token.value } })
             .then(async (response) => {
 
                 if (response.status === 200) {
-                    notification({ id: "blog-create", status: "success", title: "Editar Blog", description: "Se ha Editado Correctamente tu Blog" })
-                    router.push("/blogs");
+                    notification({ id: "blog-edit", status: "success", title: "Editar Blog", description: "Se ha Editado Correctamente tu Blog" })
+                    router.push("/profile");
                 }
             }).catch((error) => {
 
@@ -107,7 +115,7 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
                 }
 
                 //Alerta de Modificacion Incorrecta
-                notification({ id: "blog-create", status: "error", title: "Editar Blog", description: `Ha Ocurrido al Editar tu Blog, ${errorMessage ? errorMessage : ""}` })
+                notification({ id: "blog-edit", status: "error", title: "Editar Blog", description: `Ha Ocurrido al Editar tu Blog, ${errorMessage ? errorMessage : ""}` })
 
             })
             .finally(() => {
@@ -115,7 +123,52 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
             })
     })
 
-   
+    const handleDeleteBlog = async () => {
+        const token = await obtainToken();
+
+        if (!token)
+            return;
+
+        const user = await obtainUserData();
+
+        if (!user)
+            return;
+
+        setLoading(true)
+
+        await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/blog/delete/" + blogId + "/", { headers: { Authorization: "Token " + token.value } })
+            .then(async (response) => {
+
+                if (response.status === 204) {
+                    notification({ id: "blog-delete", status: "success", title: "Eliminar Blog", description: "Se ha Eliminado Correctamente tu Blog" })
+                    router.push("/profile");
+                }
+            }).catch((error) => {
+
+                console.log(error);
+                const errorResponse = JSON.parse(error.request.responseText);
+
+                let errorMessage;
+                // Verifica si el campo "responseText" existe
+                if (errorResponse) {
+                    // Acceder al mensaje de error 
+                    errorMessage = errorResponse[Object.keys(errorResponse)[0]]
+
+                    //Si sigue siendo un objeto, se vuelve a obtener el texto de la primer propiedad
+                    if (typeof errorMessage === "object")
+                        errorMessage = errorMessage[Object.keys(errorMessage)[0]]
+
+                }
+
+                //Alerta de Notificacion Incorrecta
+                notification({ id: "blog-delete", status: "error", title: "Eliminar Blog", description: `Ha Ocurrido al Eliminar tu Blog, ${errorMessage ? errorMessage : ""}` })
+
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
+
     return (
         <Flex h={"100%"} mt={-5} >
             <TextEditor
@@ -126,8 +179,8 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
                 <form >
                     <Flex flexDir={"column"} h={"93vh"} gap={2} color={"gray.300"} ml={2} w={"20vw"}>
 
-                        <Text fontSize={{ base: "md", md: "xl" }} textAlign={"center"} color={"#F8F8F8"} fontFamily={"NeutraText-Bold"} mt={2}>Creación de Blogs</Text>
-                        <FormInput Icon={<MdTitle />} label={"Título"} placeholder={"Tú Increible Títutlo de Blog"} type={"text"} register={register} errors={errors.title} namebd={'title'}  extraValidations={{ minLength: { value: 3, message: "El Título debe tener minimo 3 caracteres" }}}/>
+                        <Text fontSize={{ base: "md", md: "xl" }} textAlign={"center"} color={"#F8F8F8"} fontFamily={"NeutraText-Bold"} mt={2}>Editar Blog</Text>
+                        <FormInput Icon={<MdTitle />} label={"Título"} placeholder={"Tú Increible Títutlo de Blog"} type={"text"} register={register} errors={errors.title} namebd={'title'} extraValidations={{ minLength: { value: 3, message: "El Título debe tener minimo 3 caracteres" } }} />
 
 
 
@@ -155,12 +208,14 @@ export default function EditBlogForm({ data }: { data: FormInputs }) {
                                 <input
                                     ref={refInput}
                                     onChange={handleChangeInput}
-                                    className=' m-2 bg-[#1C243C] focus:outline-none '
+                                    className=' m-2 bg-[#1C243C] focus:outline-none w-full '
                                     size={sizeInput}
+
                                     maxLength={25}
                                 />
                             </Box>
                         </Flex>
+                        <Button color={"red.400"} mt={2} bg={"transparent"} leftIcon={<Trash2 />} w={"50%"} onClick={handleDeleteBlog}>Deseo Eliminar el Blog</Button>
                         <Button rightIcon={<FaArrowRight />} isLoading={loading} className='buttonNeon' bgColor={'darkBlue.700'} w={"50%"} mx={"auto"} p={6} variant="solid" type='button' onClick={onSubmit} color={'white.400'} mt={12}>
                             Terminar
                         </Button>

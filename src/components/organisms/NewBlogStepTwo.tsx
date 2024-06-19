@@ -49,6 +49,17 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
     const { tags, sizeInput, handleChangeInput, handleDelItem, content, setContent } = useBlogForm(setValue, refInput, data);
 
     const onSubmit = handleSubmit(async data => {
+
+        if (!data.blog_image) {
+            setError("blog_image", { message: "Es Necesaria una Imagen Principal" })
+            return;
+        }
+
+        if (content === "" || content === "<p></p>") {
+            notification({ id: "blog-create", status: "error", title: "Crear Blog", description: `Ha Ocurrido al Crear tu Blog, Debe Existir Contenido dentro de tu Blog` })
+            return;
+        }
+
         const token = await obtainToken();
 
         if (!token)
@@ -58,11 +69,6 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
 
         if (!user)
             return;
-
-        if (!data.blog_image[0]) {
-            setError("blog_image", { message: "Es Necesaria una Imagen Principal" })
-            return;
-        }
 
         setLoading(true)
         const formData = new FormData();
@@ -154,7 +160,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
                                 <input
                                     ref={refInput}
                                     onChange={handleChangeInput}
-                                    className=' m-2 bg-[#1C243C] focus:outline-none '
+                                    className=' m-2 bg-[#1C243C] focus:outline-none w-full '
                                     size={sizeInput}
                                     maxLength={25}
                                 />

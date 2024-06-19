@@ -14,7 +14,8 @@ export default function UserMenu() {
         email: string,
         gender: number,
         date_of_birth: string,
-        profile_image: string
+        profile_image: string,
+        is_staff: boolean
     }
 
     const [userData, setUserData] = useState<UserDefinition>();
@@ -26,6 +27,7 @@ export default function UserMenu() {
                 setUserData(data.data);
         })();
     }, []);
+
     return (
         <Menu>
             <MenuButton
@@ -36,16 +38,21 @@ export default function UserMenu() {
                 minW={0}>
                 <Avatar
                     size={'sm'}
-                    src={process.env.NEXT_PUBLIC_API_URL+""+userData?.profile_image}
+                    src={process.env.NEXT_PUBLIC_API_URL + "" + userData?.profile_image}
                 />
             </MenuButton>
             <MenuList>
                 <Link href={"/profile"}>
-                <MenuItem >Mi Perfil</MenuItem>
+                    <MenuItem >Mi Perfil</MenuItem>
                 </Link>
                 <Link href={"/Profile-Edit"}>
-                <MenuItem >Opciones</MenuItem>
+                    <MenuItem >Opciones</MenuItem>
                 </Link>
+                {userData?.is_staff && (
+                    <Link href={"/adminPanel"}>
+                        <MenuItem >Panel de Administrador</MenuItem>
+                    </Link>
+                )}
                 <MenuDivider />
                 <MenuItem onClick={async () => await clearToken()}>
                     Cerrar Sesión

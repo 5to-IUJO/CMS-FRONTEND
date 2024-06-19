@@ -41,10 +41,10 @@ export default function EditBlog({ blogId }: { blogId: number }) {
             await axios.get(process.env.NEXT_PUBLIC_API_URL + "/blog/" + blogId + "/", { headers: { Authorization: "Token " + token.value } })
                 .then(async (response) => {
                     if (response.status === 200) {
-                        
-                        const blogImage: any = await urlToFileList(process.env.NEXT_PUBLIC_API_URL+response.data.blog_image, 'imagen.jpg', 'image/jpeg');
-                        const blogTags = response.data.tags.map((tag:{name:String}) => tag.name)
-                       
+
+                        const blogImage: any = await urlToFileList(process.env.NEXT_PUBLIC_API_URL + response.data.blog_image, 'imagen.jpg', 'image/jpeg');
+                        const blogTags = response.data.tags.map((tag: { name: String }) => tag.name)
+
                         const data = {
                             id: response.data.id,
                             title: response.data.title,
@@ -57,18 +57,18 @@ export default function EditBlog({ blogId }: { blogId: number }) {
                 })
                 .catch((error) => {
                     console.log(error);
-                    alert("Error al obtener el Blog");
-                    router.push("blogs")
+                    router.push("/profile")
                 });
         })();
     }, [blogId, router]);
 
-    if (!blogData)
-        return
+    if (!blogData) 
+        return;
+    
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
             <EditBlogForm data={blogData} />
         </>
     );

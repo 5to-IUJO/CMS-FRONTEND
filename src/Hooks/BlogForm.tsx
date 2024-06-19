@@ -50,8 +50,8 @@ export const useBlogForm = (setValue: Function,refInput: HTMLInputElement | any,
             }
         }
 
-        window.addEventListener('keyup', handleKeyUp);
-        return () => window.removeEventListener('keyup', handleKeyUp);
+         refInput.current?.addEventListener('keyup', handleKeyUp);
+        return () =>  refInput.current?.removeEventListener('keyup', handleKeyUp);
     }, [tags]);
 
   

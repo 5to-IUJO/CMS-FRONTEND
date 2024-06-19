@@ -31,4 +31,5 @@ export interface UserDefinition {
     instagram:string,
     tiktok:string,
     facebook:string,
+    is_staff: boolean,
 }
