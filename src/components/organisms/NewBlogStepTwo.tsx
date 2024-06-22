@@ -39,6 +39,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
 
     const { handleSubmit, register, formState: { errors }, getValues, setValue, watch, setError } = useForm<FormInputs>();
 
+    const [isFormVisible, setIsFormVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const refInput = useRef<HTMLInputElement>(null);
     const image = watch("blog_image")
@@ -127,24 +128,42 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
                 content={content}
                 onChange={(newContent: string) => setContent(newContent)}
             />
-            <Flex w={"25%"} border='1px' borderColor='gray.700' bg={"darkBlue.400"}>
+            <Button
+                onClick={() => setIsFormVisible(!isFormVisible)}
+                display={{ base: "block" , lg: "none" }}
+                position="absolute"
+                bottom={isFormVisible ? 0 : 4}
+                top={isFormVisible ? 2 : "auto"}
+                right={isFormVisible ? 2 : 4}
+                zIndex={1000}
+            >
+                {isFormVisible ? "X" : "Mostrar Formulario"}
+                
+            </Button>
+            <Flex w={{ base: "100%", lg: "25%" }}
+                display={{ base: !isFormVisible ? "none" : "flex", lg: "flex" }}
+                position={{ base: isFormVisible ? "absolute" : "relative", lg: "relative" }}
+                border='1px' borderColor='gray.700' bg={"darkBlue.400"}
+                top={0}
+                left={0}
+                h={{base:"100%",lg:"93vh"}}
+                zIndex={{base:isFormVisible ? 100 : "auto",md:"auto"} }
+                >
                 <form >
-                    <Flex flexDir={"column"} h={"93vh"} gap={2} color={"gray.300"} ml={2} w={"20vw"}>
+                    <Flex flexDir={"column"} h={{base:"100%"}} gap={2} color={"gray.300"} ml={2} w={{base:"100vw",lg:"20vw"}}  >
 
                         <Text fontSize={{ base: "md", md: "xl" }} textAlign={"center"} color={"#F8F8F8"} fontFamily={"NeutraText-Bold"} mt={2}>Creación de Blogs</Text>
+                        <Box  maxW={{base:"80vw",lg:"15vw"}} overflow={"hidden"} >
                         <FormInput Icon={<MdTitle />} label={"Título"} placeholder={"Tú Increible Títutlo de Blog"} type={"text"} register={register} errors={errors.title} namebd={'title'} />
-
-
-
-
+                        </Box>
                         <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>Imagen Principal</FormLabel>
-                        <Box w={"15vw"}>
+                        <Box  w={{base:"80vw",lg:"20vw",xl:"15vw"}}>
                             <ImageFromPCRectangular register={register} namebd={"blog_image"} label="Foto Principal" getValues={getValues} setValue={setValue} updateImage={image} />
                             {errors.blog_image?.message && image === null && (<Text color={"red"} > {errors.blog_image.message}  </Text>)}
                         </Box>
 
                         <FormLabel fontSize={{ base: "lg", md: "xl" }} >Etiquetas</FormLabel>
-                        <Flex onClick={() => refInput.current?.focus()} border={"1px"} borderColor={"gray.500"} p={2} mr={2} maxH={"120px"} overflowY={"scroll"} overflowX={"hidden"}>
+                        <Flex onClick={() => refInput.current?.focus()} border={"1px"} borderColor={"gray.500"} p={2} mr={2}  maxH={"120px"} overflowY={"scroll"} overflowX={"hidden"}>
                             <Box>
                                 {tags && tags.map((text: string, i: number) => (
                                     <Tag

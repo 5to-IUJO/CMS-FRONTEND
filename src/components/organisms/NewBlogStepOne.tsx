@@ -52,7 +52,7 @@ export default function NewBlogStepOne({ setData, setStep }: { setData: Function
                 <Text fontSize={{ base: "2xl", md: "3xl" }} color={theme.colorMode === "light" ? "darkBlue.400" : "#F8F8F8"}>¿Listo Para Contar Tu Historia?</Text>
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>¡Empecemos con el Título de tu Blog!</FormLabel>
                 <Input
-                    w={"20%"}
+                    w={{base:"80%",md:"50%",lg:"35%",xl:"20%"}}
                     placeholder={"Tú Increible Título de Blog"}
                     type={"text"} variant={"flushed"}
 
@@ -67,7 +67,7 @@ export default function NewBlogStepOne({ setData, setStep }: { setData: Function
 
                 {errors.title?.message && <Text color="red" >{errors.title.message}</Text>}
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>Y con una Imagen Principal</FormLabel>
-                <Box w={"20vw"}>
+                <Box w={{base:"80vw",md:"50vw",lg:"35vw",xl:"20vw"}}>
 
                     <ImageFromPCRectangular register={register} namebd={"blog_image"} label="Foto Principal" getValues={getValues} setValue={setValue} />
                 </Box>

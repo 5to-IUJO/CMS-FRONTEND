@@ -45,16 +45,14 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
     return (
 
 
-        <Flex flexWrap={"wrap"} px={4} py={3}  justifyContent={"between"} alignItems={"start"} gap={5} w={"full"} bg={"darkBlue.400"}  border='1px' borderColor='gray.700'>
+        <Flex flexWrap={"wrap"} px={4} py={3} justifyContent={"between"} alignItems={"start"} gap={5} w={"full"} bg={"darkBlue.400"} border='1px' borderColor='gray.700'>
 
 
             <Flex flexWrap={"wrap"} justify={"start"} alignItems={"center"} gap={5} w={{ base: "full", lg: "83%" }}>
 
 
 
-                <TextSizeButton
-                    setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
-                />
+
 
                 <ToolBarButton
                     Icon={Bold}
@@ -123,14 +121,16 @@ export default function ToolBar({ editor, content }: ToolBarProps) {
                 <AddImage isOpen={isOpen} onClose={onClose} setImage={(url: string) => editor?.chain().focus().setImage({ src: url }).run()} />
             </Flex>
 
-          
+
         </Flex>
     )
 }
 
 
 /*
-
+                <TextSizeButton
+                    setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
+                />
                 <ColorPickerButton
                     onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
                     value={editor.getAttributes('textStyle').color}

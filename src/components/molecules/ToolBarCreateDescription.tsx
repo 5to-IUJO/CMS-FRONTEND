@@ -50,9 +50,7 @@ export default function ToolBarCreateDescription({ editor, content }: ToolBarPro
 
              
 
-                <TextSizeButton
-                    setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
-                />
+
 
                 <ToolBarButton
                     Icon={Bold}
@@ -124,7 +122,9 @@ export default function ToolBarCreateDescription({ editor, content }: ToolBarPro
 
 
 /*
-
+                <TextSizeButton
+                    setSize={(size: string) => editor.chain().focus().setFontSize(size).run()}
+                />
                 <ColorPickerButton
                     onInput={(event: any) => editor.chain().focus().setColor(event.target.value).run()}
                     value={editor.getAttributes('textStyle').color}
