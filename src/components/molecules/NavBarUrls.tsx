@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function NavBarUrls() {
     return (
         <HStack spacing={8} alignItems={'center'} textColor={useColorModeValue('white.400', 'white.400')} >
-            <Link href={"/dashboard"}>
+            <Link href={"/"}>
                 <Flex alignItems={"center"} justifyContent={"center"}>
 
                     <Image src={"/images/Logo2.png"} alt='Vg-Blogs Logo' className='iconGlowHover' w={20} h={14} />

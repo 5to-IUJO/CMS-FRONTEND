@@ -36,7 +36,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <Box bg={useColorModeValue('darkBlue.400', 'darkBlue.400')} px={4}    boxShadow="0 4px 12px rgba(28, 121, 135,0.6)" mb={5} fontFamily={"NeutraText-BoldItalic"}  >
+        <Box bg={useColorModeValue('darkBlue.400', 'darkBlue.400')} px={4} boxShadow="0 4px 12px rgba(28, 121, 135,0.6)"  fontFamily={"NeutraText-BoldItalic"} zIndex={10}>
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                 <IconButton
                     size={'md'}
@@ -51,7 +51,6 @@ export default function Navbar() {
                 <Flex alignItems={'center'}>
                     <Link
                     href={isLoggin ? "/dashboard" : "/login"} 
-                
                     >
                     <Button
                         variant={'ghost'}

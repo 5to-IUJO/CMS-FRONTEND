@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Suspense } from "react";
 import Loading from "./loading";
+import 'atropos/css'
 
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {

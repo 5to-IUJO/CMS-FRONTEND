@@ -210,3 +210,7 @@
   .obligatory {
     color: red;
   }
+
+  .GradientBanner {
+    background-image: linear-gradient(to right, #1C7987 30%, #1C243C 70%) !important;
+  }
