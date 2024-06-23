@@ -8,7 +8,7 @@ import UsersTable from '../molecules/UsersTable'
 export default function AdminUsers() {
 
     return (
-        <Flex flexDir={"column"} alignItems={"center"}>
+        <Flex flexDir={"column"}  overflowX={"scroll"}>
             <Text textAlign={"center"} fontSize={"xl"}>Gestión de Usuarios</Text>
             <UsersTable />
         </Flex>

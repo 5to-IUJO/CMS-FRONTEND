@@ -4,7 +4,7 @@ import React from 'react'
 /**
  * Componente con el Dialog/Modal de confirmación para eliminar un Usuario
  */
-export default function DeleteUserDialog({isOpen,onClose,cancelRef}: {isOpen:boolean,onClose:()=> void,cancelRef: any}) {
+export default function DeleteUserDialog({isOpen,onClose,cancelRef,onClick}: {isOpen:boolean,onClose:()=> void,cancelRef: any,onClick: ()=>void}) {
 
     return (
         <AlertDialog
@@ -26,7 +26,7 @@ export default function DeleteUserDialog({isOpen,onClose,cancelRef}: {isOpen:boo
                         <Button ref={cancelRef} onClick={onClose}>
                             Cancelar
                         </Button>
-                        <Button colorScheme='red' onClick={onClose} ml={3}>
+                        <Button colorScheme='red' onClick={()=>{onClick();onClose();}} ml={3}>
                             Eliminar
                         </Button>
                     </AlertDialogFooter>
