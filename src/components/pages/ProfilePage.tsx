@@ -8,6 +8,7 @@ import { obtainUserData } from '@/helpers/Users'
 import ProfileLeftPanel from '../organisms/profileView/ProfileLeftPanel'
 import ProfileRightPanel from '../organisms/profileView/ProfileRightPanel'
 import { UserDefinition } from '@/interfaces/UserDefinition'
+import { Footer } from '../organisms/Footer'
 
 
 
@@ -61,7 +62,7 @@ export default function ProfilePage() {
             </Flex>
 
 
-
+            <Footer />
         </>
 
     )

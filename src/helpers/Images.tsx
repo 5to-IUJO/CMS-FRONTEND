@@ -19,3 +19,21 @@ export async function urlToFileList(url: string, filename: string, mimeType: str
     dataTransfer.items.add(file);
     return dataTransfer.files;
 }
+
+//Funcion que Convierte un FileList en una url
+export function fileListToURL(fileList: FileList ) {
+    if (!fileList || fileList.length === 0) {
+        return "";
+    }
+    
+    const file = fileList[0]; // Tomamos el primer archivo de la lista
+    return URL.createObjectURL(file);
+}
+
+export const copyFileList = (fileList: FileList) => {
+    const dataTransfer = new DataTransfer();
+    for (let i = 0; i < fileList.length; i++) {
+        dataTransfer.items.add(fileList[i]);
+    }
+    return dataTransfer.files;
+};

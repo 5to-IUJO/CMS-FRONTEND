@@ -21,9 +21,17 @@ export default function ImageFromPCRectangular({register, namebd,label, getValue
     const [preview, setPreview] = useState(""); //useState para manejar la preview de la imagen
     
     useEffect(() => {
+        if(!updateImage)
+            setPreview("");
+        
         if(!updateImage || preview !== "")
             return
         const file = updateImage[0];
+        if(!file)
+        {
+            setPreview("");
+            return
+        }
         const urlImage = URL.createObjectURL(file);
         setPreview(urlImage);
     }, [updateImage]);

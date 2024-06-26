@@ -7,6 +7,7 @@ import ProfileEditLeftPanel from '../organisms/profileEdit/ProfileEditLeftPanel'
 import ProfileEditRightPanel from '../organisms/profileEdit/ProfileEditRightPanel'
 import { obtainUserData } from '@/helpers/Users'
 import { UserDefinition } from '@/interfaces/UserDefinition'
+import { Footer } from '../organisms/Footer'
 
 
 
@@ -63,7 +64,7 @@ export default function ProfileEditPage() {
             </Flex>
 
 
-
+            <Footer />
         </>
 
     )

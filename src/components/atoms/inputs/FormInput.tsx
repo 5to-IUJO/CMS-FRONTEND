@@ -14,6 +14,7 @@ interface FormInputProps {
     disable?:boolean
     forceColor?: string
     obligatory?: boolean
+    onFocus?: {}
 }
 
 
@@ -21,7 +22,7 @@ interface FormInputProps {
  * Componente para Reutilizar input generico en el Login & Register
  * @returns 
  */
-export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false, forceColor = undefined, obligatory = false }: FormInputProps) {
+export default function FormInput({ Icon, label, placeholder, type, register, errors, namebd, extraValidations = null, disable = false, forceColor = undefined, obligatory = false, onFocus = undefined }: FormInputProps) {
 
     const validations = {
         required: { value: true, message: label + " es requerido" },
@@ -40,7 +41,7 @@ export default function FormInput({ Icon, label, placeholder, type, register, er
                     placeholder={placeholder}
                     type={type} variant={"flushed"}
                     pl={6} 
-                   
+                    onFocus={onFocus ? onFocus : undefined}
                     _placeholder={{ color: 'gray.500' }}
                     fontSize={{ base: "lg", md: "xl" }}
                     borderColor={"#1F93A5"}
