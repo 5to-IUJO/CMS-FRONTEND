@@ -1,7 +1,7 @@
-import Login from "@/Components/pages/Login";
+import Login from "@/components/pages/Login";
 
 export default function LoginPage() {
   return (
-    <Login/>
+      <Login />
   );
 }

@@ -1,10 +1,6 @@
-import Login from "@/Components/pages/Login";
-import { Text } from "@chakra-ui/react";
-
+import HomePage from "@/components/pages/HomePage";
 export default function Home() {
   return (
-    <>
-      Hello World!
-    </>
+    <HomePage/>
   );
 }
