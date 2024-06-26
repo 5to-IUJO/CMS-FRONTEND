@@ -45,7 +45,7 @@ export default function FormSelectNationalities({ Icon, label, table, dependency
                     console.log(error);
 
                 });
-            console.log()
+          
         })();
     }, [table, dependency,namebd,setValues]);
  

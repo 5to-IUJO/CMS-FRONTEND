@@ -36,7 +36,6 @@ interface FormInputs {
 }
 
 export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined }) {
-
     const { handleSubmit, register, formState: { errors }, getValues, setValue, watch, setError } = useForm<FormInputs>();
 
     const [isFormVisible, setIsFormVisible] = useState(false);
@@ -123,7 +122,7 @@ export default function NewBlogStepTwo({ data }: { data: FormInputs | undefined 
 
 
     return (
-        <Flex h={"100%"} mt={-5} >
+        <Flex h={"100%"}  >
             <TextEditor
                 content={content}
                 onChange={(newContent: string) => setContent(newContent)}

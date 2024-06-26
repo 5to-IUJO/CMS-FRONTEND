@@ -33,7 +33,7 @@ export default function ShowBlogs() {
     }, []);
 
     if (!blogsData || !blogsData.length) {
-        return (<Text>Sin Blogs</Text>);
+        return (<Text minH={"100vh"}>Sin Blogs</Text>);
     }
 
     //Variables Paginador
@@ -52,7 +52,7 @@ export default function ShowBlogs() {
     }
     
     return (
-        <Flex flexDir={"column"} alignItems={"center"} mb={10}>
+        <Flex flexDir={"column"} alignItems={"center"} minH={"100vh"} mb={10}>
             <Flex flexDir={"row"} flexWrap={"wrap"} gap={10} m={{ base: 0, md: 10 }} w={"95%"} alignContent={'center'} justifyContent={"center"}>
 
 

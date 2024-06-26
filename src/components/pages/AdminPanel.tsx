@@ -4,9 +4,12 @@ import Navbar from '../organisms/Navbar'
 import { obtainUserData } from '@/helpers/Users';
 import { useRouter } from 'next/navigation';
 
-import { Box,Tab, TabList, TabPanel, TabPanels, Tabs, Text} from '@chakra-ui/react'
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import { Home, Info, LockKeyhole, MapPin, Rss, User, } from 'lucide-react'
 import AdminUsers from '../organisms/AdminUsers';
+import EditHomePage from '../organisms/EditHomePage';
+import { Footer } from '../organisms/Footer';
+import EditAboutUs from '../organisms/EditAboutUs';
 export default function AdminPanel() {
 
     const router = useRouter();
@@ -21,7 +24,7 @@ export default function AdminPanel() {
     return (
         <>
             <Navbar />
-            <Tabs isFitted variant="enclosed" borderColor={"cyan.400"} colorScheme="neon"  >
+            <Tabs isFitted variant="enclosed" borderColor={"cyan.400"} colorScheme="neon" minH={"80vh"}  >
                 <TabList mb="1em" fontFamily={"NeutraText-BoldItalic"} overflowX={"auto"} overflowY={"hidden"} >
                     <Tab borderLeftRadius={"none"} _selected={{ color: "white", bg: "#1C7987" }} >
                         <Box mr={{ base: 2, md: -2 }} >
@@ -40,7 +43,7 @@ export default function AdminPanel() {
 
                         </Text>
                     </Tab>
-                    <Tab _selected={{ color: "white", bg: "#1C7987" }}>
+                    <Tab _selected={{ color: "white", bg: "#1C7987" }}  borderRightRadius={"none"}>
 
                         <Box mr={{ base: 2, md: 0 }} >
                             <Info className=" w-4  md:w-8 lg:w-16 iconGlow" />
@@ -51,33 +54,24 @@ export default function AdminPanel() {
                         </Text>
 
                     </Tab>
-                    <Tab borderRightRadius={"none"} _selected={{ color: "white", bg: "#1C7987" }}>
 
-                        <Box mr={{ base: 2, md: -2 }} >
-                            <Rss className=" w-4  md:w-8 lg:w-16 iconGlow" />
-                        </Box>
-                        <Text fontSize={{ base: "sm", md: 'md', xl: "lg" }} className='textGlow'>
-                            Contáctanos
-
-                        </Text>
-
-                    </Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
                         <AdminUsers />
                     </TabPanel>
-                    <TabPanel>
 
+                    <TabPanel>
+                        <EditHomePage />
                     </TabPanel>
-                    <TabPanel>
 
-                    </TabPanel>
                     <TabPanel>
-
+                        <EditAboutUs/>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+
+            <Footer />
         </>
 
     )

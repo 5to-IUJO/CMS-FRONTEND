@@ -111,7 +111,7 @@ export default function BlogBody({ blogId }: { blogId: Number }) {
                         Etiquetas
                     </Text>
 
-                    <Flex gap={2} mt={4} flexWrap={"wrap"} justifyContent={"start"} maxW={"100%"} mb={5}>
+                    <Flex gap={2} mt={4} flexWrap={"wrap"} justifyContent={"start"} maxW={"100%"} mb={20}>
                         {blogData.tags.map((tag, index) => {
 
                             //Condicion para no Mostrar más de 5 etiquetas por Card

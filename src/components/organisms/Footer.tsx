@@ -52,10 +52,10 @@ export const Footer = () => {
             </ListItem>
 
             <ListItem>
-              Telefono: 04163698724
+              Teléfono: 04163698724
             </ListItem>
             <ListItem>
-              Direccion: Tucupita alli mismo al lao de la matica
+              Dirección: Dirección Example...
             </ListItem>
           </List>
         </Flex>
