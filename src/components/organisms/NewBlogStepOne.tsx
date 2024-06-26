@@ -47,7 +47,7 @@ export default function NewBlogStepOne({ setData, setStep }: { setData: Function
 
     return (
         <form onSubmit={onSubmit} >
-            <Flex flexDir={"column"} alignItems={"center"} justifyContent={"center"} h={"91vh"} gap={2} color={theme.colorMode === "light" ? "darkBlue.400" : "gray.300"} >
+            <Flex flexDir={"column"} alignItems={"center"} justifyContent={"center"} minH={"91vh"} gap={2} color={theme.colorMode === "light" ? "darkBlue.400" : "gray.300"} >
 
                 <Text fontSize={{ base: "2xl", md: "3xl" }} color={theme.colorMode === "light" ? "darkBlue.400" : "#F8F8F8"}>¿Listo Para Contar Tu Historia?</Text>
                 <FormLabel fontSize={{ base: "lg", md: "xl" }} mt={12}>¡Empecemos con el Título de tu Blog!</FormLabel>

@@ -38,7 +38,7 @@ export const CardsGallery = ({ titleSectionCardsGalleries, cards }: CardsGallery
             <Heading as={'h2'} fontSize={'32px'} fontFamily={'NeutraText-BoldItalic'} className={colorMode === 'light' ? '' : 'textGlow'} textAlign={'center'}>
                 {titleSectionCardsGalleries}
             </Heading>
-            <Grid templateColumns={{ base: 'repeat(1fr)', md: 'repeat(3, 1fr)' }} gap={4}>
+            <Grid templateColumns={{ base: 'repeat(1fr)', lg: 'repeat(3, 1fr)' }} gap={4}>
                 {cards.map((card, index) => {
                     return (
                         <Atropos key={index}>

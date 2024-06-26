@@ -6,6 +6,8 @@ import { Banner } from '../organisms/Banner'
 import { CardsGallery } from '../organisms/CardsGallery'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/router'
+import { obtainUserData } from '@/helpers/Users'
 
 interface HomePage {
   banner: {

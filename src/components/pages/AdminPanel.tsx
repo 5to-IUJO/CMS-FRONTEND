@@ -10,6 +10,7 @@ import AdminUsers from '../organisms/AdminUsers';
 import EditHomePage from '../organisms/EditHomePage';
 import { Footer } from '../organisms/Footer';
 import EditAboutUs from '../organisms/EditAboutUs';
+
 export default function AdminPanel() {
 
     const router = useRouter();

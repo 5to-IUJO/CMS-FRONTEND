@@ -1,4 +1,9 @@
+"use client"
+import { isUserLoggin, obtainUserData } from "@/helpers/Users"
+import { UserDefinition } from "@/interfaces/UserDefinition"
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
 /**
  * Component for Banners of views
@@ -8,14 +13,22 @@ interface BannerProps {
     imageBackgroundBanner?: string
     titleBanner: string
     subTextBanner?: TrustedHTML | any
-    subImageBanner?: string 
+    subImageBanner?: string
     textButtonBanner?: string
 }
 export const Banner = ({ imageBackgroundBanner, titleBanner, subTextBanner, subImageBanner, textButtonBanner }: BannerProps) => {
 
+    const [isLoggin, setIsLoggin] = useState<boolean>(false);
+
+    useEffect(() => {
+        (async () => {
+            setIsLoggin(await isUserLoggin());
+        })();
+    }, []);
+
     return (
-        <Box w={'100%'} minH={{ base: '800px', sm: '600px' }} position={'relative'} mt={2}>
-            <Box w={'100%'} minH={'100%'} position={'absolute'} className="colorBlue_ShadowBackground"  />
+        <Box w={'100%'} minH={{ base: '800px', sm: '600px' }} position={'relative'}>
+            <Box w={'100%'} minH={'100%'} position={'absolute'} className="colorBlue_ShadowBackground" />
 
             <Flex w={'100%'} minH={{ base: '800px', sm: '600px' }} justifyContent={'center'} alignItems={'center'} bgImage={`url('${process.env.NEXT_PUBLIC_API_URL}/${imageBackgroundBanner?.startsWith("staticsImages/") ? imageBackgroundBanner : "media/" + imageBackgroundBanner}')`} bgSize={'cover'} bgRepeat={'no-repeat'} p={{ base: '20px', lg: '100px' }} zIndex={1} flexDirection={{ base: 'column', lg: 'row' }} gap={8} color={'white.500'} className={imageBackgroundBanner ? '' : 'GradientBanner'}>
 
@@ -31,13 +44,14 @@ export const Banner = ({ imageBackgroundBanner, titleBanner, subTextBanner, subI
                     {/* Description Banner */}
 
                     <Text fontSize={{ base: '26px', lg: '32px' }} maxW={subImageBanner ? '500px' : '700px'} dangerouslySetInnerHTML={{ __html: subTextBanner }}>
-                       
-                    </Text>
 
+                    </Text>
                     {/* Button Banner */}
-                    <Button display={textButtonBanner ? 'block' : 'none'} bg={'cyan.300'} fontSize={'22px'} color={'white.500'} className="textGlow buttonNeon">
-                        {textButtonBanner}
-                    </Button>
+                    <Link href={isLoggin ? '/dashboard' : '/login'}>
+                        <Button display={textButtonBanner ? 'block' : 'none'} bg={'cyan.300'} fontSize={'22px'} color={'white.500'} className="textGlow buttonNeon">
+                            {textButtonBanner}
+                        </Button>
+                    </Link>
 
                 </Flex>
 
