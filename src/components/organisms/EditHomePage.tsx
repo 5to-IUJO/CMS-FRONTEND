@@ -36,7 +36,7 @@ export default function EditHomePage() {
 
             <Flex w={"full"} flexDir={{base:"column",md:"row"}} >
                 <FormHomePageBanner setSelection={setBannerSelection} />
-                <FormImagePageVisualizer newSelection={bannerSelection} image={"/images/banner.png"} label={"Ejemplo de Banner"} sections={bannerSections} />
+                <FormImagePageVisualizer newSelection={bannerSelection} image={"/images/Banner.png"} label={"Ejemplo de Banner"} sections={bannerSections} />
             </Flex>
 
             <Box position='relative' padding='8'>

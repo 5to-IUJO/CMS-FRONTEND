@@ -38,7 +38,7 @@ export default function EditAboutUs() {
 
             <Flex w={"full"} flexDir={{base:"column",md:"row"}} >
                 <FormAboutUsBanner setSelection={setBannerSelection} />
-                <FormImagePageVisualizer newSelection={bannerSelection} image={"/images/banner.png"} label={"Ejemplo de Banner"} sections={bannerSections} />
+                <FormImagePageVisualizer newSelection={bannerSelection} image={"/images/Banner.png"} label={"Ejemplo de Banner"} sections={bannerSections} />
             </Flex>
 
             <Box position='relative' padding='8'>
